@@ -5,6 +5,7 @@ import FileUpload from './components/fileUpload'; // Corrected component name
 import ImageDisplay from './components/ImageDisplay'; // Corrected component name
 import PDFViewer from './components/PDFViewer';
 
+
 function App() {
   const [image, setImage] = useState(null);
   const [fileName, setFileName] = useState('No selected file');
@@ -19,7 +20,7 @@ function App() {
   return (
     <>
       <div className='maincontainer'>
-        <div className='column column1'>column1</div>
+        <div className='column column1'> column1</div>
         <div className='column column2'>
           <FileUpload/>
         </div>

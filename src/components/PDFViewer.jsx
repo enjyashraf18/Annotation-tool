@@ -2,6 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { pdfjs, Document, Page } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
+import { FiZoomIn, FiZoomOut } from "react-icons/fi";
+import { GrFormNextLink } from "react-icons/gr";
+import { IoMdArrowBack } from "react-icons/io";
+import { SlBookOpen } from "react-icons/sl";
+import { CgScreen } from "react-icons/cg";
 
 const PDFViewer = ({ pdfData }) => {
   const [numPages, setNumPages] = useState(null);
@@ -62,7 +67,7 @@ const PDFViewer = ({ pdfData }) => {
         </p>
       )}
       {pdfData && (
-        <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess} >
+        <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess}>
           <div className="pdf-container column2" style={{ overflow: "hidden", position: "relative", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div
               style={{
@@ -76,51 +81,38 @@ const PDFViewer = ({ pdfData }) => {
           </div>
         </Document>
       )}
-      {pdfData && (
+
+      <div className="zoom-buttons">
+        <button onClick={handleZoomOut}>
+          <FiZoomOut />
+        </button>
+        <button onClick={handleZoomIn}>
+          <FiZoomIn />
+        </button>
+      </div>
+      
+      <hr />
+
+      <footer className="footer">
         <div>
-          <button onClick={goToPrevPage} disabled={pageNumber <= 1}>
-            Previous
-          </button>
-          <button onClick={goToNextPage} disabled={pageNumber >= numPages}>
-            Next
-          </button>
-          <p>
-            Page {pageNumber} of {numPages}
+          <p className="footer-icons">
+            <SlBookOpen /> <span>&nbsp; &nbsp;</span>
+            {pageNumber}  of {numPages} <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </p>
+          <p className="footer-icons">
+            <CgScreen /> <span>&nbsp;&nbsp;&nbsp;</span>
+            {Math.round(zoomLevel * 100)}% <span>&nbsp; &nbsp; &nbsp; </span>
           </p>
         </div>
-      )}
-      <footer>
-        <div className="slider-container">
-          <div className="slider-wrapper">
-            <input
-              type="range"
-              min={-pdfRef.current?.offsetWidth * (zoomLevel - 1)}
-              max={pdfRef.current?.offsetWidth * (zoomLevel - 1)}
-              value={horizontalOffset}
-              onChange={handleHorizontalChange}
-              className="slider"
-              orient="horizontal"
-            />
-            <div className="slider-label">Horizontal</div>
-          </div>
-          <div className="slider-wrapper">
-            <input
-              type="range"
-              min={-pdfRef.current?.offsetHeight * (zoomLevel - 1)}
-              max={pdfRef.current?.offsetHeight * (zoomLevel - 1)}
-              value={verticalOffset}
-              onChange={handleVerticalChange}
-              className="slider"
-              orient="vertical"
-            />
-            <div className="slider-label">Vertical</div>
-          </div>
-        </div>
-        <hr />
-        <div className="zoom-buttons">
-          <button onClick={handleZoomIn}>Zoom In</button>
-          <button onClick={handleZoomOut}>Zoom Out</button>
-          <p>Zoom Level: {Math.round(zoomLevel * 100)}%</p>
+        
+        <div className="footer-icons-right">
+
+          <button onClick={goToPrevPage} disabled={pageNumber <= 1}>
+            <IoMdArrowBack />
+          </button>
+          <button onClick={goToNextPage} disabled={pageNumber >= numPages}>
+            <GrFormNextLink />
+          </button>
         </div>
       </footer>
     </div>
