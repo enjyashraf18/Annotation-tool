@@ -67,11 +67,9 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px;
-  border: 2px solid transparent;
-  border-radius: 4px;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-top: 1px solid white;
 }
 
 .footer-icons {
@@ -81,11 +79,64 @@ footer {
   flex-direction: row;
   align-items:center; /* Adjust alignment as needed */
 }
-
-
-
 .footer-icons-right {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center; /* Adjust alignment as needed */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-icons-right button,
+.footer-icons-right .page-input {
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #333;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.footer-icons-right .page-input {
+  width: 60px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.pdf-container {
+  height: auto;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%; 
+}
+
+
+.zoom-buttons {
+  position: absolute;
+  justify-content: flex-end;
+  bottom: 0px;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.zoom-button {
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+
+.image-container {
+  height: auto;
+  overflow: auto; 
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center; 
 }

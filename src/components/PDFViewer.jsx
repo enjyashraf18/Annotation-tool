@@ -14,12 +14,10 @@ const PDFViewer = ({ pdfData }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(1);
-  const [horizontalOffset, setHorizontalOffset] = useState(0);
-  const [verticalOffset, setVerticalOffset] = useState(0);
+  const [pageInput, setPageInput] = useState(pageNumber);
 
   const pdfRef = useRef(null);
 
-  // Setting the workerSrc for pdfjs with local file path
   pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
   const onDocumentLoadSuccess = ({ numPages }) => {
@@ -34,6 +32,10 @@ const PDFViewer = ({ pdfData }) => {
     }
   }, [pdfData]);
 
+  useEffect(() => {
+    setPageInput(pageNumber);
+  }, [pageNumber]);
+
   const goToPrevPage = () => {
     setPageNumber(prevPageNumber => Math.max(prevPageNumber - 1, 1));
   };
@@ -47,18 +49,20 @@ const PDFViewer = ({ pdfData }) => {
   };
 
   const handleZoomOut = () => {
-    setZoomLevel(Math.max(0.1, zoomLevel - 0.1)); 
+    setZoomLevel(Math.max(0.1, zoomLevel - 0.1));
   };
 
-  const handleHorizontalChange = (e) => {
-    setHorizontalOffset(parseInt(e.target.value));
-  };
-
-  const handleVerticalChange = (e) => {
-    setVerticalOffset(parseInt(e.target.value));
+  const handlePageInputChange = (event) => {
+    const value = event.target.value;
+    setPageInput(value);
+    if (value) {
+      const newPageNumber = Math.min(Math.max(Number(value), 1), numPages);
+      setPageNumber(newPageNumber);
+    }
   };
 
   return (
+    
     <div>
       {loading && <p>Loading PDF...</p>}
       {error && (
@@ -67,26 +71,64 @@ const PDFViewer = ({ pdfData }) => {
         </p>
       )}
       {pdfData && (
+        <div style={{
+          position: "relative",
+          overflow: "auto"
+        }}>
+          <div style={{
+            margin: "auto auto",
+            position: "relative"
+          }}>
+  <div style={{
+            height: "min-content",
+            width: "min-content"
+          }}>
         <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess}>
-          <div className="pdf-container column2" style={{ overflow: "hidden", position: "relative", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div
+            className="pdf-container"
+            style={{
+              overflow: 'auto',
+              position: 'relative',
+              width: 'min-content',
+              height: 'min-content',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflowY: 'auto',
+              overflowX: 'auto'
+            }}
+            ref={pdfRef}
+          >
             <div
               style={{
-                transform: `scale(${zoomLevel}) translate(${horizontalOffset}px, ${verticalOffset}px)`,
-                transformOrigin: "center",
-                position: "relative",
+                transform: `scale(${zoomLevel})`,
+                transformOrigin: 'top left',
+                position: 'relative',
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <Page pageNumber={pageNumber} />
+        
+
             </div>
           </div>
         </Document>
+        </div>
+
+        </div>
+        
+    </div>
       )}
 
       <div className="zoom-buttons">
-        <button onClick={handleZoomOut}>
+        <button className="zoom-button" onClick={handleZoomOut}>
           <FiZoomOut />
         </button>
-        <button onClick={handleZoomIn}>
+        <button className="zoom-button" onClick={handleZoomIn}>
           <FiZoomIn />
         </button>
       </div>
@@ -97,7 +139,7 @@ const PDFViewer = ({ pdfData }) => {
         <div>
           <p className="footer-icons">
             <SlBookOpen /> <span>&nbsp; &nbsp;</span>
-            {pageNumber}  of {numPages} <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            {pageNumber} of {numPages} <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </p>
           <p className="footer-icons">
             <CgScreen /> <span>&nbsp;&nbsp;&nbsp;</span>
@@ -106,10 +148,17 @@ const PDFViewer = ({ pdfData }) => {
         </div>
         
         <div className="footer-icons-right">
-
           <button onClick={goToPrevPage} disabled={pageNumber <= 1}>
             <IoMdArrowBack />
           </button>
+          <input 
+            type="number" 
+            value={pageInput} 
+            onChange={handlePageInputChange} 
+            min="1" 
+            max={numPages} 
+            className="page-input"
+          />
           <button onClick={goToNextPage} disabled={pageNumber >= numPages}>
             <GrFormNextLink />
           </button>
@@ -120,3 +169,4 @@ const PDFViewer = ({ pdfData }) => {
 };
 
 export default PDFViewer;
+

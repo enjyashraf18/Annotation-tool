@@ -1,6 +1,17 @@
-body {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+html, body {
   height: 100%;
   background-color: white;
+  font-family: Arial, sans-serif; 
+}
+.maincontainer {
+  min-height: 100svh;
 }
 
 .maincontainer {
@@ -16,6 +27,7 @@ body {
   border: 1px solid #ccc;
   align-items: center;
   text-align: center;
+  position: relative; 
 }
 
 .column1 {
@@ -44,10 +56,16 @@ body {
 .pdf-container {
   width: 100%;
   height: 900px;
-  overflow-y: auto;
-  flex: 60;
+  overflow: auto; 
+  display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.pdf-container > div {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .upload-button {
@@ -63,21 +81,41 @@ body {
 .file-input {
   display: none;
 }
-.image-container {
-  max-width: 100%;  /* Ensures the image container does not exceed the width of its parent */
-  max-height: 100%; /* Ensures the image container does not exceed the height of its parent */
-  overflow: hidden; /* Ensures the content inside the image container does not overflow */
 
+.image-container {
+  max-width: 100%;  
+  max-height: 100%; 
+  overflow: hidden; 
   justify-content: center;
   align-items: center;
   flex: 60;
 }
 
 .image-container img {
-  max-width: 100%; /* Ensures the image does not exceed the width of its container */
-  max-height: 100%; /* Ensures the image does not exceed the height of its container */
-  object-fit: contain; /* Ensures the image is resized to fit within its container while maintaining aspect ratio */
+  max-width: 100%; 
+  max-height: 100%; 
+  object-fit: contain; 
 }
+
+/* .pdf-container {
+  max-width: 100%;  
+  max-height: 100%; 
+  overflow: hidden; 
+  justify-content: center;
+  align-items: center;
+  flex: 60;
+}
+
+.pdf-container canvas {
+  max-width: 100%; 
+  max-height: 100%; 
+  object-fit: contain; 
+}
+ */
+
+
+
+
 .slider-container {
   width: 80%;
   height: 80%;
@@ -128,6 +166,63 @@ body {
   height: 300px;
   transform: rotate(180deg); /* Ensures the correct direction */
 }
-header{
+
+header {
   background-color: white;
+  display: flex;
+  align-items: center; /* Vertically aligns items in the center */
+  justify-content: flex-start; /* Horizontally aligns items to the left */
+  height: 100px; /* Adjust height to be smaller */
+  padding: 0 20px; /* Adjust padding as needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for better visibility */
+}
+
+
+.zoom-buttons {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 80%;
+  right: 40px;
+  transform: translateY(-50%);
+  z-index: 100;
+}
+
+.zoom-button {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: grey;
+  border: 1px solid grey;
+  cursor: pointer;
+}
+
+.zoom-button:hover {
+  background-color: #f0f0f0;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f8f9fa;
+}
+
+.footer-icons {
+  display: flex;
+  align-items: center;
+}
+
+.footer-icons-right {
+  display: flex;
+  align-items: center;
+}
+
+.page-input {
+  width: 50px;
+  text-align: center;
 }

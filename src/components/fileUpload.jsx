@@ -11,7 +11,6 @@ import '../App.css';
 
 
 
-
 function FileUpload() {
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
@@ -39,9 +38,8 @@ function FileUpload() {
     <div>
       <header>
         <div className='fileUpload'>
-          {/* You can add content here if needed */}
           <form>
-            <input
+            {/* <input
               type='file'
               name='file'
               id='file'
@@ -51,40 +49,40 @@ function FileUpload() {
             <label htmlFor='file' className='fileScanButton'>
               <LuFileScan size='4rem' />
               <span>Scan</span>
+            </label> */}
+            <input
+              type='file'
+              name='file'
+              id='file'
+              onChange={handleFile}
+              style={{ display: 'none' }}
+            />
+            <label htmlFor='file' className='fileUploadButton'>
+              <MdOutlineFileUpload size= "3rem" />
+              <span>Upload</span>
+            </label>
+            {/* <input
+              type='file'
+              name='file'
+              id='file'
+              onChange={handleFile}
+              style={{ display: 'none' }}
+            />
+            <label htmlFor='file' className='fileProcessingButton'>
+              <IoPlayOutline  size= "4rem" />
+              <span>Process</span>
             </label>
             <input
-          type='file'
-          name='file'
-          id='file'
-          onChange={handleFile}
-          style={{ display: 'none' }}
-        />
-        <label htmlFor='file' className='fileUploadButton'>
-          <MdOutlineFileUpload size= "4rem" />
-          <span>Upload</span>
-        </label>
-        <input
-          type='file'
-          name='file'
-          id='file'
-          onChange={handleFile}
-          style={{ display: 'none' }}
-        />
-        <label htmlFor='file' className='fileProcessingButton'>
-          <IoPlayOutline  size= "4rem" />
-          <span>Process</span>
-        </label>
-        <input
-          type='file'
-          name='file'
-          id='file'
-          onChange={handleFile}
-          style={{ display: 'none' }}
-        />
-        <label htmlFor='file' className='fileFilterButton'>
-          <IoFilterOutline  size= "4rem" />
-          <span>Filter By</span>
-        </label>
+              type='file'
+              name='file'
+              id='file'
+              onChange={handleFile}
+              style={{ display: 'none' }}
+            />
+            <label htmlFor='file' className='fileFilterButton'>
+              <IoFilterOutline  size= "4rem" />
+              <span>Filter By</span>
+            </label> */}
             <hr />
           </form>
         </div>
@@ -96,7 +94,4 @@ function FileUpload() {
 }
 
 export default FileUpload;
-
-
-
 
