@@ -163,6 +163,7 @@ import { GrFormNextLink } from "react-icons/gr";
 import { IoMdArrowBack } from "react-icons/io";
 import { SlBookOpen } from "react-icons/sl";
 import { CgScreen } from "react-icons/cg";
+import { MdHeight } from 'react-icons/md';
 
 const PDFViewer = ({
   pdfData,
@@ -200,7 +201,7 @@ const PDFViewer = ({
   };
 
   return (
-    <div>
+    <div style={{height: '60vh', overflow: 'auto'}}>
       {pdfData && (
         <Document
           file={pdfData}
@@ -209,23 +210,24 @@ const PDFViewer = ({
             onDocumentLoadSuccess(numPages); // Pass numPages to parent
           }}
         >
-          <div
+          {/* <div
             className="pdf-container"
             style={{
               overflow: 'auto',
               position: 'relative',
               width: '100%',
-              height: '100%',
+              height: '100vh',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              // alignItems: 'center',
+              // justifyContent: 'center',
+              flexGrow:1,
             }}
             ref={pdfRef}
-          >
-            <div
+          > */}
+            {/* <div
               style={{
-                transform: `scale(${zoomLevel})`,
-                transformOrigin: 'top left',
+                // transform: `scale(${zoomLevel})`,
+                // transformOrigin: 'top left',
                 position: 'relative',
                 width: '100%',
                 height: '100%',
@@ -233,10 +235,10 @@ const PDFViewer = ({
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-            >
-              <Page pageNumber={pageNumber} />
-            </div>
-          </div>
+            > */}
+              <Page pageNumber={pageNumber} scale={zoomLevel} />
+            {/* </div>  */}
+          {/* </div> */}
         </Document>
       )}
 

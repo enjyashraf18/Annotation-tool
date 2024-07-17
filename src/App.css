@@ -140,10 +140,12 @@ html, body {
 }
 
 .App-header, .App-footer {
-  background-color: #5f1313;
+  background-color: grey;
   color: white;
   text-align: center;
-  padding: 1em;
+  padding: 0;
+  height: 15vh;
+
 }
 
 .App-main {
@@ -152,6 +154,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 70vh;
 }
 
 .file-upload-container {
@@ -235,4 +238,5 @@ header {
 .page-input {
   width: 50px;
   text-align: center;
+  height: 70vh;
 }
