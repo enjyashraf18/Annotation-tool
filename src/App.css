@@ -10,36 +10,32 @@ html, body {
   background-color: white;
   font-family: Arial, sans-serif; 
 }
-.maincontainer {
-  min-height: 100svh;
-}
 
-.maincontainer {
+.main-container {
   display: flex;
-  gap: 20px;
-  padding: 20px;
-  height: auto;
+  height: 100vh; /* Ensure the container takes full viewport height */
 }
 
 .column {
   background-color: #efefef;
   padding: 20px;
   border: 1px solid #ccc;
-  align-items: center;
   text-align: center;
   position: relative; 
 }
 
 .column1 {
-  flex: 10;
+  flex: 1;
 }
 
 .column2 {
-  flex: 60;
+  flex: 6;
+  display: flex;
+  flex-direction: column;
 }
 
 .column3 {
-  flex: 30;
+  flex: 3;
 }
 
 .header {
@@ -48,9 +44,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
   border: 2px solid;
-  background-color: aqua;
 }
 
 .pdf-container {
@@ -88,7 +82,6 @@ html, body {
   overflow: hidden; 
   justify-content: center;
   align-items: center;
-  flex: 60;
 }
 
 .image-container img {
@@ -96,25 +89,6 @@ html, body {
   max-height: 100%; 
   object-fit: contain; 
 }
-
-/* .pdf-container {
-  max-width: 100%;  
-  max-height: 100%; 
-  overflow: hidden; 
-  justify-content: center;
-  align-items: center;
-  flex: 60;
-}
-
-.pdf-container canvas {
-  max-width: 100%; 
-  max-height: 100%; 
-  object-fit: contain; 
-}
- */
-
-
-
 
 .slider-container {
   width: 80%;
@@ -159,24 +133,59 @@ html, body {
   width: 300px;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.App-header, .App-footer {
+  background-color: #5f1313;
+  color: white;
+  text-align: center;
+  padding: 1em;
+}
+
+.App-main {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.file-upload-button {
+  padding: 1em;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
 .vertical-slider {
-  writing-mode: bt-lr; /* for vertical orientation */
+  writing-mode: bt-lr;
   -webkit-appearance: slider-vertical;
   width: 8px;
   height: 300px;
-  transform: rotate(180deg); /* Ensures the correct direction */
+  transform: rotate(180deg);
 }
 
 header {
   background-color: white;
   display: flex;
-  align-items: center; /* Vertically aligns items in the center */
-  justify-content: flex-start; /* Horizontally aligns items to the left */
-  height: 100px; /* Adjust height to be smaller */
-  padding: 0 20px; /* Adjust padding as needed */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for better visibility */
+  align-items: center;
+  justify-content: flex-start;
+  height: 100px;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 
 .zoom-buttons {
   display: flex;
@@ -205,6 +214,7 @@ header {
 .zoom-button:hover {
   background-color: #f0f0f0;
 }
+
 .footer {
   display: flex;
   justify-content: space-between;

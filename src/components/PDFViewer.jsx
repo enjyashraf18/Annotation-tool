@@ -270,7 +270,7 @@ const PDFViewer = ({ pdfData }) => {
       
       <hr />
 
-      <footer className="footer">
+      {/* <footer className="footer">
         <div>
           <p className="footer-icons">
             <SlBookOpen /> <span>&nbsp; &nbsp;</span>
@@ -298,7 +298,7 @@ const PDFViewer = ({ pdfData }) => {
             <GrFormNextLink />
           </button>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };
