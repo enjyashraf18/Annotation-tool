@@ -147,6 +147,7 @@ import { IoArrowBack } from 'react-icons/io5';
 import { GrFormNextLink } from "react-icons/gr";
 import { CgScreen } from "react-icons/cg";
 import { SlBookOpen } from "react-icons/sl";
+import { FiZoomIn, FiZoomOut } from "react-icons/fi";
 import PDFViewer from './components/PDFViewer';
 import ImageDisplay from './components/ImageDisplay';
 import './components/FileUpload.css';
@@ -202,10 +203,28 @@ function App() {
     }
   };
 
+  const handleZoomIn = () => {
+    setZoomLevel(zoomLevel + 0.1);
+  };
+
+  const handleZoomOut = () => {
+    setZoomLevel(Math.max(0.1, zoomLevel - 0.1));
+  };
+
+
   return (
     <div className="main-container">
       <div className='column column1'> column1</div>
       <div className="column column2">
+      <div className="zoom-buttons">
+        <button className="zoom-button" onClick={handleZoomOut}>
+          <FiZoomOut />
+        </button>
+        <button className="zoom-button" onClick={handleZoomIn}>
+          <FiZoomIn />
+        </button>
+      </div>
+      <div>
         <header className="App-header">
           <input
             type='file'
@@ -219,6 +238,7 @@ function App() {
             <span>Upload</span>
           </label>
         </header>
+        </div>
         <main className="App-main">
           {fileType === 'pdf' && (
             <PDFViewer
