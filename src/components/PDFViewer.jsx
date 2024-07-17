@@ -1,3 +1,4 @@
+
 // import React, { useState, useEffect, useRef } from 'react';
 // import { pdfjs, Document, Page } from 'react-pdf';
 // import 'react-pdf/dist/Page/AnnotationLayer.css';
@@ -117,7 +118,7 @@
       
 //       <hr />
 
-//       <footer className="footer">
+//       {/* <footer className="footer">
 //         <div>
 //           <p className="footer-icons">
 //             <SlBookOpen /> <span>&nbsp; &nbsp;</span>
@@ -145,12 +146,14 @@
 //             <GrFormNextLink />
 //           </button>
 //         </div>
-//       </footer>
+//       </footer> */}
 //     </div>
 //   );
 // };
 
 // export default PDFViewer;
+
+
 import React, { useState, useEffect, useRef } from 'react';
 import { pdfjs, Document, Page } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
@@ -161,36 +164,23 @@ import { IoMdArrowBack } from "react-icons/io";
 import { SlBookOpen } from "react-icons/sl";
 import { CgScreen } from "react-icons/cg";
 
-const PDFViewer = ({ pdfData }) => {
+const PDFViewer = ({
+  pdfData,
+  pageNumber,
+  setPageNumber,
+  zoomLevel,
+  setZoomLevel,
+  onDocumentLoadSuccess,
+}) => {
   const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [zoomLevel, setZoomLevel] = useState(1);
-  const [pageInput, setPageInput] = useState(pageNumber);
-
   const pdfRef = useRef(null);
 
   pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-  };
-
   useEffect(() => {
     if (pdfData) {
-      setLoading(true);
-      setError(null);
-      setLoading(false);
+      setNumPages(null); // Reset numPages when pdfData changes
     }
-  }, [pdfData]);
-
-  useEffect(() => {
-    setPageInput(pageNumber);
-  }, [pageNumber]);
-
-  useEffect(() => {
-    setZoomLevel(1); // Reset zoom level to 100% whenever pdfData changes
   }, [pdfData]);
 
   const goToPrevPage = () => {
@@ -209,25 +199,16 @@ const PDFViewer = ({ pdfData }) => {
     setZoomLevel(Math.max(0.1, zoomLevel - 0.1));
   };
 
-  const handlePageInputChange = (event) => {
-    const value = event.target.value;
-    setPageInput(value);
-    if (value) {
-      const newPageNumber = Math.min(Math.max(Number(value), 1), numPages);
-      setPageNumber(newPageNumber);
-    }
-  };
-
   return (
     <div>
-      {loading && <p>Loading PDF...</p>}
-      {error && (
-        <p style={{ color: 'red' }}>
-          {error} - Check the console for more details.
-        </p>
-      )}
       {pdfData && (
-        <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess}>
+        <Document
+          file={pdfData}
+          onLoadSuccess={({ numPages }) => {
+            setNumPages(numPages);
+            onDocumentLoadSuccess(numPages); // Pass numPages to parent
+          }}
+        >
           <div
             className="pdf-container"
             style={{
@@ -267,38 +248,6 @@ const PDFViewer = ({ pdfData }) => {
           <FiZoomIn />
         </button>
       </div>
-      
-      <hr />
-
-      {/* <footer className="footer">
-        <div>
-          <p className="footer-icons">
-            <SlBookOpen /> <span>&nbsp; &nbsp;</span>
-            {pageNumber} of {numPages} <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          </p>
-          <p className="footer-icons">
-            <CgScreen /> <span>&nbsp;&nbsp;&nbsp;</span>
-            {Math.round(zoomLevel * 100)}% <span>&nbsp; &nbsp; &nbsp; </span>
-          </p>
-        </div>
-        
-        <div className="footer-icons-right">
-          <button onClick={goToPrevPage} disabled={pageNumber <= 1}>
-            <IoMdArrowBack />
-          </button>
-          <input 
-            type="number" 
-            value={pageInput} 
-            onChange={handlePageInputChange} 
-            min="1" 
-            max={numPages} 
-            className="page-input"
-          />
-          <button onClick={goToNextPage} disabled={pageNumber >= numPages}>
-            <GrFormNextLink />
-          </button>
-        </div>
-      </footer> */}
     </div>
   );
 };
