@@ -175,8 +175,8 @@ function App() {
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(1);
-  const [numPages, setNumPages] = useState(1);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [numPages, setNumPages] = useState(0);
+  const [pageNumber, setPageNumber] = useState(0);
   const [pageInput, setPageInput] = useState(1);
 
   function handleFile(e) {
