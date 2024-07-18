@@ -151,6 +151,14 @@
 // }
 
 // export default App;
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { MdOutlineFileUpload } from "react-icons/md";
@@ -185,6 +193,8 @@ function App() {
       reader.readAsDataURL(selectedFile);
     } else if (fileType.startsWith('image/')) {
       setZoomLevel(1)
+      setNumPages(1)
+      setPageNumber(1)
       setFileType('image');
       setFile(URL.createObjectURL(selectedFile));
     } else {
@@ -277,7 +287,13 @@ function App() {
               />
             </div>
           )} */}
-          {fileType === 'image' && <ImageDisplay imageData={file} />}
+          {/* {fileType === 'image' && <ImageDisplay imageData={file} />} */}
+          {fileType === 'image' && 
+          <ImageDisplay 
+          imageData={file} 
+          zoomLevel={zoomLevel} 
+
+          />}
         </main>
         <footer className="App-footer">
           <div>
@@ -314,5 +330,4 @@ function App() {
 }
 
 export default App;
-
 
