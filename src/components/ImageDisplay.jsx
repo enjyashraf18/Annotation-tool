@@ -56,7 +56,7 @@ const ImageDisplay = ({ imageData, zoomLevel}) => {
   useEffect(() => {
     if (imageRef.current) {
       imageRef.current.style.transform = `scale(${zoomLevel})`;
-      imageRef.current.style.transformOrigin = 'center';
+      //imageRef.current.style.transformOrigin = 'center';
     }
   }, [zoomLevel]);
 

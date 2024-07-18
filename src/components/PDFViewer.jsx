@@ -12,9 +12,7 @@ import 'react-pdf/dist/Page/TextLayer.css';
 const PDFViewer = ({
   pdfData,
   pageNumber,
-  setPageNumber,
   zoomLevel,
-  setZoomLevel,
   onDocumentLoadSuccess,
 }) => {
   const [numPages, setNumPages] = useState(null);
@@ -64,3 +62,4 @@ const PDFViewer = ({
 export default PDFViewer;
 
 
+/* style={{height: '60vh', overflow: 'auto'}}*/

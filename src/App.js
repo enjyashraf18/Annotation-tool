@@ -200,6 +200,8 @@ function App() {
     } else {
       setFileType(null);
       setFile(null);
+      setNumPages(0);
+      setPageNumber(0);
     }
   }
 
@@ -292,8 +294,9 @@ function App() {
           <ImageDisplay 
           imageData={file} 
           zoomLevel={zoomLevel} 
-
           />}
+
+          {fileType === null }
         </main>
         <footer className="App-footer">
           <div>
