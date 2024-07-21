@@ -26,33 +26,18 @@ const PDFViewer = ({
     }
   }, [pdfData]);
 
-  // const goToPrevPage = () => {
-  //   setPageNumber(prevPageNumber => Math.max(prevPageNumber - 1, 1));
-  // };
-
-  // const goToNextPage = () => {
-  //   setPageNumber(prevPageNumber => Math.min(prevPageNumber + 1, numPages));
-  // };
-
-  // const handleZoomIn = () => {
-  //   setZoomLevel(zoomLevel + 0.1);
-  // };
-
-  // const handleZoomOut = () => {
-  //   setZoomLevel(Math.max(0.1, zoomLevel - 0.1));
-  // };
-
   return (
-    <div className='pdf-container' style={{height: '60vh', overflow: 'auto'}}>
+    <div className='pdf-container' style={{ height: '69vh', overflow: 'auto', margin: 'auto' }}>
       {pdfData && (
         <Document
           file={pdfData}
           onLoadSuccess={({ numPages }) => {
             setNumPages(numPages);
-            onDocumentLoadSuccess(numPages); 
+            onDocumentLoadSuccess(numPages);
           }}
+          className="pdf-document"
         >
-              <Page pageNumber={pageNumber} scale={zoomLevel} />
+          <Page pageNumber={pageNumber} scale={zoomLevel} className="pdf-page" />
         </Document>
       )}
     </div>
@@ -60,6 +45,3 @@ const PDFViewer = ({
 };
 
 export default PDFViewer;
-
-
-/* style={{height: '60vh', overflow: 'auto'}}*/

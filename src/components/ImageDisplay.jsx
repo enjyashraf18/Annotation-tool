@@ -67,7 +67,7 @@ const ImageDisplay = ({ imageData, zoomLevel}) => {
         overflow: 'auto',
         position: 'relative',
         width: '100%',
-        height: '60vh',
+        height: '69vh',
         display: 'flex',
 
       }}
