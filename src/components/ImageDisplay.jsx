@@ -55,7 +55,10 @@ const ImageDisplay = ({ imageData, zoomLevel}) => {
 
   useEffect(() => {
     if (imageRef.current) {
-      imageRef.current.style.transform = `scale(${zoomLevel})`;
+      // imageRef.current.style.transform = `scale(${zoomLevel})`;
+      imageRef.current.style.width = `${150 *zoomLevel}px`;
+      imageRef.current.style.minWidth = `${150 *zoomLevel}px`;
+      imageRef.current.style.height = `${200 *zoomLevel}px`;
       //imageRef.current.style.transformOrigin = 'center';
     }
   }, [zoomLevel]);
@@ -66,18 +69,22 @@ const ImageDisplay = ({ imageData, zoomLevel}) => {
       style={{
         overflow: 'auto',
         position: 'relative',
-        width: '100%',
-        height: '69vh',
+        // width: '100%',
+        height: '60vh',
         display: 'flex',
 
       }}
+
     >
+      
       <img
         ref={imageRef}
         src={imageData}
         alt="Uploaded"
-        style={{ width: "auto", height: "auto", maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} 
+        style={{margin:"auto"  }} 
+        className="img-page"
       />
+
     </div>
   );
 };

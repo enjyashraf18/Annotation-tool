@@ -79,27 +79,12 @@ html, body {
   display: none;
 }
 
-/* .image-container {
-  max-width: 100%;  
-  max-height: 100%; 
-  overflow: hidden; 
-  justify-content: center;
-  align-items: center;
-}
-
-.image-container img {
-  max-width: 100%; 
-  max-height: 100%; 
-  object-fit: contain; 
-} */
 
 .image-container {
   width: 100%;
-  height: 69vh; /* Ensure the container has a specific height */
+  height: 69vh; 
   overflow: auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .image-container img {
@@ -107,7 +92,12 @@ html, body {
   width: 100%;
   height: 100%;
   display: flex;
-}
+  /* justify-content: center;
+  align-items: center; */
+} 
+
+
+
 
 
 .slider-container {
@@ -285,7 +275,6 @@ header {
 
 .pdf-document {
   display: flex;
-
   align-items: center;
   width: 100%;
 }
@@ -297,3 +286,18 @@ header {
   width: auto !important;
   margin: auto;
 }
+
+
+/* .img-document {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.img-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto !important;
+  margin: auto;
+} */
