@@ -27,7 +27,7 @@ const PDFViewer = ({
   }, [pdfData]);
 
   return (
-    <div className='pdf-container' style={{ height: '69vh', overflow: 'auto', margin: 'auto' }}>
+    <div className='pdf-container' style={{ height: '72vh', overflow: 'auto', margin: 'auto' }}>
       {pdfData && (
         <Document
           file={pdfData}
