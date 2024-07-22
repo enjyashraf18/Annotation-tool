@@ -13,7 +13,7 @@ html, body {
 
 .main-container {
   display: flex;
-  min-height: 100vh; /* Ensure the container takes full viewport height */
+  height: 100vh; /* Ensure the container takes full viewport height */
 }
 
 .column {
@@ -21,21 +21,25 @@ html, body {
   padding: 20px;
   border: 1px solid #ccc;
   text-align: center;
-  position: relative; 
 }
 
 .column1 {
   flex: 1;
+  overflow-y: auto; /* Enable vertical scrolling for thumbnails */
+  height: 100vh; /* Full viewport height */
+  position: relative;
 }
 
 .column2 {
   flex: 6;
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 .column3 {
   flex: 3;
+  height: 100vh;
 }
 
 .header {
@@ -47,13 +51,11 @@ html, body {
   border: 2px solid;
 }
 
- .pdf-container {
+.pdf-container {
   width: 100%;
   height: 900px;
   overflow: auto; 
   display: flex;
-  
-
 }
 
 .pdf-container > div {
@@ -62,8 +64,6 @@ html, body {
   height: 100%;
   display: flex;
 } 
-
-
 
 .upload-button {
   background-color: transparent;
@@ -79,7 +79,6 @@ html, body {
   display: none;
 }
 
-
 .image-container {
   width: 100%;
   height: 69vh; 
@@ -92,13 +91,7 @@ html, body {
   width: 100%;
   height: 100%;
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
-} 
-
-
-
-
+}
 
 .slider-container {
   width: 80%;
@@ -150,32 +143,18 @@ html, body {
 }
 
 .App-header{
-  
-    background-color: white;
-  
-    text-align: center;
-    padding: 0;
-    height: 12vh;
-  
-  
+  background-color: white;
+  text-align: center;
+  padding: 0;
+  height: 12vh;
 }
+
 .App-footer {
   background-color: white;
-
   text-align: center;
   padding: 0;
   height: 10vh;
-
 }
-
-/* .App-main {
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70vh;
-} */
 
 .App-main {
   flex: 1;
@@ -186,8 +165,6 @@ html, body {
   height: 65vh;
   position: relative;
 }
-
-
 
 .file-upload-container {
   display: flex;
@@ -238,7 +215,6 @@ header {
   height: 50px;
   margin: 5px 0;
   display: flex;
-  
   align-items: center;
   justify-content: center;
   background-color: white;
@@ -250,9 +226,6 @@ header {
 .zoom-button:hover {
   background-color: #f0f0f0;
 }
-
-
-
 
 .footer {
   display: flex;
@@ -272,7 +245,6 @@ header {
   align-items: center;
 }
 
-
 .pdf-document {
   display: flex;
   align-items: center;
@@ -287,23 +259,8 @@ header {
   margin: auto;
 }
 
-
-/* .img-document {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.img-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: auto !important;
-  margin: auto;
-} */
-
 .thumbnail-container {
-  overflow: auto;
+  overflow: hidden;
   cursor: pointer;
   margin-bottom: 10px;
 }
