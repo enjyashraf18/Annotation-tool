@@ -148,11 +148,11 @@ function App() {
       
       <div className="column column2">
         <div className="zoom-buttons">
+        <button className="zoom-button" onClick={handleZoomIn}>
+            <FiZoomIn size="1.3rem" />
+          </button>
           <button className="zoom-button" onClick={handleZoomOut}>
             <FiZoomOut size="1.3rem" />
-          </button>
-          <button className="zoom-button" onClick={handleZoomIn}>
-            <FiZoomIn size="1.3rem" />
           </button>
         </div>
         <header className="App-header">
