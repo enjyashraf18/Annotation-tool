@@ -18,12 +18,20 @@ html, body {
 
 .column {
   background-color: #efefef;
-  padding: 20px;
+  
   border: 1px solid #ccc;
   text-align: center;
 }
 
 .column1 {
+  flex: 1;
+  overflow-y: hidden; 
+  height: 100vh; 
+  position: relative;
+}
+
+
+.thumb{
   flex: 1;
   overflow-y: auto; /* Enable vertical scrolling for thumbnails */
   height: 100vh; /* Full viewport height */
@@ -42,13 +50,13 @@ html, body {
   height: 100vh;
 }
 
-.header {
-  height: 10%;
+.column1-header {
+  height: 12vh;
   background-color: #f8f9fa;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid;
+
 }
 
 .pdf-container {
@@ -145,8 +153,10 @@ html, body {
 .App-header{
   background-color: white;
   text-align: center;
-  padding: 0;
+
   height: 12vh;
+  width: 930px;
+  border-bottom: 0.2px solid rgb(226,232,240);
 }
 
 .App-footer {
@@ -154,6 +164,9 @@ html, body {
   text-align: center;
   padding: 0;
   height: 10vh;
+  width: 915px;
+  border-top: 0.2px solid rgb(226,232,240);
+
 }
 
 .App-main {
@@ -190,14 +203,17 @@ html, body {
 }
 
 header {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 100px;
+  height: 12vh;
   padding: 0 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 0.2px solid rgb(226,232,240);
 }
+
+
 
 .zoom-buttons {
   display: flex;
@@ -286,3 +302,4 @@ header {
   max-height: 100%; /* Ensure the image fits within the container */
   object-fit: contain; /* Ensure the image is not cropped */
 }
+

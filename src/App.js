@@ -135,6 +135,10 @@ function App() {
     <div className="main-container">
       {/* <div className='column column1'> column1</div> */}
       <div className='column column1'>
+      <header className='column1-head'>
+          ay 7aga 
+        </header>
+        <div className='thumb'>
         {thumbnails.map((thumbnail, index) => (
           <Thumbnail
             key={index}
@@ -144,6 +148,7 @@ function App() {
             fileType={fileType}
           />
         ))}
+        </div>
       </div>
       
       <div className="column column2">
@@ -164,7 +169,7 @@ function App() {
             style={{ display: 'none' }}
           />
           <label htmlFor='file' className='fileUploadButton'>
-            <MdOutlineFileUpload size="3rem" />
+            <MdOutlineFileUpload size="2.5rem" />
             <span>Upload</span>
           </label>
         </header>
