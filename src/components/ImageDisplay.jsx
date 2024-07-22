@@ -1,51 +1,5 @@
 
 
-// import React, { useState, useEffect, useRef } from "react";
-
-// const ImageDisplay = ({ imageData, zoomLevel}) => {
-//   const imageRef = useRef(null);
-
-//   useEffect(() => {
-//     if (imageRef.current) {
-//       // imageRef.current.style.transform = `scale(${zoomLevel})`;
-      
-//       imageRef.current.style.width = `${150 *zoomLevel}px`;
-//       imageRef.current.style.minWidth = `${150 *zoomLevel}px`;
-//       imageRef.current.style.height = `${200 *zoomLevel}px`;
-//       //imageRef.current.style.transformOrigin = 'center';
-//     }
-//   }, [zoomLevel]);
-
-//   return (
-//     <div
-//       className="image-container"
-//       style={{
-//         overflow: 'auto',
-//         position: 'relative',
-//         // width: '100%',
-//         height: '60vh',
-//         display: 'flex',
-
-//       }}
-
-//     >
-      
-//       <img
-//         ref={imageRef}
-//         src={imageData}
-//         alt="Uploaded"
-//         style={{margin:"auto"  }} 
-//         className="img-page"
-//       />
-
-//     </div>
-//   );
-// };
-
-// export default ImageDisplay;
-
-
-
 import React, { useState, useEffect, useRef } from "react";
 
 const ImageDisplay = ({ imageData, zoomLevel }) => {

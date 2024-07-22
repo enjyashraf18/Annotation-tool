@@ -301,3 +301,14 @@ header {
   width: auto !important;
   margin: auto;
 } */
+
+.thumbnail-container {
+  overflow: auto;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.thumbnail-image {
+  width: 100px;
+  height: auto;
+}
