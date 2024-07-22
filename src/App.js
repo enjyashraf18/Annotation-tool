@@ -135,7 +135,7 @@ function App() {
     <div className="main-container">
       {/* <div className='column column1'> column1</div> */}
       <div className='column column1'>
-      <header className='column1-head'>
+      <header className='column1-header'>
           ay 7aga 
         </header>
         <div className='thumb'>

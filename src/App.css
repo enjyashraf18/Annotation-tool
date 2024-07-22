@@ -25,11 +25,14 @@ html, body {
 
 .column1 {
   flex: 1;
-  overflow-y: hidden; 
-  height: 100vh; 
-  position: relative;
-}
+    display: flex;
+    flex-direction: column;
+    background-color: #efefef;
 
+    height: 100vh; /* Full viewport height */
+    overflow-y: auto; /* Enable vertical scrolling for thumbnails */
+  }
+  
 
 .thumb{
   flex: 1;
@@ -56,7 +59,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  margin-bottom: 20px; /* Adjust the value to your needs */
 }
 
 .pdf-container {
@@ -164,7 +167,7 @@ html, body {
   text-align: center;
   padding: 0;
   height: 10vh;
-  width: 915px;
+  width: 920px;
   border-top: 0.2px solid rgb(226,232,240);
 
 }
