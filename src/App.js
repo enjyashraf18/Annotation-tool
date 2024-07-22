@@ -22,7 +22,9 @@ function App() {
   function handleFile(e) {
     const selectedFile = e.target.files[0];
     const fileType = selectedFile?.type;
-
+  
+    if (!selectedFile) return;
+  
     if (fileType === 'application/pdf') {
       setFileType('pdf');
       const reader = new FileReader();
@@ -31,19 +33,17 @@ function App() {
         setFile(e.target.result);
       };
       reader.readAsDataURL(selectedFile);
-    } else if (selectedFile && fileType.startsWith('image/')) {
+    } else if (fileType.startsWith('image/')) {
       setFile(URL.createObjectURL(selectedFile));
       setZoomLevel(1);
       setFileType('image');
       setNumPages(1);
       setPageNumber(1);
     } else {
-      setFile(null);
-      setFileType(null);
-      setNumPages(0);
-      setPageNumber(0);
+      alert('The selected file should be an image or a PDF.');
     }
   }
+  
 
   const onDocumentLoadSuccess = (numPages) => {
     setNumPages(numPages);
