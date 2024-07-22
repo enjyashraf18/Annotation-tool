@@ -263,9 +263,25 @@ header {
   overflow: hidden;
   cursor: pointer;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Ensure the container takes full width */
+  height: auto; /* Adjust to content */
+}
+
+.thumbnail-pdf-container {
+  width: 100px; /* Control the width of the image */
+  height: 100px; /* Control the height of the image */
+  max-width: 100%; /* Ensure the image fits within the container */
+  max-height: 100%; /* Ensure the image fits within the container */
+  object-fit: contain;/* Ensure content is clipped to fit */
 }
 
 .thumbnail-image {
-  width: 100px;
-  height: auto;
+  width: 100px; /* Control the width of the image */
+  height: 100px; /* Control the height of the image */
+  max-width: 100%; /* Ensure the image fits within the container */
+  max-height: 100%; /* Ensure the image fits within the container */
+  object-fit: contain; /* Ensure the image is not cropped */
 }

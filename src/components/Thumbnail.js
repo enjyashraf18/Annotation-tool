@@ -11,9 +11,11 @@ const Thumbnail = ({ thumbnail, pageNumber, setPageNumber, fileType }) => {
   return (
     <div className="thumbnail-container" onClick={handleClick}>
       {fileType === 'pdf' && (
-        <Document file={thumbnail}>
-          <Page pageNumber={pageNumber} scale={0.2} />
-        </Document>
+        <div className="thumbnail-pdf-container">
+          <Document file={thumbnail}>
+            <Page pageNumber={pageNumber} width={100} />
+          </Document>
+        </div>
       )}
       {fileType === 'image' && (
         <img src={thumbnail} alt={`Thumbnail ${pageNumber}`} className="thumbnail-image" />
