@@ -133,7 +133,8 @@ function App() {
   };
 
   return (
-    <div className="main-container">
+    
+<div className="main-container">
       {/* <div className='column column1'> column1</div> */}
       <div className='column column1'>
       <header className='column1-header'>
@@ -141,20 +142,18 @@ function App() {
       Document Organizer
         </header>
         <div className='thumb'>
-        {thumbnails.map((thumbnail, index) => (
+        {/* {thumbnails.map((thumbnail, index) => ( */}
           <Thumbnail
-            key={index}
-            thumbnail={thumbnail}
-            pageNumber={index + 1}
+            // key={index}
+            thumbnail={file}
+            pageNumber={pageNumber}
             setPageNumber={setPageNumber}
             fileType={fileType}
             selectedPage={pageNumber}
-            imageData={file}
           />
-        ))}
+        {/* ))} */}
         </div>
       </div>
-      
       <div className="column column2">
         <div className="zoom-buttons">
         <button className="zoom-button" onClick={handleZoomIn}>

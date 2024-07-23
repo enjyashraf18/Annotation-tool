@@ -1,38 +1,34 @@
-
-
 import React from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, Page, pdfjs, Thumbnail as ReactThumbnail } from 'react-pdf';
 import { useState, useEffect, useRef } from "react";
 
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-const Thumbnail = ({ thumbnail, pageNumber, setPageNumber, fileType, selectedPage, imageData }) => {
-  const handleClick = () => {
-    setPageNumber(pageNumber);
-  };
+const Thumbnail = ({ thumbnail,  pageNumber, setPageNumber, fileType, selectedPage}) => {
+  // const handleClick = () => {
+  //   setPageNumber(5);
+  // };
 
-  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+  const [noOfPages, setNoOfPages] = useState(0);
 
-  useEffect(() => {
-    if (imageData) {
-      const img = new Image();
-      img.onload = () => {
-        setImageSize({ width: 10, height:10});
-      };
-      img.src = imageData;
-    }
-  }, [imageData]);
 
   return (
     <div
-      className={`thumbnail-container ${selectedPage === pageNumber ? 'selected' : ''}`}
-      onClick={handleClick}
+      className={`thumbnail-container`}
+      // onClick={handleClick}
     >
       {fileType === 'pdf' && (
-        <div className={`thumbnail-pdf-container ${selectedPage === pageNumber ? 'selected' : ''}`}>
-          <Document file={thumbnail}>
-            <Page pageNumber={pageNumber} width={100} />
+        <div className={`thumbnail-pdf-container`}>
+          <Document file={thumbnail} onLoadSuccess={({ numPages }) => {setNoOfPages(numPages) }}>
+            {
+              Array(noOfPages).fill(0).map((_, index) =>
+                <div className={`${(index + 1) === pageNumber&& "selected"}`} >
+
+                <ReactThumbnail pageNumber={index + 1} width={100} onClick={(e) => setPageNumber(index+1)} />
+                  </div>)
+
+            }
           </Document>
         </div>
       )}
@@ -44,4 +40,40 @@ const Thumbnail = ({ thumbnail, pageNumber, setPageNumber, fileType, selectedPag
 };
 
 export default Thumbnail;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// return (
+//   <div
+//     className={`thumbnail-container ${selectedPage === pageNumber ? 'selected' : ''}`}
+//     onClick={handleClick}
+//   >
+//     {fileType === 'pdf' && (
+//       <div className={`thumbnail-pdf-container ${selectedPage === pageNumber ? 'selected' : ''}`}>
+//         <Document file={thumbnail}>
+//           <Page pageNumber={pageNumber} width={100} />
+//         </Document>
+//       </div>
+//     )}
+//     {fileType === 'image' && (
+//       <img src={thumbnail} alt={`Thumbnail ${pageNumber}`} className="thumbnail-image" />
+//     )}
+//   </div>
+// );
+// };
+
+// export default Thumbnail;
 

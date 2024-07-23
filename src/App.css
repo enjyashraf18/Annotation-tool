@@ -310,8 +310,13 @@ header {
   /* padding: 10px; */
 }
 
+.selected {
+    border: 2px solid rgb(59, 130, 246);
+    overflow: hidden;
+  
+}
 
-.thumbnail-container.selected .thumbnail-pdf-container {
+.thumbnail-container .selected .thumbnail-pdf-container {
   border: 2px solid rgb(59, 130, 246);
 }
 
