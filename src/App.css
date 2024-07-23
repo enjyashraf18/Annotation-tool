@@ -173,7 +173,7 @@ html, body {
 
 .App-main {
   flex: 1;
-  overflow: hidden; /* Prevent scrollbars in this container */
+  overflow: hidden; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -221,8 +221,8 @@ header {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 70%;
-  left: 985px;
+  top: 80%;
+  left: 1000px;
   transform: translateY(-50%);
   z-index: 100;
 }
