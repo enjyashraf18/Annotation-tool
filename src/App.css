@@ -249,7 +249,7 @@ header {
 .footer {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  /* padding: 10px; */
   background-color: #f8f9fa;
 }
 
@@ -262,6 +262,8 @@ header {
 .footer-icons-right {
   display: flex;
   align-items: center;
+  
+
 }
 
 .pdf-document {
@@ -304,5 +306,9 @@ header {
   max-width: 100%; /* Ensure the image fits within the container */
   max-height: 100%; /* Ensure the image fits within the container */
   object-fit: contain; /* Ensure the image is not cropped */
+}
+
+.thumbnail-container.selected {
+  border: 2px solid rgb(59,130,246); /* Blue border for selected thumbnail */
 }
 
