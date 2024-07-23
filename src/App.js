@@ -149,6 +149,7 @@ function App() {
             setPageNumber={setPageNumber}
             fileType={fileType}
             selectedPage={pageNumber}
+            imageData={file}
           />
         ))}
         </div>
