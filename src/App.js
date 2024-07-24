@@ -134,7 +134,12 @@ function App() {
 
   return (
     
+    
 <div className="main-container">
+      <div className='sideBar'>
+        <sideBar/>
+
+      </div>
       {/* <div className='column column1'> column1</div> */}
       <div className='column column1'>
       <header className='column1-header'>
