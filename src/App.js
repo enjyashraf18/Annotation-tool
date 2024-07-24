@@ -8,7 +8,9 @@ import { SlBookOpen } from "react-icons/sl";
 import { FiZoomIn, FiZoomOut } from "react-icons/fi";
 import PDFViewer from './components/PDFViewer';
 import ImageDisplay from './components/ImageDisplay';
+import SideBar from './components/SideBar';
 import Thumbnail from './components/Thumbnail';
+import { FiHome } from "react-icons/fi";
 import { SlNotebook } from "react-icons/sl";
 import './components/FileUpload.css';
 
@@ -136,10 +138,7 @@ function App() {
     
     
 <div className="main-container">
-      <div className='sideBar'>
-        <sideBar/>
-
-      </div>
+      <SideBar/>
       {/* <div className='column column1'> column1</div> */}
       <div className='column column1'>
       <header className='column1-header'>
