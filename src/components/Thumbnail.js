@@ -27,13 +27,18 @@ const Thumbnail = ({ thumbnail,  pageNumber, setPageNumber, fileType, selectedPa
 
                 <ReactThumbnail pageNumber={index + 1} width={100} onClick={(e) => setPageNumber(index+1)} />
                   </div>)
-
             }
           </Document>
         </div>
       )}
       {fileType === 'image' && (
-        <img src={thumbnail} alt={`Thumbnail ${pageNumber}`} className="thumbnail-image" />
+        // <img src={thumbnail} alt={`Thumbnail ${pageNumber}`} className="thumbnail-image" />
+        <img
+        src={thumbnail}
+        alt={`Thumbnail ${pageNumber}`}
+        className={`thumbnail-image ${selectedPage === pageNumber ? "selected" : ""}`}
+        onClick={() => setPageNumber(pageNumber)}
+      />
       )}
     </div>
   );
