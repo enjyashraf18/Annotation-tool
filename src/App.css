@@ -371,6 +371,10 @@ width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 72vh;
+    height: 72.5vh;
     position: relative;
   }
+.Add{
+  border-radius: 10%;
+  padding: 2%;
+}

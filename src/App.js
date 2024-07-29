@@ -13,6 +13,7 @@ import Thumbnail from './components/Thumbnail';
 import { FiHome } from "react-icons/fi";
 import { SlNotebook } from "react-icons/sl";
 import './components/FileUpload.css';
+import SelectedAreaDisplay from './components/SelectedAreaDisplay';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -23,6 +24,10 @@ function App() {
   const [pageInput, setPageInput] = useState('');
   const [zoomInput, setZoomInput] = useState('');
   const [thumbnails, setThumbnails] = useState([]);
+  const [selectedArea, setSelectedArea] = useState(null);
+  const handleSelection = (area) => {
+    setSelectedArea(area);
+  };
 
   function handleFile(e) {
     const selectedFile = e.target.files[0];
@@ -189,12 +194,14 @@ function App() {
               zoomLevel={zoomLevel}
               setZoomLevel={setZoomLevel}
               onDocumentLoadSuccess={onDocumentLoadSuccess}
-            />
+              onSelection={handleSelection} 
+              />
           )}
           {fileType === 'image' && (
             <ImageDisplay
               imageData={file}
               zoomLevel={zoomLevel}
+              onSelection={handleSelection}
             />
           )}
         </main>
@@ -244,10 +251,11 @@ function App() {
         <p>Total uploaded samples: counter </p>
       <div >
         <main className='column3-main'>
+        <SelectedAreaDisplay selectedArea={selectedArea} imageData={file} />
 
         </main>
 <footer className='column3-footer'>
-  <button>+ ADD SAMPLES </button>
+  <button className='Add'>+ ADD SAMPLES </button>
 </footer>
         </div>
         </div>
