@@ -8,7 +8,7 @@ import { SlBookOpen } from "react-icons/sl";
 import { FiZoomIn, FiZoomOut } from "react-icons/fi";
 import PDFViewer from './components/PDFViewer';
 import ImageDisplay from './components/ImageDisplay';
-import SideBar from './components/SideBar';
+import SideBar from './components/sideBar';
 import Thumbnail from './components/Thumbnail';
 import { FiHome } from "react-icons/fi";
 import { SlNotebook } from "react-icons/sl";
@@ -238,7 +238,19 @@ function App() {
           </div>
         </footer>
       </div>
-      <div className='column column3'>column3</div>
+      <div className='column column3'>
+        <header>Samples</header>
+        <p>..</p>
+        <p>Total uploaded samples: counter </p>
+      <div >
+        <main className='column3-main'>
+
+        </main>
+<footer className='column3-footer'>
+  <button>+ ADD SAMPLES </button>
+</footer>
+        </div>
+        </div>
     </div>
   );
 }
