@@ -12,9 +12,12 @@ import SideBar from './components/sideBar';
 import Thumbnail from './components/Thumbnail';
 import { FiHome } from "react-icons/fi";
 import { SlNotebook } from "react-icons/sl";
+import 'react-pdf/dist/Page/AnnotationLayer.css';
 import './components/FileUpload.css';
+import DrawingApp from './components/DrawingApp';
 import SelectedAreaDisplay from './components/SelectedAreaDisplay';
-import DrawingComponent from './components/DrawingComponent';
+
+
 
 function App() {
   const [file, setFile] = useState(null);
@@ -26,17 +29,21 @@ function App() {
   const [zoomInput, setZoomInput] = useState('');
   const [thumbnails, setThumbnails] = useState([]);
   const [selectedArea, setSelectedArea] = useState(null);
-  
+
+  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+  console.log("Test",imageSize)
+
   const handleSelection = (area) => {
     setSelectedArea(area);
   };
 
+
   function handleFile(e) {
     const selectedFile = e.target.files[0];
     const fileType = selectedFile?.type;
-  
+
     if (!selectedFile) return;
-  
+
     if (fileType === 'application/pdf') {
       setFileType('pdf');
       const reader = new FileReader();
@@ -56,7 +63,7 @@ function App() {
       alert('The selected file should be an image or a PDF.');
     }
   }
-  
+
 
   const onDocumentLoadSuccess = (numPages) => {
     setNumPages(numPages);
@@ -142,18 +149,18 @@ function App() {
   };
 
   return (
-    
-    
-<div className="main-container">
-      <SideBar/>
+
+
+    <div className="main-container">
+      <SideBar />
       {/* <div className='column column1'> column1</div> */}
       <div className='column column1'>
-      <header className='column1-header'>
-      <SlNotebook size="3rem"/> 
-      Document Organizer
+        <header className='column1-header'>
+          <SlNotebook size="3rem" />
+          Document Organizer
         </header>
         <div className='thumb'>
-        {/* {thumbnails.map((thumbnail, index) => ( */}
+          {/* {thumbnails.map((thumbnail, index) => ( */}
           <Thumbnail
             // key={index}
             thumbnail={file}
@@ -162,12 +169,12 @@ function App() {
             fileType={fileType}
             selectedPage={pageNumber}
           />
-        {/* ))} */}
+          {/* ))} */}
         </div>
       </div>
       <div className="column column2">
         <div className="zoom-buttons">
-        <button className="zoom-button" onClick={handleZoomIn}>
+          <button className="zoom-button" onClick={handleZoomIn}>
             <FiZoomIn size="1.3rem" />
           </button>
           <button className="zoom-button" onClick={handleZoomOut}>
@@ -196,16 +203,21 @@ function App() {
               zoomLevel={zoomLevel}
               setZoomLevel={setZoomLevel}
               onDocumentLoadSuccess={onDocumentLoadSuccess}
-              onSelection={handleSelection} 
-              />
+              onSelection={handleSelection}
+            />
           )}
           {fileType === 'image' && (
             <ImageDisplay
               imageData={file}
               zoomLevel={zoomLevel}
+              setImageSize={setImageSize}
+              imageSize={imageSize}
               onSelection={handleSelection}
             />
           )}
+
+          <DrawingApp onSelection={setSelectedArea} imageSize={imageSize} />
+
         </main>
         <footer className="App-footer">
           <div>
@@ -245,25 +257,25 @@ function App() {
               <GrFormNextLink />
             </button>
           </div>
-        </footer>
+        </footer>-
       </div>
       <div className='column column3'>
         <header>Samples</header>
         <p>..</p>
         <p>Total uploaded samples: counter </p>
-      <div >
-        <main className='column3-main'>
-        <DrawingComponent onSelection={setSelectedArea} />
-        <SelectedAreaDisplay selectedArea={selectedArea} imageData={file} />
-        </main>
-<footer className='column3-footer'>
-  <button className='Add'>+ ADD SAMPLES </button>
-</footer>
+        <div >
+          <main className='column3-main'>
+          <SelectedAreaDisplay selectedArea={selectedArea} imageData={file} />
+          </main>
+          <footer className='column3-footer'>
+            <button className='Add'>+ ADD SAMPLES </button>
+          </footer>
         </div>
-        </div>
+      </div>
     </div>
   );
 }
 
 export default App;
+
 

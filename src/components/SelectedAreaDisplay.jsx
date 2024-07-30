@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
+
   const destRef = useRef(null);
 
   useEffect(() => {
@@ -9,16 +10,14 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
       img.src = imageData;
       img.onload = () => {
         const context = destRef.current.getContext('2d');
-        const scale = 1 / (selectedArea.scale || 1); // assuming selectedArea.scale is the zoom level
-
-        // Clear the canvas
+        const scale = 1 / (selectedArea.scale || 1); 
+        
         context.clearRect(0, 0, destRef.current.width, destRef.current.height);
 
-        // Draw the selected area of the image
         context.drawImage(
           img,
-          selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height, // source rectangle
-          0, 0, destRef.current.width, destRef.current.height // destination rectangle
+          selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height, 
+          0, 0, destRef.current.width, destRef.current.height 
         );
       };
     }
