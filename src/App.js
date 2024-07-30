@@ -14,6 +14,7 @@ import { FiHome } from "react-icons/fi";
 import { SlNotebook } from "react-icons/sl";
 import './components/FileUpload.css';
 import SelectedAreaDisplay from './components/SelectedAreaDisplay';
+import DrawingComponent from './components/DrawingComponent';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -25,6 +26,7 @@ function App() {
   const [zoomInput, setZoomInput] = useState('');
   const [thumbnails, setThumbnails] = useState([]);
   const [selectedArea, setSelectedArea] = useState(null);
+  
   const handleSelection = (area) => {
     setSelectedArea(area);
   };
@@ -251,8 +253,8 @@ function App() {
         <p>Total uploaded samples: counter </p>
       <div >
         <main className='column3-main'>
+        <DrawingComponent onSelection={setSelectedArea} />
         <SelectedAreaDisplay selectedArea={selectedArea} imageData={file} />
-
         </main>
 <footer className='column3-footer'>
   <button className='Add'>+ ADD SAMPLES </button>

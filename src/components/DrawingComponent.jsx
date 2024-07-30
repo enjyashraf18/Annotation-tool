@@ -1,4 +1,3 @@
-// src/components/DrawingComponent.jsx
 import React, { useRef, useState } from 'react';
 import { Stage, Layer, Rect } from 'react-konva';
 

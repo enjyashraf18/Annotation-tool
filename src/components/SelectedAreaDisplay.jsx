@@ -1,6 +1,29 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
+  const destRef = useRef(null);
+
+  useEffect(() => {
+    if (selectedArea && imageData) {
+      const img = new Image();
+      img.src = imageData;
+      img.onload = () => {
+        const context = destRef.current.getContext('2d');
+        const scale = 1 / (selectedArea.scale || 1); // assuming selectedArea.scale is the zoom level
+
+        // Clear the canvas
+        context.clearRect(0, 0, destRef.current.width, destRef.current.height);
+
+        // Draw the selected area of the image
+        context.drawImage(
+          img,
+          selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height, // source rectangle
+          0, 0, destRef.current.width, destRef.current.height // destination rectangle
+        );
+      };
+    }
+  }, [selectedArea, imageData]);
+
   if (!selectedArea || !imageData) return null;
 
   return (
@@ -14,22 +37,20 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
           height: 'auto',
         }}
       >
-        <img
-          src={imageData}
-          alt="Selected Area"
+        <canvas
+          ref={destRef}
+          width={selectedArea.width}
+          height={selectedArea.height}
           style={{
-            position: 'absolute',
-            left: -selectedArea.x,
-            top: -selectedArea.y,
-            width: 'auto',
-            height: 'auto',
+            width: selectedArea.width,
+            height: selectedArea.height,
           }}
         />
         <div
           style={{
             position: 'absolute',
-            left: 0,
-            top: 0,
+            left: selectedArea.x,
+            top: selectedArea.y,
             width: selectedArea.width,
             height: selectedArea.height,
             border: '2px solid red',
