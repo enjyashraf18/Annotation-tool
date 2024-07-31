@@ -26,8 +26,8 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
   if (!selectedArea || !imageData) return null;
 
   return (
-    <div className="selected-area-display">
-      <h3>Selected Area</h3>
+      <div className="selected-area-display">
+      {/* <h3>Selected Area</h3> */}
       <div
         style={{
           position: 'relative',

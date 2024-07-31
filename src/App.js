@@ -16,6 +16,8 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import './components/FileUpload.css';
 import DrawingApp from './components/DrawingApp';
 import SelectedAreaDisplay from './components/SelectedAreaDisplay';
+import AddSample from './components/AddSample';
+
 
 
 
@@ -267,17 +269,7 @@ function App() {
         </footer>-
       </div>
       <div className='column column3'>
-        <header>Samples</header>
-        <p>..</p>
-        <p>Total uploaded samples: counter </p>
-        <div >
-          <main className='column3-main'>
-          <SelectedAreaDisplay selectedArea={selectedArea} imageData={file} />
-          </main>
-          <footer className='column3-footer'>
-            <button className='Add'>+ ADD SAMPLES </button>
-          </footer>
-        </div>
+      <AddSample selectedArea={selectedArea} imageData={file} />
       </div>
     </div>
   );
