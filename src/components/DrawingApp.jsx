@@ -1,24 +1,26 @@
 import React, { useState, useRef } from 'react';
 import { Stage, Layer, Rect, Text, Group } from 'react-konva';
 
-const DrawingApp = ({ onSelection, imageSize} ) => {
-    console.log(imageSize)
+const DrawingApp = ({ onSelection, imageSize, zoomlevel }) => {
     const [tool, setTool] = useState('rectangle');
     const [shapes, setShapes] = useState([]);
     const [activeShapeIndex, setActiveShapeIndex] = useState(null);
-    const [allowDrawing, setAllowDrawing] = useState(true); 
+    const [allowDrawing, setAllowDrawing] = useState(true);
     const isDrawing = useRef(false);
     const startPoint = useRef({ x: 0, y: 0 });
 
     const handleMouseDown = (e) => {
-        if (activeShapeIndex !== null || !allowDrawing) return; 
+        console.log(zoomlevel)
+        console.log(zoomlevel)
+        console.log(zoomlevel)
+        if (activeShapeIndex !== null || !allowDrawing) return;
 
         isDrawing.current = true;
         const pos = e.target.getStage().getPointerPosition();
         startPoint.current = pos;
 
         setShapes([...shapes, { tool, x: pos.x, y: pos.y, width: 0, height: 0 }]);
-        setActiveShapeIndex(shapes.length); 
+        setActiveShapeIndex(shapes.length);
     };
 
     const handleMouseMove = (e) => {
@@ -42,23 +44,25 @@ const DrawingApp = ({ onSelection, imageSize} ) => {
     };
 
     const handleCapture = () => {
-        setAllowDrawing(false); 
-        setActiveShapeIndex(null); 
+        setAllowDrawing(false);
+        setActiveShapeIndex(null);
+        onSelection(shapes[activeShapeIndex])
     };
 
     const handleDelete = () => {
         const newShapes = shapes.slice();
         newShapes.splice(activeShapeIndex, 1);
         setShapes(newShapes);
-        setAllowDrawing(true); 
-        setActiveShapeIndex(null); 
+        setAllowDrawing(true);
+        setActiveShapeIndex(null);
     };
 
     return (
         <div className='konva-div'>
             <Stage
-                width={imageSize.width || 1}
-                height={imageSize.height || 1}
+                
+                width={imageSize.width*zoomlevel}
+                height={imageSize.height*zoomlevel}
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
@@ -113,6 +117,6 @@ const DrawingApp = ({ onSelection, imageSize} ) => {
     );
 };
 
-
 export default DrawingApp;
+
 

@@ -34,7 +34,10 @@ function App() {
   console.log("Test",imageSize)
 
   const handleSelection = (area) => {
-    setSelectedArea(area);
+    setSelectedArea({
+      ...area,
+      scale: zoomLevel
+    });
   };
 
 
@@ -216,7 +219,11 @@ function App() {
             />
           )}
 
-          <DrawingApp onSelection={setSelectedArea} imageSize={imageSize} />
+          <DrawingApp onSelection={handleSelection} 
+          imageSize={imageSize}
+           zoomlevel={zoomLevel}
+           setZoomLevel={setZoomLevel}
+            />
 
         </main>
         <footer className="App-footer">
