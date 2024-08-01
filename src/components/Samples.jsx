@@ -1,24 +1,35 @@
-import React from "react";
-import SelectedAreaDisplay from './SelectedAreaDisplay';
+import React from 'react';
 
-function Samples({ selectedArea, file, counter }) {
+const Samples = ({ samples, onEditSample, onDeleteSample, onAddSample }) => {
+  if (!samples) {
+    return null; // Prevents the map error if samples is undefined
+  }
+
   return (
-    <div>
-      <header>Samples</header>
-      <p>Total uploaded samples: {counter}</p>
-      <div>
-        <main className='column3-main'>
-          {selectedArea && (
-            <SelectedAreaDisplay selectedArea={selectedArea} imageData={file} />
-          )}
-        </main>
-        <footer className='column3-footer'>
-          <button className='Add'>+ ADD SAMPLES</button>
-        </footer>
-      </div>
+    <div className="samples">
+      <h3>Saved Samples</h3>
+      <ul>
+        {samples.map(sample => (
+          <li key={sample.id}>
+            <div>
+              <strong>Label:</strong> {sample.label}
+            </div>
+            <div>
+              <strong>Kind:</strong> {sample.kind}
+            </div>
+            <div>
+              <strong>Language:</strong> {sample.language}
+            </div>
+            <button onClick={() => onEditSample(sample)}>Edit</button>
+            <button onClick={() => onDeleteSample(sample.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+      <footer className='sample-footer'>
+        <button onClick={onAddSample}>+ ADD SAMPLES</button>
+      </footer>
     </div>
   );
-}
-//dddd
+};
 
 export default Samples;

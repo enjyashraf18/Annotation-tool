@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
 const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
-
   const destRef = useRef(null);
 
   useEffect(() => {
@@ -10,14 +9,17 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
       img.src = imageData;
       img.onload = () => {
         const context = destRef.current.getContext('2d');
-        const scale = 1 / (selectedArea.scale || 1); 
-        
+        const scale = selectedArea.scale || 1;
+
+        destRef.current.width = selectedArea.width * scale;
+        destRef.current.height = selectedArea.height * scale;
+
         context.clearRect(0, 0, destRef.current.width, destRef.current.height);
 
         context.drawImage(
           img,
-          selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height, 
-          0, 0, destRef.current.width, destRef.current.height 
+          selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height,
+          0, 0, selectedArea.width * scale, selectedArea.height * scale
         );
       };
     }
@@ -26,8 +28,7 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
   if (!selectedArea || !imageData) return null;
 
   return (
-      <div className="selected-area-display">
-      {/* <h3>Selected Area</h3> */}
+    <div className="selected-area-display">
       <div
         style={{
           position: 'relative',
@@ -38,23 +39,11 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
       >
         <canvas
           ref={destRef}
-          width={selectedArea.width}
-          height={selectedArea.height}
           style={{
-            width: selectedArea.width,
-            height: selectedArea.height,
+            width: '100%',
+            height: 'auto',
           }}
         />
-        <div
-          style={{
-            position: 'absolute',
-            left: selectedArea.x,
-            top: selectedArea.y,
-            width: selectedArea.width,
-            height: selectedArea.height,
-            border: '2px solid red',
-          }}
-        ></div>
       </div>
     </div>
   );

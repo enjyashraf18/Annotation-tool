@@ -1,18 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Stage, Layer, Rect, Text, Group } from 'react-konva';
 
-const DrawingApp = ({ onSelection, imageSize, zoomlevel }) => {
+const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoomLevel, setZoomLevel, allowDrawing, onCapture, onDelete }) => {
     const [tool, setTool] = useState('rectangle');
     const [shapes, setShapes] = useState([]);
     const [activeShapeIndex, setActiveShapeIndex] = useState(null);
-    const [allowDrawing, setAllowDrawing] = useState(true);
     const isDrawing = useRef(false);
     const startPoint = useRef({ x: 0, y: 0 });
 
     const handleMouseDown = (e) => {
-        console.log(zoomlevel)
-        console.log(zoomlevel)
-        console.log(zoomlevel)
         if (activeShapeIndex !== null || !allowDrawing) return;
 
         isDrawing.current = true;
@@ -38,31 +34,41 @@ const DrawingApp = ({ onSelection, imageSize, zoomlevel }) => {
     };
 
     const handleMouseUp = () => {
+        if (!isDrawing.current) return;
+
         const newShapes = shapes.slice();
         isDrawing.current = false;
         onSelection(newShapes);
     };
 
     const handleCapture = () => {
-        setAllowDrawing(false);
+        onCapture();  // Call capture handler passed from parent
         setActiveShapeIndex(null);
-        onSelection(shapes[activeShapeIndex])
     };
 
     const handleDelete = () => {
         const newShapes = shapes.slice();
-        newShapes.splice(activeShapeIndex, 1);
-        setShapes(newShapes);
-        setAllowDrawing(true);
+        if (activeShapeIndex !== null) {
+            newShapes.splice(activeShapeIndex, 1);
+            setShapes(newShapes);
+            onDelete();  // Call delete handler passed from parent
+        }
         setActiveShapeIndex(null);
     };
+
+    useEffect(() => {
+        const stage = document.getElementsByClassName('konva-div')[0]?.children[1];
+        if (stage) {
+            stage.scale({ x: zoomLevel, y: zoomLevel });
+            stage.draw();
+        }
+    }, [zoomLevel]);
 
     return (
         <div className='konva-div'>
             <Stage
-                
-                width={imageSize.width*zoomlevel}
-                height={imageSize.height*zoomlevel}
+                width={imageSize.width}
+                height={imageSize.height}
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
@@ -118,5 +124,3 @@ const DrawingApp = ({ onSelection, imageSize, zoomlevel }) => {
 };
 
 export default DrawingApp;
-
-
