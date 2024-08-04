@@ -42,8 +42,10 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
     };
 
     const handleCapture = () => {
-        onCapture();  // Call capture handler passed from parent
+        onCapture();  
+        // setActiveShapeIndex(null);
         setActiveShapeIndex(null);
+        onSelection(shapes[activeShapeIndex])
     };
 
     const handleDelete = () => {

@@ -353,7 +353,7 @@ function App() {
         {showAddSample && (
           <AddSample
             selectedArea={selectedArea}
-            imageData={imageData}
+            imageData={file}
             onAddSample={handleAddSample}
             onCancel={handleCancel}
             sampleToEdit={editingSample}

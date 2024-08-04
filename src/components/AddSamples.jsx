@@ -17,6 +17,7 @@ const AddSample = ({ selectedArea, imageData, onAddSample, onCancel, sampleToEdi
   const handleSubmit = () => {
     const sampleDetails = { label, kind, language, selectedArea, imageData };
     onAddSample(sampleDetails);
+    console.log(imageData)
   };
 
   return (
