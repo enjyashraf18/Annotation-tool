@@ -7,7 +7,7 @@ const Samples = ({ samples, onEditSample, onDeleteSample, onAddSample }) => {
 
   return (
     <div className="samples">
-      <h3>Saved Samples</h3>
+      <h3>Total uploaded samples</h3>
       <ul>
         {samples.map(sample => (
           <li key={sample.id}>

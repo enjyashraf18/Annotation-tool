@@ -32,17 +32,17 @@ function App() {
   const [zoomInput, setZoomInput] = useState('');
   const [thumbnails, setThumbnails] = useState([]);
   // const [selectedArea, setSelectedArea] = useState(null);
-  
-    const [selectedArea, setSelectedArea] = useState({
-      x: 10, y: 10, width: 100, height: 100, scale: 1
-    });
-    const [imageData, setImageData] = useState('path_to_your_image.jpg');
+
+  const [selectedArea, setSelectedArea] = useState({
+    x: 10, y: 10, width: 100, height: 100, scale: 1
+  });
+  const [imageData, setImageData] = useState('path_to_your_image.jpg');
   const [allowDrawing, setAllowDrawing] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [showAddSample, setShowAddSample] = useState(false);
   const [samples, setSamples] = useState([]);
   const [editingSample, setEditingSample] = useState(null);
-  console.log("Test",imageSize)
+  console.log("Test", imageSize)
 
   const handleSelection = (area) => {
     setSelectedArea({
@@ -50,57 +50,65 @@ function App() {
       scale: zoomLevel
     });
   };
-//   const handleAddSample = () => {
-//     console.log('Add Sample Clicked');
-  
-//     setAllowDrawing(true);
-//     // Handle the added sample details
-//     setShowAddSample(false); 
-//     // Hide the AddSample popup // Enable drawing when samples are added
-// };
-const handleAddSample = (sampleDetails) => {
-  console.log('Add Sample Clicked');
-  
-      setAllowDrawing(true);
-      // Handle the added sample details
-      setShowAddSample(false); 
-      if (editingSample) {
-        // Update existing sample
-        setSamples(samples.map(sample => 
-          sample.id === editingSample.id ? { ...sampleDetails, id: editingSample.id } : sample
-        ));
-      } else {
-        // Add new sample
-        setSamples([...samples, { ...sampleDetails, id: counter }]);
-        setCounter(counter + 1);
-      }
-      setShowAddSample(false);
-      setEditingSample(null);
-    };
-  
-    const handleCancel = () => {
-      setShowAddSample(false);
-      setEditingSample(null);
-    };
-  
-    const handleEditSample = (sample) => {
-      setSelectedArea(sample.selectedArea);
-      setImageData(sample.imageData);
-      setEditingSample(sample);
-      setShowAddSample(true);
-    };
-  
-    const handleDeleteSample = (id) => {
-      setSamples(samples.filter(sample => sample.id !== id));
-    };
+  //   const handleAddSample = () => {
+  //     console.log('Add Sample Clicked');
 
-const handleCapture = () => {
-  setCounter(counter + 1); // Increase counter on capture
-  setShowAddSample(true); // Show the AddSample popup
-};
-const handleDelete = () => {
-  setCounter(counter > 0 ? counter - 1 : 0); // Decrease counter on delete, ensuring it doesn't go below 0
-};
+  //     setAllowDrawing(true);
+  //     // Handle the added sample details
+  //     setShowAddSample(false); 
+  //     // Hide the AddSample popup // Enable drawing when samples are added
+  // };
+
+
+  const handleAllowingAddSample = (sampleDetails) => {
+
+    setAllowDrawing(true);
+
+  };
+  
+  const handleAddSample = (sampleDetails) => {
+    console.log('Add Sample Clicked');
+
+    setAllowDrawing(true);
+    // Handle the added sample details
+    setShowAddSample(false);
+    if (editingSample) {
+      // Update existing sample
+      setSamples(samples.map(sample =>
+        sample.id === editingSample.id ? { ...sampleDetails, id: editingSample.id } : sample
+      ));
+    } else {
+      // Add new sample
+      setSamples([...samples, { ...sampleDetails, id: counter }]);
+      setCounter(counter + 1);
+    }
+    setShowAddSample(false);
+    setEditingSample(null);
+  };
+
+  const handleCancel = () => {
+    setShowAddSample(false);
+    setEditingSample(null);
+  };
+
+  const handleEditSample = (sample) => {
+    setSelectedArea(sample.selectedArea);
+    setImageData(sample.imageData);
+    setEditingSample(sample);
+    setShowAddSample(true);
+  };
+
+  const handleDeleteSample = (id) => {
+    setSamples(samples.filter(sample => sample.id !== id));
+  };
+
+  const handleCapture = () => {
+    setCounter(counter + 1); // Increase counter on capture
+    setShowAddSample(true); // Show the AddSample popup
+  };
+  const handleDelete = () => {
+    setCounter(counter > 0 ? counter - 1 : 0); // Decrease counter on delete, ensuring it doesn't go below 0
+  };
 
 
 
@@ -284,15 +292,15 @@ const handleDelete = () => {
             />
           )}
 
-<DrawingApp
-                onSelection={handleSelection}
-                imageSize={imageSize}
-                zoomLevel={zoomLevel}
-                setZoomLevel={setZoomLevel}
-                allowDrawing={allowDrawing}
-                onCapture={handleCapture}  // Pass capture handler
-                onDelete={handleDelete}    // Pass delete handler
-            />
+          <DrawingApp
+            onSelection={handleSelection}
+            imageSize={imageSize}
+            zoomLevel={zoomLevel}
+            setZoomLevel={setZoomLevel}
+            allowDrawing={allowDrawing}
+            onCapture={handleCapture}  // Pass capture handler
+            onDelete={handleDelete}    // Pass delete handler
+          />
         </main>
         <footer className="App-footer">
           <div>
@@ -335,23 +343,22 @@ const handleDelete = () => {
         </footer>-
       </div>
       <div className='column column3'>
-      <Samples
-                     samples={samples} 
-                     onEditSample={handleEditSample} 
-                     onDeleteSample={handleDeleteSample}  
-                counter={counter}
-                onAddSample={handleAddSample}
-            />
-                 {showAddSample && (
-        <AddSample
-          selectedArea={selectedArea}
-          imageData={imageData}
-          onAddSample={handleAddSample}
-          onCancel={handleCancel}
-
-          sampleToEdit={editingSample}
+        <Samples
+          samples={samples}
+          onEditSample={handleEditSample}
+          onDeleteSample={handleDeleteSample}
+          counter={counter}
+          onAddSample={handleAllowingAddSample}
         />
-            )}
+        {showAddSample && (
+          <AddSample
+            selectedArea={selectedArea}
+            imageData={imageData}
+            onAddSample={handleAddSample}
+            onCancel={handleCancel}
+            sampleToEdit={editingSample}
+          />
+        )}
       </div>
     </div>
   );
