@@ -1,4 +1,7 @@
 import React from 'react';
+import { MdDraw } from "react-icons/md";
+
+
 
 const Samples = ({ samples, onEditSample, onDeleteSample, onAddSample }) => {
   if (!samples) {
@@ -25,9 +28,6 @@ const Samples = ({ samples, onEditSample, onDeleteSample, onAddSample }) => {
           </li>
         ))}
       </ul>
-      <footer className='sample-footer'>
-        <button onClick={onAddSample}>+ ADD SAMPLES</button>
-      </footer>
     </div>
   );
 };

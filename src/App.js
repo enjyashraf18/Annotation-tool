@@ -18,6 +18,8 @@ import DrawingApp from './components/DrawingApp';
 import SelectedAreaDisplay from './components/SelectedAreaDisplay';
 import AddSample from './components/AddSamples';
 import Samples from './components/Samples';
+import { MdDraw } from "react-icons/md";
+
 
 
 
@@ -65,7 +67,7 @@ function App() {
     setAllowDrawing(true);
 
   };
-  
+
   const handleAddSample = (sampleDetails) => {
     console.log('Add Sample Clicked');
 
@@ -269,6 +271,11 @@ function App() {
             <MdOutlineFileUpload size="2.5rem" />
             <span>Upload</span>
           </label>
+
+          <button className="annotate-button" onClick={handleAllowingAddSample}>
+            <MdDraw size="2.5rem" />
+            <span>Annotate</span>
+          </button>
         </header>
         <main className="App-main">
           {fileType === 'pdf' && (
