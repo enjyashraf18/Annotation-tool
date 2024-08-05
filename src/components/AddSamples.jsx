@@ -5,6 +5,7 @@ const AddSample = ({ selectedArea, imageData, onAddSample, onCancel, sampleToEdi
   const [label, setLabel] = useState('');
   const [kind, setKind] = useState('text');
   const [language, setLanguage] = useState('English');
+  const [numSamples, setNumSamples] = useState(0);
 
   useEffect(() => {
     if (sampleToEdit) {
@@ -17,7 +18,6 @@ const AddSample = ({ selectedArea, imageData, onAddSample, onCancel, sampleToEdi
   const handleSubmit = () => {
     const sampleDetails = { label, kind, language, selectedArea, imageData };
     onAddSample(sampleDetails);
-    console.log(imageData)
   };
 
   return (

@@ -3,8 +3,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 
 
 
-const Samples = ({ samples, onEditSample, onDeleteSample }) => {
-  const [counter, setCounter] = useState(2);
+const Samples = ({ samples, onEditSample, onDeleteSample, numSamples }) => {
   if (!samples) {
     return null; 
   }
@@ -13,7 +12,7 @@ const Samples = ({ samples, onEditSample, onDeleteSample }) => {
     <div className="samples">
       <div className='samples-counter'>
       <h5>Total uploaded samples</h5>
-      <span>{counter}</span>
+      <span>{numSamples}</span>
       </div>
 
       <ul className='samples-content'>
@@ -28,11 +27,6 @@ const Samples = ({ samples, onEditSample, onDeleteSample }) => {
             <div>
               <strong>Language:</strong> {sample.language}
             </div>
-{/* 
-            <button>
-            <HiDotsHorizontal />
-            </button> */}
-            
             <button onClick={() => onEditSample(sample)}>Edit</button>
             <button onClick={() => onDeleteSample(sample.id)}>Delete</button>
           </li>

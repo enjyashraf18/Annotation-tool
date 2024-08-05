@@ -21,6 +21,7 @@ import { MdDraw } from "react-icons/md";
 
 function App() {
   const [counter, setCounter] = useState(0);
+  const [numSamples, setNumSamples] = useState(0);
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -46,29 +47,24 @@ function App() {
   const [editingSample, setEditingSample] = useState(null);
   const [fileName, setFileName] = useState(null);
 
-  // const loadSamples = (fileName) => {
-  //   const storedSamples = localStorage.getItem(`samples_${fileName}`);
-  //   if (storedSamples) {
-  //     setSamples(JSON.parse(storedSamples));
-  //   } else {
-  //     setSamples([]);
-  //   }
-  // };
 
   const loadSamples = (fileName) => {
     const storedSamples = localStorage.getItem(`samples_${fileName}`);
+    const storedNumSamples = localStorage.getItem(`numSamples_${fileName}`);
     if (storedSamples) {
       setSamples(JSON.parse(storedSamples));
+      setNumSamples(storedNumSamples ? JSON.parse(storedNumSamples) : 0);
     } else {
       setSamples([]);
+      setNumSamples(0);
     }
   };
 
-  // const saveSamples = (fileName, samples) => {
-  //   localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
-  // };
+
   const saveSamples = (fileName, samples) => {
+    setNumSamples(samples.length);
     localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
+    localStorage.setItem(`numSamples_${fileName}`, JSON.stringify(samples.length));
   };
 
   const handleSelection = (area) => {
@@ -84,27 +80,10 @@ function App() {
 
   };
 
-  // const handleAddSample = (sampleDetails) => {
-  //   const fileName = file.name || 'default';
-  //   if (editingSample) {
-  //     const updatedSamples = samples.map(sample =>
-  //       sample.id === editingSample.id ? { ...sampleDetails, id: editingSample.id } : sample
-  //     );
-  //     setSamples(updatedSamples);
-  //     saveSamples(fileName, updatedSamples);
-  //   } else {
-  //     const newSample = { ...sampleDetails, id: counter };
-  //     const updatedSamples = [...samples, newSample];
-  //     setSamples(updatedSamples);
-  //     setCounter(counter + 1);
-  //     saveSamples(fileName, updatedSamples);
-  //   }
-  //   setShowAddSample(false);
-  //   setEditingSample(null);
-  // };
+
 
   const handleAddSample = (sampleDetails) => {
-    if (!fileName) return; // Ensure fileName is set
+    if (!fileName) return;
     if (editingSample) {
       const updatedSamples = samples.map(sample =>
         sample.id === editingSample.id ? { ...sampleDetails, id: editingSample.id } : sample
@@ -121,6 +100,14 @@ function App() {
     setShowAddSample(false);
     setEditingSample(null);
   };
+  
+  const handleDeleteSample = (id) => {
+    if (!fileName) return;
+    const updatedSamples = samples.filter(sample => sample.id !== id);
+    setSamples(updatedSamples);
+    saveSamples(fileName, updatedSamples);
+  };
+  
 
   const handleCancel = () => {
     setShowAddSample(false);
@@ -133,55 +120,17 @@ function App() {
     setShowAddSample(true);
   };
 
-  // const handleDeleteSample = (id) => {
-  //   const fileName = file.name || 'default';
-  //   const updatedSamples = samples.filter(sample => sample.id !== id);
-  //   setSamples(updatedSamples);
-  //   saveSamples(fileName, updatedSamples);
-  // };
-  const handleDeleteSample = (id) => {
-    if (!fileName) return; // Ensure fileName is set
-    const updatedSamples = samples.filter(sample => sample.id !== id);
-    setSamples(updatedSamples);
-    saveSamples(fileName, updatedSamples);
-  };
 
   const handleCapture = () => {
-    setCounter(counter + 1); // Increase counter on capture
-    setShowAddSample(true); // Show the AddSample popup
+    setCounter(counter + 1);
+    setShowAddSample(true); 
   };
   const handleDelete = () => {
-    setCounter(counter > 0 ? counter - 1 : 0); // Decrease counter on delete, ensuring it doesn't go below 0
+    setCounter(counter > 0 ? counter - 1 : 0); 
   };
 
 
 
-
-
-  // function handleFile(e) {
-  //   const selectedFile = e.target.files[0];
-  //   const fileType = selectedFile?.type;
-  //   if (!selectedFile) return;
-
-  //   if (fileType === 'application/pdf') {
-  //     setFileType('pdf');
-  //     const reader = new FileReader();
-  //     setZoomLevel(1);
-  //     reader.onload = (e) => {
-  //       setFile(e.target.result);
-  //     };
-  //     reader.readAsDataURL(selectedFile);
-  //   } else if (fileType.startsWith('image/')) {
-  //     setFile(URL.createObjectURL(selectedFile));
-  //     setZoomLevel(1);
-  //     setFileType('image');
-  //     setNumPages(1);
-  //     setPageNumber(1);
-  //     setThumbnails([URL.createObjectURL(selectedFile)]);
-  //   } else {
-  //     alert('The selected file should be an image or a PDF.');
-  //   }
-  // }
 
   function handleFile(e) {
     const selectedFile = e.target.files[0];
@@ -189,7 +138,7 @@ function App() {
   
     if (!selectedFile) return;
   
-    setFileName(selectedFile.name); // Store the file name
+    setFileName(selectedFile.name); 
   
     if (fileType === 'application/pdf') {
       setFileType('pdf');
@@ -199,7 +148,7 @@ function App() {
         setFile(e.target.result);
       };
       reader.readAsDataURL(selectedFile);
-      loadSamples(selectedFile.name); // Load samples for the file
+      loadSamples(selectedFile.name);
     } else if (fileType.startsWith('image/')) {
       const objectURL = URL.createObjectURL(selectedFile);
       setFile(objectURL);
@@ -208,7 +157,7 @@ function App() {
       setNumPages(1);
       setPageNumber(1);
       setThumbnails([objectURL]);
-      loadSamples(selectedFile.name); // Load samples for the file
+      loadSamples(selectedFile.name); 
     } else {
       alert('The selected file should be an image or a PDF.');
     }
@@ -436,7 +385,7 @@ function App() {
           samples={samples}
           onEditSample={handleEditSample}
           onDeleteSample={handleDeleteSample}
-          counter={counter}
+          numSamples={numSamples}
 
         />
         {showAddSample && (
