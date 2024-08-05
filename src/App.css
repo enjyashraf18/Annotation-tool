@@ -484,6 +484,45 @@ width:100%;
   border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+.samples {
+  margin: 20px;
+}
+
+.samples-counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.samples-content {
+  list-style-type: none;
+  padding: 0;
+  background-color: white;
+}
+
+.one-sample {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sample-thumbnail {
+  width: 100px; /* Adjust the width as needed */
+  height: auto;
+  margin-right: 20px;
+}
+
+.sample-info {
+  flex-grow: 1;
+}
+
+.sample-info div {
+  margin-bottom: 5px;
+}
+
+.sample-info button {
+  margin-right: 5px;
+}
 
 
 .fileUploadButton {
@@ -561,4 +600,62 @@ width:100%;
   border-bottom: 1px solid rgb(212, 217, 224);
   margin-right: 20px;
   margin-left: 20px;
+}
+/* .sample-info {
+  flex-grow: 1;
+} */
+
+.sample-info div {
+  margin-bottom: 5px;
+}
+
+.sample-info button {
+  margin-right: 5px;
+}
+
+.sample-dropdown-menu {
+  right: 0;
+  left: auto !important;
+}
+
+.sample-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.dropdown-menu {
+  display: block;
+  position: absolute;
+  right: 0;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.dropdown-menu button {
+  display: block;
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background: #f0f0f0;
 }
