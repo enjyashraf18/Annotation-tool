@@ -1,19 +1,24 @@
-import React from 'react';
-import { MdDraw } from "react-icons/md";
+import React, { useState, useEffect } from 'react';
+import { HiDotsHorizontal } from "react-icons/hi";
 
 
 
-const Samples = ({ samples, onEditSample, onDeleteSample, onAddSample }) => {
+const Samples = ({ samples, onEditSample, onDeleteSample }) => {
+  const [counter, setCounter] = useState(2);
   if (!samples) {
-    return null; // Prevents the map error if samples is undefined
+    return null; 
   }
 
   return (
     <div className="samples">
-      <h3>Total uploaded samples</h3>
-      <ul>
+      <div className='samples-counter'>
+      <h5>Total uploaded samples</h5>
+      <span>{counter}</span>
+      </div>
+
+      <ul className='samples-content'>
         {samples.map(sample => (
-          <li key={sample.id}>
+          <li className ='one-sample'key={sample.id}>
             <div>
               <strong>Label:</strong> {sample.label}
             </div>
@@ -23,6 +28,11 @@ const Samples = ({ samples, onEditSample, onDeleteSample, onAddSample }) => {
             <div>
               <strong>Language:</strong> {sample.language}
             </div>
+{/* 
+            <button>
+            <HiDotsHorizontal />
+            </button> */}
+            
             <button onClick={() => onEditSample(sample)}>Edit</button>
             <button onClick={() => onDeleteSample(sample.id)}>Delete</button>
           </li>

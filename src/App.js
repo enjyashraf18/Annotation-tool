@@ -15,13 +15,9 @@ import { SlNotebook } from "react-icons/sl";
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import './components/FileUpload.css';
 import DrawingApp from './components/DrawingApp';
-import SelectedAreaDisplay from './components/SelectedAreaDisplay';
 import AddSample from './components/AddSamples';
 import Samples from './components/Samples';
 import { MdDraw } from "react-icons/md";
-
-
-
 
 function App() {
   const [counter, setCounter] = useState(0);
@@ -33,18 +29,47 @@ function App() {
   const [pageInput, setPageInput] = useState('');
   const [zoomInput, setZoomInput] = useState('');
   const [thumbnails, setThumbnails] = useState([]);
-  // const [selectedArea, setSelectedArea] = useState(null);
+
+
 
   const [selectedArea, setSelectedArea] = useState({
     x: 10, y: 10, width: 100, height: 100, scale: 1
   });
+
+  
+
   const [imageData, setImageData] = useState('path_to_your_image.jpg');
   const [allowDrawing, setAllowDrawing] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [showAddSample, setShowAddSample] = useState(false);
   const [samples, setSamples] = useState([]);
   const [editingSample, setEditingSample] = useState(null);
-  console.log("Test", imageSize)
+  const [fileName, setFileName] = useState(null);
+
+  // const loadSamples = (fileName) => {
+  //   const storedSamples = localStorage.getItem(`samples_${fileName}`);
+  //   if (storedSamples) {
+  //     setSamples(JSON.parse(storedSamples));
+  //   } else {
+  //     setSamples([]);
+  //   }
+  // };
+
+  const loadSamples = (fileName) => {
+    const storedSamples = localStorage.getItem(`samples_${fileName}`);
+    if (storedSamples) {
+      setSamples(JSON.parse(storedSamples));
+    } else {
+      setSamples([]);
+    }
+  };
+
+  // const saveSamples = (fileName, samples) => {
+  //   localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
+  // };
+  const saveSamples = (fileName, samples) => {
+    localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
+  };
 
   const handleSelection = (area) => {
     setSelectedArea({
@@ -52,15 +77,6 @@ function App() {
       scale: zoomLevel
     });
   };
-  //   const handleAddSample = () => {
-  //     console.log('Add Sample Clicked');
-
-  //     setAllowDrawing(true);
-  //     // Handle the added sample details
-  //     setShowAddSample(false); 
-  //     // Hide the AddSample popup // Enable drawing when samples are added
-  // };
-
 
   const handleAllowingAddSample = (sampleDetails) => {
 
@@ -68,21 +84,39 @@ function App() {
 
   };
 
-  const handleAddSample = (sampleDetails) => {
-    console.log('Add Sample Clicked');
+  // const handleAddSample = (sampleDetails) => {
+  //   const fileName = file.name || 'default';
+  //   if (editingSample) {
+  //     const updatedSamples = samples.map(sample =>
+  //       sample.id === editingSample.id ? { ...sampleDetails, id: editingSample.id } : sample
+  //     );
+  //     setSamples(updatedSamples);
+  //     saveSamples(fileName, updatedSamples);
+  //   } else {
+  //     const newSample = { ...sampleDetails, id: counter };
+  //     const updatedSamples = [...samples, newSample];
+  //     setSamples(updatedSamples);
+  //     setCounter(counter + 1);
+  //     saveSamples(fileName, updatedSamples);
+  //   }
+  //   setShowAddSample(false);
+  //   setEditingSample(null);
+  // };
 
-    setAllowDrawing(true);
-    // Handle the added sample details
-    setShowAddSample(false);
+  const handleAddSample = (sampleDetails) => {
+    if (!fileName) return; // Ensure fileName is set
     if (editingSample) {
-      // Update existing sample
-      setSamples(samples.map(sample =>
+      const updatedSamples = samples.map(sample =>
         sample.id === editingSample.id ? { ...sampleDetails, id: editingSample.id } : sample
-      ));
+      );
+      setSamples(updatedSamples);
+      saveSamples(fileName, updatedSamples);
     } else {
-      // Add new sample
-      setSamples([...samples, { ...sampleDetails, id: counter }]);
+      const newSample = { ...sampleDetails, id: counter };
+      const updatedSamples = [...samples, newSample];
+      setSamples(updatedSamples);
       setCounter(counter + 1);
+      saveSamples(fileName, updatedSamples);
     }
     setShowAddSample(false);
     setEditingSample(null);
@@ -92,7 +126,6 @@ function App() {
     setShowAddSample(false);
     setEditingSample(null);
   };
-
   const handleEditSample = (sample) => {
     setSelectedArea(sample.selectedArea);
     setImageData(sample.imageData);
@@ -100,8 +133,17 @@ function App() {
     setShowAddSample(true);
   };
 
+  // const handleDeleteSample = (id) => {
+  //   const fileName = file.name || 'default';
+  //   const updatedSamples = samples.filter(sample => sample.id !== id);
+  //   setSamples(updatedSamples);
+  //   saveSamples(fileName, updatedSamples);
+  // };
   const handleDeleteSample = (id) => {
-    setSamples(samples.filter(sample => sample.id !== id));
+    if (!fileName) return; // Ensure fileName is set
+    const updatedSamples = samples.filter(sample => sample.id !== id);
+    setSamples(updatedSamples);
+    saveSamples(fileName, updatedSamples);
   };
 
   const handleCapture = () => {
@@ -116,12 +158,39 @@ function App() {
 
 
 
+  // function handleFile(e) {
+  //   const selectedFile = e.target.files[0];
+  //   const fileType = selectedFile?.type;
+  //   if (!selectedFile) return;
+
+  //   if (fileType === 'application/pdf') {
+  //     setFileType('pdf');
+  //     const reader = new FileReader();
+  //     setZoomLevel(1);
+  //     reader.onload = (e) => {
+  //       setFile(e.target.result);
+  //     };
+  //     reader.readAsDataURL(selectedFile);
+  //   } else if (fileType.startsWith('image/')) {
+  //     setFile(URL.createObjectURL(selectedFile));
+  //     setZoomLevel(1);
+  //     setFileType('image');
+  //     setNumPages(1);
+  //     setPageNumber(1);
+  //     setThumbnails([URL.createObjectURL(selectedFile)]);
+  //   } else {
+  //     alert('The selected file should be an image or a PDF.');
+  //   }
+  // }
+
   function handleFile(e) {
     const selectedFile = e.target.files[0];
     const fileType = selectedFile?.type;
-
+  
     if (!selectedFile) return;
-
+  
+    setFileName(selectedFile.name); // Store the file name
+  
     if (fileType === 'application/pdf') {
       setFileType('pdf');
       const reader = new FileReader();
@@ -130,17 +199,21 @@ function App() {
         setFile(e.target.result);
       };
       reader.readAsDataURL(selectedFile);
+      loadSamples(selectedFile.name); // Load samples for the file
     } else if (fileType.startsWith('image/')) {
-      setFile(URL.createObjectURL(selectedFile));
+      const objectURL = URL.createObjectURL(selectedFile);
+      setFile(objectURL);
       setZoomLevel(1);
       setFileType('image');
       setNumPages(1);
       setPageNumber(1);
-      setThumbnails([URL.createObjectURL(selectedFile)]);
+      setThumbnails([objectURL]);
+      loadSamples(selectedFile.name); // Load samples for the file
     } else {
       alert('The selected file should be an image or a PDF.');
     }
   }
+  
 
 
   const onDocumentLoadSuccess = (numPages) => {
@@ -350,12 +423,21 @@ function App() {
         </footer>-
       </div>
       <div className='column column3'>
+      <header className='samples-header'>
+        {/* <button>
+        Fields & Info
+        </button> */}
+        <button className='Samples-button'>
+        <h3>Samples</h3>
+        </button>
+
+      </header>
         <Samples
           samples={samples}
           onEditSample={handleEditSample}
           onDeleteSample={handleDeleteSample}
           counter={counter}
-          onAddSample={handleAllowingAddSample}
+
         />
         {showAddSample && (
           <AddSample

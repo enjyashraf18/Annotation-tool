@@ -513,3 +513,52 @@ width:100%;
   font-size: 16px;
   transition: background-color 0.3s ease;
 }
+
+.Samples-button{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 12px;
+  background-color:white;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.samples-counter {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-bottom: 0.2px solid rgb(226,232,240);
+  display: flex;
+  flex-direction: column; /* Display items vertically */
+  align-items: flex-start; /* Align items to the left */
+}
+
+.samples-counter h5 {
+  font-size: 15px;
+  font-weight: 100;
+  margin-bottom: 5px; /* Add spacing between the heading and the counter */
+}
+
+.samples-counter span {
+  font-size: 20px; /* Bigger font size for the counter */
+  font-weight: bold; /* Bold style */
+}
+
+.samples-content{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.one-sample{
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgb(212, 217, 224);
+  margin-right: 20px;
+  margin-left: 20px;
+}
