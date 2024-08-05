@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { HiDotsHorizontal } from "react-icons/hi";
 import SelectedAreaDisplay from './SelectedAreaDisplay';
+import SelectedAreaSample from './SelectedAreaSample';
 
-const Samples = ({ samples, onEditSample, onDeleteSample, numSamples }) => {
+const Samples = ({ samples, onEditSample, onDeleteSample, numSamples, file }) => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
   const handleDropdownAction = (sampleId, action) => {
@@ -34,7 +35,7 @@ const Samples = ({ samples, onEditSample, onDeleteSample, numSamples }) => {
         {samples.map(sample => (
           <li className='one-sample' key={sample.id}>
             <div className='sample-thumbnail'>
-              <SelectedAreaDisplay selectedArea={sample.selectedArea} imageData={sample.imageData} />
+              <SelectedAreaSample selectedArea={sample.selectedArea} imageData={file} />
             </div>
             <div className='sample-info'>
               <div>

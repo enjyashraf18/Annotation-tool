@@ -40,7 +40,7 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
         <canvas
           ref={destRef}
           style={{
-            width: '100%x',
+            width: '100%',
             height: 'auto',
           }}
         />

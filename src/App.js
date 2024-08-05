@@ -36,9 +36,6 @@ function App() {
   const [selectedArea, setSelectedArea] = useState({
     x: 10, y: 10, width: 100, height: 100, scale: 1
   });
-
-  
-
   const [imageData, setImageData] = useState('path_to_your_image.jpg');
   const [allowDrawing, setAllowDrawing] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
@@ -75,9 +72,7 @@ function App() {
   };
 
   const handleAllowingAddSample = (sampleDetails) => {
-
     setAllowDrawing(true);
-
   };
 
 
@@ -128,9 +123,6 @@ function App() {
   const handleDelete = () => {
     setCounter(counter > 0 ? counter - 1 : 0); 
   };
-
-
-
 
   function handleFile(e) {
     const selectedFile = e.target.files[0];
@@ -386,6 +378,7 @@ function App() {
           onEditSample={handleEditSample}
           onDeleteSample={handleDeleteSample}
           numSamples={numSamples}
+          file={file}
 
         />
         {showAddSample && (
