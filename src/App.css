@@ -403,6 +403,7 @@ header {
   max-height: 100%;
   object-fit: contain;
   position: absolute;
+  /* height: 69vh; */
    /* height: 66vh;
   display: flex;  */
   
@@ -529,12 +530,19 @@ header {
   list-style-type: none;
   padding: 0;
   background-color: white;
+  flex: 1;
+  overflow-y: auto;
+  /* Enable vertical scrolling for thumbnails */
+  height: 76vh;
+  /* Full viewport height */
+  position: relative;
 }
 
 .one-sample {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  
 }
 
 .sample-thumbnail {
@@ -542,6 +550,7 @@ header {
   /* Adjust the width as needed */
   height: auto;
   margin-right: 20px;
+  
 }
 
 .sample-info {
@@ -720,7 +729,7 @@ overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
   height: auto;
 }
 

@@ -33,14 +33,14 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
         style={{
           position: 'relative',
           overflow: 'hidden',
-          width: '100%',
+          width: 'auto',
           height: 'auto',
         }}
       >
         <canvas
           ref={destRef}
           style={{
-            width: '100%x',
+            width: '100%',
             height: '230px',
           }}
         />
