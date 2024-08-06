@@ -107,8 +107,9 @@ body {
 .image-container {
   width: 100%;
   height: 69vh;
-  overflow: auto;
+  /* overflow: auto; */
   display: flex;
+  
 }
 
 .image-container img {
@@ -194,6 +195,8 @@ body {
   align-items: center;
   height: 72.5vh;
   position: relative;
+  overflow: auto;
+  
 }
 
 .file-upload-container {
@@ -395,29 +398,23 @@ header {
 }
 
 .konva-div {
-  position: absolute;
 
   max-width: 100%;
-  height: 69vh;
-  /* max-height: 100%; */
+  max-height: 100%;
   object-fit: contain;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  margin-right: 0px;
-  margin-left: 0px;
-  /* height: 69vh;
-   width: 100%;
-  height: 69vh;
+  position: absolute;
+  /* height: 69vh; */
+   /* height: 66vh;
   display: flex;  */
+  
 
 }
 
-.konvajs-content{
-  width: 100%;
-  height: 69vh;
-  overflow: auto;
+/* .konvajs-content{
+  position: absolute;
+  height: 72vh;
   display: flex;
-}
+} */
 
 
 .sample-footer {
@@ -545,6 +542,7 @@ header {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  
 }
 
 .sample-thumbnail {
@@ -552,6 +550,7 @@ header {
   /* Adjust the width as needed */
   height: auto;
   margin-right: 20px;
+  
 }
 
 .sample-info {
@@ -733,3 +732,9 @@ overflow: hidden;
   width: 100%;
   height: auto;
 }
+
+
+
+
+
+

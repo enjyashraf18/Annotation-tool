@@ -30,7 +30,8 @@ function App() {
   const [pageInput, setPageInput] = useState('');
   const [zoomInput, setZoomInput] = useState('');
   const [thumbnails, setThumbnails] = useState([]);
-
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
 
 
   const [selectedArea, setSelectedArea] = useState({
@@ -310,6 +311,12 @@ function App() {
               setImageSize={setImageSize}
               imageSize={imageSize}
               onSelection={handleSelection}
+              setImageWidth = {
+                setWidth
+              }
+              setImageHeight = {
+                setHeight
+              }
             />
           )}
 
@@ -317,10 +324,11 @@ function App() {
             onSelection={handleSelection}
             imageSize={imageSize}
             zoomLevel={zoomLevel}
-            setZoomLevel={setZoomLevel}
             allowDrawing={allowDrawing}
-            onCapture={handleCapture}  // Pass capture handler
-            onDelete={handleDelete}    // Pass delete handler
+            onCapture={handleCapture}  
+            onDelete={handleDelete}   
+            imageWidth={width}
+            imageHeight={height} 
           />
         </main>
         <footer className="App-footer">
