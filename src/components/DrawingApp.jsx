@@ -1,12 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Stage, Layer, Rect, Text, Group } from 'react-konva';
+import Konva from 'konva';
 
-const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoomLevel, setZoomLevel, allowDrawing, onCapture, onDelete }) => {
+
+const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoomLevel, allowDrawing, onCapture, onDelete, imageHeight, imageWidth }) => {
     const [tool, setTool] = useState('rectangle');
     const [shapes, setShapes] = useState([]);
     const [activeShapeIndex, setActiveShapeIndex] = useState(null);
     const isDrawing = useRef(false);
     const startPoint = useRef({ x: 0, y: 0 });
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+
 
     const handleMouseDown = (e) => {
         if (activeShapeIndex !== null || !allowDrawing) return;
@@ -42,7 +48,7 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
     };
 
     const handleCapture = () => {
-        onCapture();  
+        onCapture();
         // setActiveShapeIndex(null);
         setActiveShapeIndex(null);
         onSelection(shapes[activeShapeIndex])
@@ -58,29 +64,54 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
         setActiveShapeIndex(null);
     };
 
-    useEffect(() => {
-        const stage = document.getElementsByClassName('konva-div')[0]?.children[1];
-        if (stage) {
-            stage.scale({ x: zoomLevel, y: zoomLevel });
-            stage.draw();
-        }
-    }, [zoomLevel]);
+    // useEffect(() => {
+    //     // console.log('zoooooooom');
+    //     const stage = document.getElementsByClassName('konva-div')[0]?.children[1];
+    //     // const stage = document.getElementsByClassName('konva-div')[0];
+    //     console.log(stage);
+    //     if (stage) {
+    //         console.log('zoooooooom');
+    //         stage.scale({ x: zoomLevel, y: zoomLevel });
+    //         stage.draw();
+    //     }
+    // }, [zoomLevel]);
 
+    // useEffect(() => {
+    //     // console.log('zoooooooom');
+    //     var stage = new Konva.Stage({
+    //         container: 'konva-container',
+    //         width: width,
+    //         height: height,
+    //     });
+    //     // const stage = document.getElementsByClassName('konva-div')[0];
+    //     console.log(stage);
+    //     if (stage) {
+    //         console.log('zoooooooom');
+    //         stage.scale({ x: zoomLevel, y: zoomLevel });
+    //         stage.draw();
+    //     }
+    // }, [zoomLevel]);
+
+    console.log(zoomLevel)
     return (
-        <div className='konva-div'>
+        <div className='konva-div'
+            id="konva-container"
+        >
             <Stage
-                width={imageSize.width}
-                height={imageSize.height}
+                width={imageWidth}
+                height={imageHeight}
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
+                scaleX={zoomLevel}
+                scaleY={zoomLevel}
             >
                 <Layer>
                     {shapes.map((shape, i) => (
-                        <Group key={i}>
+                        <Group key={i}      >
                             <Rect
                                 x={shape.x}
-                                y={shape.y}
+                                y={shape.y}      
                                 width={shape.width}
                                 height={shape.height}
                                 fill="transparent"
@@ -126,3 +157,6 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
 };
 
 export default DrawingApp;
+
+
+

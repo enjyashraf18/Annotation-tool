@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 
-const ImageDisplay = ({ imageData, zoomLevel, onSelection ,imageSize, setImageSize}) => {
+const ImageDisplay = ({ imageData, zoomLevel, onSelection ,imageSize, setImageSize, setImageWidth, setImageHeight}) => {
   const imageRef = useRef(null);
 
   useEffect(() => {
@@ -24,11 +24,36 @@ const ImageDisplay = ({ imageData, zoomLevel, onSelection ,imageSize, setImageSi
     }
   }, [zoomLevel, imageSize]);
 
+
+
+    useEffect(() => {
+        const handleResize = (entries) => {
+            if (entries[0].contentRect) {
+              setImageWidth(entries[0].contentRect.width);
+              setImageHeight(entries[0].contentRect.height);
+            }
+        };
+
+        const observer = new ResizeObserver((entries) => {
+            handleResize(entries);
+        });
+
+        if (imageRef.current) {
+            observer.observe(imageRef.current);
+        }
+
+        return () => {
+            if (imageRef.current) {
+                observer.unobserve(imageRef.current);
+            }
+        };
+    }, []);
+
   return (
     <div
       className="image-container"
       style={{
-        overflow: 'auto',
+        // overflow: 'auto',
         position: 'relative',
         height: '72vh',
         display: 'flex',
