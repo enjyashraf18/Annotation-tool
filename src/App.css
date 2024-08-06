@@ -619,6 +619,7 @@ header {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  background-color: #efefef;
 
 }
 
@@ -627,6 +628,7 @@ header {
   border-bottom: 1px solid rgb(212, 217, 224);
   margin-right: 20px;
   margin-left: 20px;
+  background-color: #efefef;
 }
 
 /* .sample-info {
@@ -687,6 +689,7 @@ header {
 
 .dropdown-menu button:hover {
   background: #f0f0f0;
+  
 }
 
 /* .selected-area-display {

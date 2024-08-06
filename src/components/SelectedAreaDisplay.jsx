@@ -41,7 +41,7 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
           ref={destRef}
           style={{
             width: '100%x',
-            height: 'auto',
+            height: '230px',
           }}
         />
       </div>

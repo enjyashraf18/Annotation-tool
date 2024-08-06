@@ -39,13 +39,13 @@ const Samples = ({ samples, onEditSample, onDeleteSample, numSamples, file }) =>
             </div>
             <div className='sample-info'>
               <div>
-                <strong>Label:</strong> {sample.label}
+                <strong>Label</strong> {sample.label}
               </div>
               <div>
-                <strong>Kind:</strong> {sample.kind}
+                <strong>Kind</strong> {sample.kind}
               </div>
               <div>
-                <strong>Language:</strong> {sample.language}
+                <strong>Language</strong> {sample.language}
               </div>
               <div className="dropdown">
                 <button className="dropdown-toggle" onClick={() => toggleDropdown(sample.id)}>
