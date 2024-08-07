@@ -329,6 +329,7 @@ function App() {
             onDelete={handleDelete}   
             imageWidth={width}
             imageHeight={height} 
+            file = {file}
           />
         </main>
         <footer className="App-footer">

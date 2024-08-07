@@ -1,12 +1,29 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Stage, Layer, Rect, Text, Group } from 'react-konva';
 
-const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoomLevel, allowDrawing, onCapture, onDelete, imageHeight, imageWidth }) => {
+const DrawingApp = ({
+    onSelection,
+    imageSize = { width: 800, height: 600 },
+    zoomLevel,
+    allowDrawing,
+    onCapture,
+    onDelete,
+    imageHeight,
+    imageWidth,
+    file // New prop indicating the source of the image
+}) => {
     const [tool, setTool] = useState('rectangle');
     const [shapes, setShapes] = useState([]);
     const [activeShapeIndex, setActiveShapeIndex] = useState(null);
     const isDrawing = useRef(false);
     const startPoint = useRef({ x: 0, y: 0 });
+
+    // Reset shapes when a new image is loaded
+    useEffect(() => {
+        console.log("Image source changed:", file);
+        setShapes([]);
+        setActiveShapeIndex(null);
+    }, [file]);
 
     const handleMouseDown = (e) => {
         if (activeShapeIndex !== null || !allowDrawing) return;
