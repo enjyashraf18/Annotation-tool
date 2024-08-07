@@ -322,7 +322,6 @@ function App() {
 
           <DrawingApp
             onSelection={handleSelection}
-            imageSize={imageSize}
             zoomLevel={zoomLevel}
             allowDrawing={allowDrawing}
             onCapture={handleCapture}  

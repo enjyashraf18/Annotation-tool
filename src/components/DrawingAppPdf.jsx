@@ -1,39 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react';
+
+import React, { useState, useRef } from 'react';
 import { Stage, Layer, Rect, Text, Group } from 'react-konva';
 
-const DrawingApp = ({
-    onSelection,
-    zoomLevel,
-    allowDrawing,
-    onCapture,
-    onDelete,
-    imageHeight,
-    imageWidth,
-    file
-}) => {
+const DrawingAppPdf = ({ file, onSelection, zoomLevel, allowDrawing, onCapture, onDelete, pageNumber }) => {
     const [tool, setTool] = useState('rectangle');
     const [shapes, setShapes] = useState([]);
     const [activeShapeIndex, setActiveShapeIndex] = useState(null);
     const isDrawing = useRef(false);
     const startPoint = useRef({ x: 0, y: 0 });
 
-    useEffect(() => {
-        console.log("Image source changed:", file);
-        setShapes([]);
-        setActiveShapeIndex(null);
-    }, [file]);
-
     const handleMouseDown = (e) => {
         if (activeShapeIndex !== null || !allowDrawing) return;
 
         isDrawing.current = true;
         const pos = e.target.getStage().getPointerPosition();
-        startPoint.current = {
-            x: pos.x / zoomLevel,
-            y: pos.y / zoomLevel
-        };
+        startPoint.current = pos;
 
-        setShapes([...shapes, { tool, x: startPoint.current.x, y: startPoint.current.y, width: 0, height: 0 }]);
+        setShapes([...shapes, { tool, x: pos.x, y: pos.y, width: 0, height: 0 }]);
         setActiveShapeIndex(shapes.length);
     };
 
@@ -45,6 +28,7 @@ const DrawingApp = ({
         const newShapes = shapes.slice();
         let lastShape = newShapes[activeShapeIndex];
 
+        // Adjusting width, height, x, and y based on the direction of drawing
         if (point.x < startPoint.current.x) {
             lastShape.x = point.x;
             lastShape.width = startPoint.current.x - point.x;
@@ -58,8 +42,6 @@ const DrawingApp = ({
         } else {
             lastShape.height = point.y - startPoint.current.y;
         }
-
-        console.log(startPoint.current.x, startPoint.current.y);
 
         setShapes(newShapes);
     };
@@ -82,7 +64,7 @@ const DrawingApp = ({
         if (activeShapeIndex !== null) {
             newShapes.splice(activeShapeIndex, 1);
             setShapes(newShapes);
-            onDelete();  
+            onDelete();  // Call delete handler passed from parent
         }
         setActiveShapeIndex(null);
     };
@@ -96,8 +78,8 @@ const DrawingApp = ({
     return (
         <div className='konva-div' id="konva-container">
             <Stage
-                width={imageWidth}
-                height={imageHeight}
+                // width={imageWidth}
+                // height={imageHeight}
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
@@ -110,8 +92,8 @@ const DrawingApp = ({
                             <Rect
                                 x={shape.x}
                                 y={shape.y}
-                                width={shape.width}
-                                height={shape.height}
+                                // width={shape.width}
+                                // height={shape.height}
                                 fill="transparent"
                                 stroke={i === activeShapeIndex ? "#00f" : "#df4b26"}
                                 strokeWidth={2}
@@ -130,7 +112,7 @@ const DrawingApp = ({
                                         text="Capture"
                                         fontSize={15}
                                         fill="#00f"
-                                        {...adjustPosition(shape.x, shape.y, 0, -20, imageWidth, imageHeight)}
+                                        // {...adjustPosition(shape.x, shape.y, 0, -20, imageWidth, imageHeight)}
                                         onClick={handleCapture}
                                         style={{ cursor: 'pointer' }}
                                     />
@@ -138,7 +120,7 @@ const DrawingApp = ({
                                         text="Delete"
                                         fontSize={15}
                                         fill="#f00"
-                                        {...adjustPosition(shape.x, shape.y, 60, -20, imageWidth, imageHeight)}
+                                        // {...adjustPosition(shape.x, shape.y, 60, -20, imageWidth, imageHeight)}
                                         onClick={handleDelete}
                                         style={{ cursor: 'pointer' }}
                                     />
@@ -152,4 +134,4 @@ const DrawingApp = ({
     );
 };
 
-export default DrawingApp;
+export default DrawingAppPdf;
