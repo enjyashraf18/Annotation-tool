@@ -1,7 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Stage, Layer, Rect, Text, Group } from 'react-konva';
-import Konva from 'konva';
-
 
 const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoomLevel, allowDrawing, onCapture, onDelete, imageHeight, imageWidth }) => {
     const [tool, setTool] = useState('rectangle');
@@ -9,10 +7,6 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
     const [activeShapeIndex, setActiveShapeIndex] = useState(null);
     const isDrawing = useRef(false);
     const startPoint = useRef({ x: 0, y: 0 });
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-
-
 
     const handleMouseDown = (e) => {
         if (activeShapeIndex !== null || !allowDrawing) return;
@@ -33,8 +27,20 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
         const newShapes = shapes.slice();
         let lastShape = newShapes[activeShapeIndex];
 
-        lastShape.width = point.x - startPoint.current.x;
-        lastShape.height = point.y - startPoint.current.y;
+        // Adjusting width, height, x, and y based on the direction of drawing
+        if (point.x < startPoint.current.x) {
+            lastShape.x = point.x;
+            lastShape.width = startPoint.current.x - point.x;
+        } else {
+            lastShape.width = point.x - startPoint.current.x;
+        }
+
+        if (point.y < startPoint.current.y) {
+            lastShape.y = point.y;
+            lastShape.height = startPoint.current.y - point.y;
+        } else {
+            lastShape.height = point.y - startPoint.current.y;
+        }
 
         setShapes(newShapes);
     };
@@ -42,16 +48,14 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
     const handleMouseUp = () => {
         if (!isDrawing.current) return;
 
-        const newShapes = shapes.slice();
         isDrawing.current = false;
-        onSelection(newShapes);
+        onSelection(shapes);
     };
 
     const handleCapture = () => {
         onCapture();
-        // setActiveShapeIndex(null);
         setActiveShapeIndex(null);
-        onSelection(shapes[activeShapeIndex])
+        onSelection(shapes[activeShapeIndex]);
     };
 
     const handleDelete = () => {
@@ -64,39 +68,14 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
         setActiveShapeIndex(null);
     };
 
-    // useEffect(() => {
-    //     // console.log('zoooooooom');
-    //     const stage = document.getElementsByClassName('konva-div')[0]?.children[1];
-    //     // const stage = document.getElementsByClassName('konva-div')[0];
-    //     console.log(stage);
-    //     if (stage) {
-    //         console.log('zoooooooom');
-    //         stage.scale({ x: zoomLevel, y: zoomLevel });
-    //         stage.draw();
-    //     }
-    // }, [zoomLevel]);
+    const adjustPosition = (x, y, offsetX, offsetY, stageWidth, stageHeight) => {
+        const newX = x + offsetX > stageWidth - 60 ? stageWidth - 60 : x + offsetX;
+        const newY = y + offsetY > stageHeight - 20 ? stageHeight - 20 : y + offsetY;
+        return { x: newX, y: newY };
+    };
 
-    // useEffect(() => {
-    //     // console.log('zoooooooom');
-    //     var stage = new Konva.Stage({
-    //         container: 'konva-container',
-    //         width: width,
-    //         height: height,
-    //     });
-    //     // const stage = document.getElementsByClassName('konva-div')[0];
-    //     console.log(stage);
-    //     if (stage) {
-    //         console.log('zoooooooom');
-    //         stage.scale({ x: zoomLevel, y: zoomLevel });
-    //         stage.draw();
-    //     }
-    // }, [zoomLevel]);
-
-    console.log(zoomLevel)
     return (
-        <div className='konva-div'
-            id="konva-container"
-        >
+        <div className='konva-div' id="konva-container">
             <Stage
                 width={imageWidth}
                 height={imageHeight}
@@ -108,10 +87,10 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
             >
                 <Layer>
                     {shapes.map((shape, i) => (
-                        <Group key={i}      >
+                        <Group key={i}>
                             <Rect
                                 x={shape.x}
-                                y={shape.y}      
+                                y={shape.y}
                                 width={shape.width}
                                 height={shape.height}
                                 fill="transparent"
@@ -132,8 +111,7 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
                                         text="Capture"
                                         fontSize={15}
                                         fill="#00f"
-                                        x={shape.x}
-                                        y={shape.y - 20}
+                                        {...adjustPosition(shape.x, shape.y, 0, -20, imageWidth, imageHeight)}
                                         onClick={handleCapture}
                                         style={{ cursor: 'pointer' }}
                                     />
@@ -141,8 +119,7 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
                                         text="Delete"
                                         fontSize={15}
                                         fill="#f00"
-                                        x={shape.x + 60}
-                                        y={shape.y - 20}
+                                        {...adjustPosition(shape.x, shape.y, 60, -20, imageWidth, imageHeight)}
                                         onClick={handleDelete}
                                         style={{ cursor: 'pointer' }}
                                     />
@@ -157,6 +134,3 @@ const DrawingApp = ({ onSelection, imageSize = { width: 800, height: 600 }, zoom
 };
 
 export default DrawingApp;
-
-
-
