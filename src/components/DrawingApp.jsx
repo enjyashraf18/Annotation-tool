@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Stage, Layer, Rect, Text, Group } from 'react-konva';
+import { Html } from 'react-konva-utils';
+import { TbCaptureFilled } from "react-icons/tb";
+import { TbCaptureOff } from "react-icons/tb";
+
+
+
 
 const DrawingApp = ({
     onSelection,
@@ -82,7 +88,7 @@ const DrawingApp = ({
         if (activeShapeIndex !== null) {
             newShapes.splice(activeShapeIndex, 1);
             setShapes(newShapes);
-            onDelete();  
+            onDelete();
         }
         setActiveShapeIndex(null);
     };
@@ -126,7 +132,7 @@ const DrawingApp = ({
                             />
                             {i === activeShapeIndex && (
                                 <>
-                                    <Text
+                                    {/* <Text
                                         text="Capture"
                                         fontSize={15}
                                         fill="#00f"
@@ -141,7 +147,24 @@ const DrawingApp = ({
                                         {...adjustPosition(shape.x, shape.y, 60, -20, imageWidth, imageHeight)}
                                         onClick={handleDelete}
                                         style={{ cursor: 'pointer' }}
-                                    />
+                                    /> */}
+                                    <Html>
+                                        <div style={{
+                                            position: 'absolute',
+                                            top: shape.y * zoomLevel - 20,
+                                            left: shape.x * zoomLevel,
+                                            display: 'flex',
+                                            gap: '5px'
+                                        }}>
+                                            <button className ='capture-button'onClick={handleCapture}>
+                                                <TbCaptureFilled />
+                                            </button>
+                                            <button className ='capture-button' onClick={handleDelete}>
+                                                <TbCaptureOff />
+                                            </button>
+                                        </div>
+                                    </Html>
+
                                 </>
                             )}
                         </Group>

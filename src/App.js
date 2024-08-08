@@ -39,6 +39,8 @@ function App() {
   });
   const [imageData, setImageData] = useState('path_to_your_image.jpg');
   const [allowDrawing, setAllowDrawing] = useState(false);
+  const [allowCapturing, setAllowCapturing] = useState(false);
+  const [allowDeleting, setAllowDeleting] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [showAddSample, setShowAddSample] = useState(false);
   const [samples, setSamples] = useState([]);
@@ -74,6 +76,8 @@ function App() {
 
   const handleAllowingAddSample = (sampleDetails) => {
     setAllowDrawing(true);
+    setAllowCapturing(true);
+    setAllowDeleting(true);
   };
 
 
@@ -96,14 +100,14 @@ function App() {
     setShowAddSample(false);
     setEditingSample(null);
   };
-  
+
   const handleDeleteSample = (id) => {
     if (!fileName) return;
     const updatedSamples = samples.filter(sample => sample.id !== id);
     setSamples(updatedSamples);
     saveSamples(fileName, updatedSamples);
   };
-  
+
 
   const handleCancel = () => {
     setShowAddSample(false);
@@ -119,20 +123,20 @@ function App() {
 
   const handleCapture = () => {
     setCounter(counter + 1);
-    setShowAddSample(true); 
+    setShowAddSample(true);
   };
   const handleDelete = () => {
-    setCounter(counter > 0 ? counter - 1 : 0); 
+    setCounter(counter > 0 ? counter - 1 : 0);
   };
 
   function handleFile(e) {
     const selectedFile = e.target.files[0];
     const fileType = selectedFile?.type;
-  
+
     if (!selectedFile) return;
-  
-    setFileName(selectedFile.name); 
-  
+
+    setFileName(selectedFile.name);
+
     if (fileType === 'application/pdf') {
       setFileType('pdf');
       const reader = new FileReader();
@@ -150,12 +154,12 @@ function App() {
       setNumPages(1);
       setPageNumber(1);
       setThumbnails([objectURL]);
-      loadSamples(selectedFile.name); 
+      loadSamples(selectedFile.name);
     } else {
       alert('The selected file should be an image or a PDF.');
     }
   }
-  
+
 
 
   const onDocumentLoadSuccess = (numPages) => {
@@ -311,10 +315,10 @@ function App() {
               setImageSize={setImageSize}
               imageSize={imageSize}
               onSelection={handleSelection}
-              setImageWidth = {
+              setImageWidth={
                 setWidth
               }
-              setImageHeight = {
+              setImageHeight={
                 setHeight
               }
             />
@@ -324,11 +328,11 @@ function App() {
             onSelection={handleSelection}
             zoomLevel={zoomLevel}
             allowDrawing={allowDrawing}
-            onCapture={handleCapture}  
-            onDelete={handleDelete}   
+            onCapture={handleCapture}
+            onDelete={handleDelete}
             imageWidth={width}
-            imageHeight={height} 
-            file = {file}
+            imageHeight={height}
+            file={file}
           />
         </main>
         <footer className="App-footer">
@@ -372,15 +376,15 @@ function App() {
         </footer>-
       </div>
       <div className='column column3'>
-      <header className='samples-header'>
-        {/* <button>
+        <header className='samples-header'>
+          {/* <button>
         Fields & Info
         </button> */}
-        <button className='Samples-button'>
-        <h3>Samples</h3>
-        </button>
+          <button className='Samples-button'>
+            <h3>Samples</h3>
+          </button>
 
-      </header>
+        </header>
         <Samples
           samples={samples}
           onEditSample={handleEditSample}
@@ -398,6 +402,7 @@ function App() {
             sampleToEdit={editingSample}
           />
         )}
+
       </div>
     </div>
   );
