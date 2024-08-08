@@ -7,6 +7,8 @@ import { TbCaptureOff } from "react-icons/tb";
 
 
 
+let startPoint = { x: 0, y: 0 };
+
 const DrawingApp = ({
     onSelection,
     zoomLevel,
@@ -21,7 +23,7 @@ const DrawingApp = ({
     const [shapes, setShapes] = useState([]);
     const [activeShapeIndex, setActiveShapeIndex] = useState(null);
     const isDrawing = useRef(false);
-    const startPoint = useRef({ x: 0, y: 0 });
+
 
     useEffect(() => {
         console.log("Image source changed:", file);
@@ -33,13 +35,16 @@ const DrawingApp = ({
         if (activeShapeIndex !== null || !allowDrawing) return;
 
         isDrawing.current = true;
-        const pos = e.target.getStage().getPointerPosition();
-        startPoint.current = {
-            x: pos.x / zoomLevel,
-            y: pos.y / zoomLevel
+        const stage = e.target.getStage();
+        let pos = e.target.getStage().getPointerPosition();
+        const transform = stage.getAbsoluteTransform();
+        pos = transform.invert().point(pos);
+        startPoint = {
+            x: pos.x ,
+            y: pos.y 
         };
 
-        setShapes([...shapes, { tool, x: startPoint.current.x, y: startPoint.current.y, width: 0, height: 0 }]);
+        setShapes([...shapes, { tool, x: pos.x, y: pos.y, width: 0, height: 0 }]);
         setActiveShapeIndex(shapes.length);
     };
 
@@ -47,7 +52,12 @@ const DrawingApp = ({
         if (!isDrawing.current || activeShapeIndex === null) return;
 
         const stage = e.target.getStage();
-        const point = stage.getPointerPosition();
+        let point = stage.getPointerPosition();
+        const transform = stage.getAbsoluteTransform();
+        point = transform.invert().point(point);
+
+        // point.x = Math.max(0, Math.max(point.x / zoomLevel, imageWidth));
+        // point.y = Math.max(0, Math.max(point.y / zoomLevel, imageHeight));
         const newShapes = shapes.slice();
         let lastShape = newShapes[activeShapeIndex];
 
@@ -72,7 +82,6 @@ const DrawingApp = ({
 
     const handleMouseUp = () => {
         if (!isDrawing.current) return;
-
         isDrawing.current = false;
         onSelection(shapes);
     };
@@ -132,7 +141,46 @@ const DrawingApp = ({
                             />
                             {i === activeShapeIndex && (
                                 <>
-                                    {/* <Text
+                                    <Rect
+                                        x={shape.x + shape.width + 10} // Adjust position as needed
+                                        y={shape.y - 20} // Adjust position as needed
+                                        width={80} // Adjust size as needed
+                                        height={40} // Adjust size as needed
+                                        fill="white"
+                                        stroke="black"
+                                    />
+                                    <Html>
+                                        <div style={{
+                                            position: 'absolute',
+                                            top: shape.y - 20, // Adjust positioning based on zoom
+                                            left: shape.x + shape.width + 10, // Adjust positioning based on zoom
+                                            display: 'flex',
+                                            gap: '5px'
+                                        }}>
+                                            <button className='capture-button' onClick={handleCapture}>
+                                                <TbCaptureFilled />
+                                            </button>
+                                            <button className='delete-button' onClick={handleDelete}>
+                                                <TbCaptureOff />
+                                            </button>
+                                        </div>
+                                    </Html>
+                                </>
+                            )}
+                        </Group>
+                    ))}
+
+                </Layer>
+            </Stage>
+        </div>
+    );
+};
+
+export default DrawingApp;
+
+
+
+{/* <Text
                                         text="Capture"
                                         fontSize={15}
                                         fill="#00f"
@@ -148,40 +196,3 @@ const DrawingApp = ({
                                         onClick={handleDelete}
                                         style={{ cursor: 'pointer' }}
                                     /> */}
-                                    <Html>
-                                        <div style={{
-                                            position: 'absolute',
-                                            top: startPoint.current.y-20,
-                                            left: startPoint.current.x-20,
-                                            display: 'flex',
-                                            gap: '5px'
-                                        }}>
-                                            <button 
-                                            className ='capture-button'
-                                            onClick={handleCapture}
-                                            
-                                            >
-                                                <TbCaptureFilled />
-                                            </button>
-                                            <button 
-                                            className ='capture-button'
-                                             onClick={handleDelete}
-                                    
-                                             >
-                                                <TbCaptureOff />
-                                            </button>
-                                        </div>
-                                    </Html>
-
-                                </>
-                            )}
-                        </Group>
-                    ))}
-                </Layer>
-            </Stage>
-        </div>
-    );
-};
-
-export default DrawingApp;
-
