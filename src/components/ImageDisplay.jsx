@@ -1,8 +1,14 @@
+import { useEffect, useRef } from "react";
 
-
-import React, { useState, useEffect, useRef } from "react";
-
-const ImageDisplay = ({ imageData, zoomLevel, onSelection ,imageSize, setImageSize, setImageWidth, setImageHeight}) => {
+const ImageDisplay = ({
+  imageData,
+  zoomLevel,
+  onSelection,
+  imageSize,
+  setImageSize,
+  setImageWidth,
+  setImageHeight,
+}) => {
   const imageRef = useRef(null);
 
   useEffect(() => {
@@ -12,7 +18,7 @@ const ImageDisplay = ({ imageData, zoomLevel, onSelection ,imageSize, setImageSi
         setImageSize({ width: img.naturalWidth, height: img.naturalHeight });
       };
       img.src = imageData;
-      console.log("Test")
+      console.log("Test");
     }
   }, [imageData]);
 
@@ -24,39 +30,37 @@ const ImageDisplay = ({ imageData, zoomLevel, onSelection ,imageSize, setImageSi
     }
   }, [zoomLevel, imageSize]);
 
+  useEffect(() => {
+    const handleResize = (entries) => {
+      if (entries[0].contentRect) {
+        setImageWidth(entries[0].contentRect.width);
+        setImageHeight(entries[0].contentRect.height);
+      }
+    };
 
+    const observer = new ResizeObserver((entries) => {
+      handleResize(entries);
+    });
 
-    useEffect(() => {
-        const handleResize = (entries) => {
-            if (entries[0].contentRect) {
-              setImageWidth(entries[0].contentRect.width);
-              setImageHeight(entries[0].contentRect.height);
-            }
-        };
+    if (imageRef.current) {
+      observer.observe(imageRef.current);
+    }
 
-        const observer = new ResizeObserver((entries) => {
-            handleResize(entries);
-        });
-
-        if (imageRef.current) {
-            observer.observe(imageRef.current);
-        }
-
-        return () => {
-            if (imageRef.current) {
-                observer.unobserve(imageRef.current);
-            }
-        };
-    }, []);
+    return () => {
+      if (imageRef.current) {
+        observer.unobserve(imageRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div
       className="image-container"
       style={{
         // overflow: 'auto',
-        position: 'relative',
-        height: '72vh',
-        display: 'flex',
+        position: "relative",
+        height: "72vh",
+        display: "flex",
       }}
     >
       <img
@@ -73,5 +77,3 @@ const ImageDisplay = ({ imageData, zoomLevel, onSelection ,imageSize, setImageSi
 };
 
 export default ImageDisplay;
-
-

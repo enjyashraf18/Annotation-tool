@@ -37,7 +37,6 @@ body {
   /* Enable vertical scrolling for thumbnails */
 }
 
-
 .thumb {
   flex: 1;
   overflow-y: auto;
@@ -62,8 +61,6 @@ body {
 
   height: 100vh;
   /* Full viewport height */
-
-
 }
 
 .column1-header {
@@ -83,7 +80,7 @@ body {
   display: flex;
 }
 
-.pdf-container>div {
+.pdf-container > div {
   position: relative;
   width: 100%;
   height: 100%;
@@ -109,7 +106,6 @@ body {
   height: 69vh;
   /* overflow: auto; */
   display: flex;
-  
 }
 
 .image-container img {
@@ -184,7 +180,6 @@ body {
   /* width: 920px; */
   width: 860px;
   border-top: 0.2px solid rgb(226, 232, 240);
-
 }
 
 .App-main {
@@ -196,7 +191,6 @@ body {
   height: 72.5vh;
   position: relative;
   overflow: auto;
-  
 }
 
 .file-upload-container {
@@ -216,6 +210,7 @@ body {
 
 .vertical-slider {
   writing-mode: bt-lr;
+  appearance: slider-vertical;
   -webkit-appearance: slider-vertical;
   width: 8px;
   height: 300px;
@@ -232,8 +227,6 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-bottom: 0.2px solid rgb(226, 232, 240);
 }
-
-
 
 .zoom-buttons {
   display: flex;
@@ -279,18 +272,13 @@ header {
 .footer-icons-right {
   display: flex;
   align-items: center;
-
-
 }
 
 .pdf-document {
   display: flex;
   align-items: center;
   width: 100%;
-
 }
-
-
 
 .pdf-page {
   display: flex;
@@ -318,7 +306,6 @@ header {
   max-width: 100%;
   height: 100%;
   object-fit: contain;
-
 }
 
 .thumbnail-image {
@@ -333,7 +320,6 @@ header {
 .selected {
   border: 2px solid rgb(59, 130, 246);
   overflow: hidden;
-
 }
 
 .thumbnail-container .selected .thumbnail-pdf-container {
@@ -377,9 +363,7 @@ header {
   text-align: center;
   height: 10vh;
 
-
   border-top: 0.2px solid rgb(226, 232, 240);
-
 }
 
 .column3-main {
@@ -398,16 +382,13 @@ header {
 }
 
 .konva-div {
-
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   position: absolute;
   /* height: 69vh; */
-   /* height: 66vh;
+  /* height: 66vh;
   display: flex;  */
-  
-
 }
 
 /* .konvajs-content{
@@ -415,7 +396,6 @@ header {
   height: 72vh;
   display: flex;
 } */
-
 
 .sample-footer {
   background-color: white;
@@ -437,7 +417,6 @@ header {
   background-color: #efefef;
 
   flex-direction: column;
-
 }
 
 .sample-data {
@@ -453,18 +432,12 @@ header {
 .sample-text {
   font-size: 24px;
   font-weight: bold;
-  font-family: 'Calibri', cursive;
+  font-family: "Calibri", cursive;
   margin-top: 20px;
   margin-left: 20px;
   margin-bottom: 30px;
   border-bottom: black;
   flex-direction: column;
-}
-
-.sample-input,
-.sample-kind {
-  /* margin-bottom: 10px; */
-  /* flex-direction: column; */
 }
 
 .sample-input label,
@@ -473,8 +446,6 @@ header {
   /* display: block; */
   margin-bottom: 5px;
   font-weight: bold;
-
-
 }
 
 .sample-input input,
@@ -489,7 +460,6 @@ header {
   margin-top: 20px;
   /* ay 7aga 3shan a3mel push*/
 }
-
 
 .modal {
   display: flex;
@@ -542,7 +512,6 @@ header {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  
 }
 
 .sample-thumbnail {
@@ -550,7 +519,6 @@ header {
   /* Adjust the width as needed */
   height: auto;
   margin-right: 20px;
-  
 }
 
 .sample-info {
@@ -564,7 +532,6 @@ header {
 .sample-info button {
   margin-right: 5px;
 }
-
 
 .fileUploadButton {
   display: inline-flex;
@@ -639,7 +606,6 @@ header {
   display: flex;
   flex-direction: column;
   background-color: #efefef;
-
 }
 
 .one-sample {
@@ -708,7 +674,6 @@ header {
 
 .dropdown-menu button:hover {
   background: #f0f0f0;
-  
 }
 
 /* .selected-area-display {
@@ -722,8 +687,8 @@ header {
 
 
 } */
-.selected-area-display{
-overflow: hidden;
+.selected-area-display {
+  overflow: hidden;
   cursor: pointer;
   margin-bottom: 10px;
   display: flex;
@@ -733,12 +698,7 @@ overflow: hidden;
   height: auto;
 }
 
-
-
-
-
-
-.footer-sample{
+.footer-sample {
   background-color: white;
   text-align: center;
   height: 10vh;
@@ -747,18 +707,14 @@ overflow: hidden;
   border-top: 0.2px solid rgb(226, 232, 240);
 }
 
+.capture-button {
+  border-radius: 50%;
+  width: 20px;
 
-.capture-button{
-   border-radius: 50%;
- width: 20px;
-  
   height: 18px;
-  
-  
 
-  
   align-items: center;
-  
+
   justify-content: center;
   /*
   
@@ -766,7 +722,5 @@ overflow: hidden;
 
   color: rgb(255, 255, 255); */
 
-  cursor: pointer; 
-  
-
+  cursor: pointer;
 }

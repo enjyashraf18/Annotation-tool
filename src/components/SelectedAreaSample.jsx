@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
   const destRef = useRef(null);
@@ -8,7 +8,7 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
       const img = new Image();
       img.src = imageData;
       img.onload = () => {
-        const context = destRef.current.getContext('2d');
+        const context = destRef.current.getContext("2d");
         const scale = selectedArea.scale || 1;
 
         destRef.current.width = selectedArea.width * scale;
@@ -18,8 +18,14 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
 
         context.drawImage(
           img,
-          selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height,
-          0, 0, selectedArea.width * scale, selectedArea.height * scale
+          selectedArea.x,
+          selectedArea.y,
+          selectedArea.width,
+          selectedArea.height,
+          0,
+          0,
+          selectedArea.width * scale,
+          selectedArea.height * scale
         );
       };
     }
@@ -31,17 +37,17 @@ const SelectedAreaDisplay = ({ selectedArea, imageData }) => {
     <div className="selected-area-display">
       <div
         style={{
-          position: 'relative',
-          overflow: 'hidden',
-          width: '100%',
-          height: 'auto',
+          position: "relative",
+          overflow: "hidden",
+          width: "100%",
+          height: "auto",
         }}
       >
         <canvas
           ref={destRef}
           style={{
-            width: '100%',
-            height: 'auto',
+            width: "100%",
+            height: "auto",
           }}
         />
       </div>

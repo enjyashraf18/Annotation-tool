@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { pdfjs, Document, Page } from 'react-pdf';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
+import { useState, useEffect, useRef } from "react";
+import { pdfjs, Document, Page } from "react-pdf";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
 // import { FiZoomIn, FiZoomOut } from "react-icons/fi";
 // import { GrFormNextLink } from "react-icons/gr";
 // import { IoMdArrowBack } from "react-icons/io";
@@ -26,9 +26,11 @@ const PDFViewer = ({
     }
   }, [pdfData]);
 
-
   return (
-    <div className='pdf-container' style={{ height: '72vh', overflow: 'auto', margin: 'auto' }}>
+    <div
+      className="pdf-container"
+      style={{ height: "72vh", overflow: "auto", margin: "auto" }}
+    >
       {pdfData && (
         <Document
           file={pdfData}
@@ -38,7 +40,11 @@ const PDFViewer = ({
           }}
           className="pdf-document"
         >
-          <Page pageNumber={pageNumber} scale={zoomLevel} className="pdf-page" />
+          <Page
+            pageNumber={pageNumber}
+            scale={zoomLevel}
+            className="pdf-page"
+          />
         </Document>
       )}
     </div>

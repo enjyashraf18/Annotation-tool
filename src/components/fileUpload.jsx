@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
-import PDFViewer from './PDFViewer';
-import ImageDisplay from './ImageDisplay';
+import { useState } from "react";
+import PDFViewer from "./PDFViewer";
+import ImageDisplay from "./ImageDisplay";
 import { MdOutlineFileUpload } from "react-icons/md";
-import './FileUpload.css'; 
-import { IoPlayOutline } from "react-icons/io5";
-import { LuFileScan } from "react-icons/lu";
-import { IoFilterOutline } from "react-icons/io5";
-import '../App.css';
-
+import "./FileUpload.css";
+import "../App.css";
 
 function FileUpload() {
   const [file, setFile] = useState(null);
@@ -17,15 +13,15 @@ function FileUpload() {
     const selectedFile = e.target.files[0];
     const fileType = selectedFile.type;
 
-    if (fileType === 'application/pdf') {
-      setFileType('pdf');
+    if (fileType === "application/pdf") {
+      setFileType("pdf");
       const reader = new FileReader();
       reader.onload = (e) => {
         setFile(e.target.result);
       };
       reader.readAsDataURL(selectedFile);
-    } else if (fileType.startsWith('image/')) {
-      setFileType('image');
+    } else if (fileType.startsWith("image/")) {
+      setFileType("image");
       setFile(URL.createObjectURL(selectedFile));
     } else {
       setFileType(null);
@@ -35,7 +31,7 @@ function FileUpload() {
   return (
     <div>
       <header>
-        <div className='fileUpload'>
+        <div className="fileUpload">
           <form>
             {/* <input
               type='file'
@@ -49,14 +45,14 @@ function FileUpload() {
               <span>Scan</span>
             </label> */}
             <input
-              type='file'
-              name='file'
-              id='file'
+              type="file"
+              name="file"
+              id="file"
               onChange={handleFile}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
-            <label htmlFor='file' className='fileUploadButton'>
-              <MdOutlineFileUpload size= "3rem" />
+            <label htmlFor="file" className="fileUploadButton">
+              <MdOutlineFileUpload size="3rem" />
               <span>Upload</span>
             </label>
             {/* <input
@@ -85,8 +81,8 @@ function FileUpload() {
           </form>
         </div>
       </header>
-      {fileType === 'pdf' && <PDFViewer pdfData={file} />}
-      {fileType === 'image' && <ImageDisplay imageData={file} />}
+      {fileType === "pdf" && <PDFViewer pdfData={file} />}
+      {fileType === "image" && <ImageDisplay imageData={file} />}
     </div>
   );
 }

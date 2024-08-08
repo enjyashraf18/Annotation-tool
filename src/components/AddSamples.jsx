@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import SelectedAreaDisplay from './SelectedAreaDisplay';
+import { useState, useEffect } from "react";
+import SelectedAreaDisplay from "./SelectedAreaDisplay";
 
-const AddSample = ({ selectedArea, imageData, onAddSample, onCancel, sampleToEdit }) => {
-  const [label, setLabel] = useState('');
-  const [kind, setKind] = useState('text');
-  const [language, setLanguage] = useState('English');
-  const [numSamples, setNumSamples] = useState(0);
+const AddSample = ({
+  selectedArea,
+  imageData,
+  onAddSample,
+  onCancel,
+  sampleToEdit,
+}) => {
+  const [label, setLabel] = useState("");
+  const [kind, setKind] = useState("text");
+  const [language, setLanguage] = useState("English");
 
   useEffect(() => {
     if (sampleToEdit) {
@@ -23,13 +28,13 @@ const AddSample = ({ selectedArea, imageData, onAddSample, onCancel, sampleToEdi
   return (
     <div className="modal">
       <div className="modal-content">
-        <div className='sample'>
-          <div className='sample-data'>
-            <div className='sample-text'>
-              Add new sample
-            </div>
-            <div className='sample-input'>
-              <label htmlFor="sampleLabel">Label <span> </span></label>
+        <div className="sample">
+          <div className="sample-data">
+            <div className="sample-text">Add new sample</div>
+            <div className="sample-input">
+              <label htmlFor="sampleLabel">
+                Label <span> </span>
+              </label>
               <input
                 type="text"
                 id="sampleLabel"
@@ -38,8 +43,10 @@ const AddSample = ({ selectedArea, imageData, onAddSample, onCancel, sampleToEdi
                 onChange={(e) => setLabel(e.target.value)}
               />
             </div>
-            <div className='sample-kind'>
-              <label htmlFor="sampleKind">Kind <span> </span></label>
+            <div className="sample-kind">
+              <label htmlFor="sampleKind">
+                Kind <span> </span>
+              </label>
               <select
                 id="sampleKind"
                 name="sampleKind"
@@ -50,8 +57,10 @@ const AddSample = ({ selectedArea, imageData, onAddSample, onCancel, sampleToEdi
                 <option value="object">Object</option>
               </select>
             </div>
-            <div className='sample-language'>
-              <label htmlFor="samplelanguage">Language<span> </span></label>
+            <div className="sample-language">
+              <label htmlFor="samplelanguage">
+                Language<span> </span>
+              </label>
               <select
                 id="samplelanguage"
                 name="samplelanguage"
@@ -63,10 +72,13 @@ const AddSample = ({ selectedArea, imageData, onAddSample, onCancel, sampleToEdi
               </select>
             </div>
           </div>
-          <div className='pic-display'>
-            <SelectedAreaDisplay selectedArea={selectedArea} imageData={imageData} />
+          <div className="pic-display">
+            <SelectedAreaDisplay
+              selectedArea={selectedArea}
+              imageData={imageData}
+            />
           </div>
-          <footer className='sample-footer'>
+          <footer className="sample-footer">
             <button onClick={handleSubmit}>Add</button>
             <span> </span>
             <button onClick={onCancel}>Cancel</button>
