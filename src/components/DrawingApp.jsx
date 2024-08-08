@@ -151,15 +151,23 @@ const DrawingApp = ({
                                     <Html>
                                         <div style={{
                                             position: 'absolute',
-                                            top: shape.y * zoomLevel - 20,
-                                            left: shape.x * zoomLevel,
+                                            top: startPoint.current.y-20,
+                                            left: startPoint.current.x-20,
                                             display: 'flex',
                                             gap: '5px'
                                         }}>
-                                            <button className ='capture-button'onClick={handleCapture}>
+                                            <button 
+                                            className ='capture-button'
+                                            onClick={handleCapture}
+                                            
+                                            >
                                                 <TbCaptureFilled />
                                             </button>
-                                            <button className ='capture-button' onClick={handleDelete}>
+                                            <button 
+                                            className ='capture-button'
+                                             onClick={handleDelete}
+                                    
+                                             >
                                                 <TbCaptureOff />
                                             </button>
                                         </div>
@@ -176,3 +184,4 @@ const DrawingApp = ({
 };
 
 export default DrawingApp;
+

@@ -749,17 +749,24 @@ overflow: hidden;
 
 
 .capture-button{
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  margin: 5px 0;
-  display: flex;
+   border-radius: 50%;
+ width: 20px;
+  
+  height: 18px;
+  
+  
+
+  
   align-items: center;
+  
   justify-content: center;
+  /*
+  
   background-color: transparent;
-  color: rgb(255, 255, 255);
-  /* border: 1px solid grey; */
-  cursor: pointer;
+
+  color: rgb(255, 255, 255); */
+
+  cursor: pointer; 
   
 
 }
