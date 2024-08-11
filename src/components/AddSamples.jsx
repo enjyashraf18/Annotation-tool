@@ -7,12 +7,13 @@ const AddSample = ({
   onAddSample,
   onCancel,
   sampleToEdit,
+  pageNumber,
   isPDF,
 }) => {
   const [label, setLabel] = useState("");
   const [kind, setKind] = useState("text");
   const [language, setLanguage] = useState("English");
-  const [pageNumber, setPageNumber] = useState(1); 
+  // const [pageNumber, setPageNumber] = useState(1); 
 
 
   useEffect(() => {
