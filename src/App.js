@@ -1,26 +1,27 @@
-import { useState, useEffect } from "react";
-import "./App.css";
+import React, { useState, useEffect } from 'react';
+import './App.css';
 import { MdOutlineFileUpload } from "react-icons/md";
-import { IoArrowBack } from "react-icons/io5";
+import { IoArrowBack } from 'react-icons/io5';
 import { GrFormNextLink } from "react-icons/gr";
 import { CgScreen } from "react-icons/cg";
 import { SlBookOpen } from "react-icons/sl";
 import { FiZoomIn, FiZoomOut } from "react-icons/fi";
-import PDFViewer from "./components/PDFViewer";
-import ImageDisplay from "./components/ImageDisplay";
-import SideBar from "./components/sideBar";
-import Thumbnail from "./components/Thumbnail";
+import PDFViewer from './components/PDFViewer';
+import ImageDisplay from './components/ImageDisplay';
+import SideBar from './components/sideBar';
+import Thumbnail from './components/Thumbnail';
+import { FiHome } from "react-icons/fi";
 import { SlNotebook } from "react-icons/sl";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "./components/FileUpload.css";
-import DrawingApp from "./components/DrawingApp";
-import AddSample from "./components/AddSamples";
-import Samples from "./components/Samples";
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import './components/FileUpload.css';
+import DrawingApp from './components/DrawingApp';
+import AddSample from './components/AddSamples';
+import Samples from './components/Samples';
 import { MdDraw } from "react-icons/md";
-import DrawingAppPdf from "./components/DrawingAppPdf";
-
+import DrawingAppPdf from './components/DrawingAppPdf';
 
 function App() {
+
   const [counter, setCounter] = useState(0);
   const [numSamples, setNumSamples] = useState(0);
   const [file, setFile] = useState(null);
@@ -28,30 +29,34 @@ function App() {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [numPages, setNumPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(0);
-  const [pageInput, setPageInput] = useState("");
-  const [zoomInput, setZoomInput] = useState("");
+  const [pageInput, setPageInput] = useState('');
+  const [zoomInput, setZoomInput] = useState('');
   const [thumbnails, setThumbnails] = useState([]);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
 
+
   const [selectedArea, setSelectedArea] = useState({
-    x: 10,
-    y: 10,
-    width: 100,
-    height: 100,
-    scale: 1,
+    x: 10, y: 10, width: 100, height: 100, scale: 1
   });
-  const [imageData, setImageData] = useState("path_to_your_image.jpg");
+  const [imageData, setImageData] = useState('path_to_your_image.jpg');
   const [allowDrawing, setAllowDrawing] = useState(false);
-  const [allowCapturing, setAllowCapturing] = useState(false);
-  const [allowDeleting, setAllowDeleting] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [showAddSample, setShowAddSample] = useState(false);
   const [samples, setSamples] = useState([]);
   const [editingSample, setEditingSample] = useState(null);
   const [fileName, setFileName] = useState(null);
+  // const [samples, setSamples] = useState([]);
+  // const [numSamples, setNumSamples] = useState(0);
 
-  const loadSamples = (fileName) => {
+  useEffect(() => {
+    if (file) {
+      loadSamples(file.name, setSamples, setNumSamples);
+    }
+  }, [file]);
+
+
+  const loadSamples = (fileName, setSamples, setNumSamples) => {
     const storedSamples = localStorage.getItem(`samples_${fileName}`);
     const storedNumSamples = localStorage.getItem(`numSamples_${fileName}`);
     if (storedSamples) {
@@ -62,36 +67,46 @@ function App() {
       setNumSamples(0);
     }
   };
+  
+  const handleDeleteSample = (sampleId) => {
+    const updatedSamples = samples.filter(sample => sample.id !== sampleId);
+    setSamples(updatedSamples);
+    setNumSamples(updatedSamples.length);
+    localStorage.setItem(`samples_${file.name}`, JSON.stringify(updatedSamples));
+    localStorage.setItem(`numSamples_${file.name}`, JSON.stringify(updatedSamples.length));
+  };
 
+
+
+  // Example function to handle file changes
+  const handleFileChange = (newFile, type) => {
+    setFile(newFile);
+    setFileType(type);
+  };
   const saveSamples = (fileName, samples) => {
     setNumSamples(samples.length);
     localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
-    localStorage.setItem(
-      `numSamples_${fileName}`,
-      JSON.stringify(samples.length)
-    );
+    localStorage.setItem(`numSamples_${fileName}`, JSON.stringify(samples.length));
   };
 
   const handleSelection = (area) => {
     setSelectedArea({
       ...area,
-      scale: zoomLevel,
+      scale: zoomLevel
     });
   };
 
   const handleAllowingAddSample = (sampleDetails) => {
     setAllowDrawing(true);
-    setAllowCapturing(true);
-    setAllowDeleting(true);
   };
+
+
 
   const handleAddSample = (sampleDetails) => {
     if (!fileName) return;
     if (editingSample) {
-      const updatedSamples = samples.map((sample) =>
-        sample.id === editingSample.id
-          ? { ...sampleDetails, id: editingSample.id }
-          : sample
+      const updatedSamples = samples.map(sample =>
+        sample.id === editingSample.id ? { ...sampleDetails, id: editingSample.id } : sample
       );
       setSamples(updatedSamples);
       saveSamples(fileName, updatedSamples);
@@ -105,13 +120,14 @@ function App() {
     setShowAddSample(false);
     setEditingSample(null);
   };
-
-  const handleDeleteSample = (id) => {
-    if (!fileName) return;
-    const updatedSamples = samples.filter((sample) => sample.id !== id);
-    setSamples(updatedSamples);
-    saveSamples(fileName, updatedSamples);
-  };
+  
+  // const handleDeleteSample = (id) => {
+  //   if (!fileName) return;
+  //   const updatedSamples = samples.filter(sample => sample.id !== id);
+  //   setSamples(updatedSamples);
+  //   saveSamples(fileName, updatedSamples);
+  // };
+  
 
   const handleCancel = () => {
     setShowAddSample(false);
@@ -124,24 +140,25 @@ function App() {
     setShowAddSample(true);
   };
 
+
   const handleCapture = () => {
     setCounter(counter + 1);
-    setShowAddSample(true);
+    setShowAddSample(true); 
   };
   const handleDelete = () => {
-    setCounter(counter > 0 ? counter - 1 : 0);
+    setCounter(counter > 0 ? counter - 1 : 0); 
   };
 
   function handleFile(e) {
     const selectedFile = e.target.files[0];
     const fileType = selectedFile?.type;
-
+  
     if (!selectedFile) return;
-
-    setFileName(selectedFile.name);
-
-    if (fileType === "application/pdf") {
-      setFileType("pdf");
+  
+    setFileName(selectedFile.name); 
+  
+    if (fileType === 'application/pdf') {
+      setFileType('pdf');
       const reader = new FileReader();
       setZoomLevel(1);
       reader.onload = (e) => {
@@ -149,25 +166,28 @@ function App() {
       };
       reader.readAsDataURL(selectedFile);
       loadSamples(selectedFile.name);
-    } else if (fileType.startsWith("image/")) {
+    } else if (fileType.startsWith('image/')) {
       const objectURL = URL.createObjectURL(selectedFile);
       setFile(objectURL);
       setZoomLevel(1);
-      setFileType("image");
+      setFileType('image');
       setNumPages(1);
       setPageNumber(1);
       setThumbnails([objectURL]);
-      loadSamples(selectedFile.name);
+      loadSamples(selectedFile.name); 
     } else {
-      alert("The selected file should be an image or a PDF.");
+      alert('The selected file should be an image or a PDF.');
     }
   }
+  
+
 
   const onDocumentLoadSuccess = (numPages) => {
     setNumPages(numPages);
     setPageNumber(1);
     generatePDFThumbnails(numPages);
   };
+
 
   const generatePDFThumbnails = (numPages) => {
     const thumbnails = [];
@@ -176,6 +196,7 @@ function App() {
     }
     setThumbnails(thumbnails);
   };
+
 
   useEffect(() => {
     setPageInput(pageNumber);
@@ -186,11 +207,11 @@ function App() {
   }, [zoomLevel]);
 
   const goToPrevPage = () => {
-    setPageNumber((prevPageNumber) => Math.max(prevPageNumber - 1, 1));
+    setPageNumber(prevPageNumber => Math.max(prevPageNumber - 1, 1));
   };
 
   const goToNextPage = () => {
-    setPageNumber((prevPageNumber) => Math.min(prevPageNumber + 1, numPages));
+    setPageNumber(prevPageNumber => Math.min(prevPageNumber + 1, numPages));
   };
 
   const handlePageInputChange = (e) => {
@@ -203,12 +224,7 @@ function App() {
   };
 
   const handlePageInputBlur = () => {
-    if (
-      pageInput === "" ||
-      isNaN(pageInput) ||
-      pageInput < 1 ||
-      pageInput > numPages
-    ) {
+    if (pageInput === '' || isNaN(pageInput) || pageInput < 1 || pageInput > numPages) {
       setPageInput(pageNumber);
     } else {
       setPageNumber(Number(pageInput));
@@ -230,18 +246,13 @@ function App() {
   const handleZoomInputChange = (e) => {
     const value = e.target.value;
     setZoomInput(value);
-    if (value === "" || (!isNaN(value) && value >= 10 && value <= 500)) {
+    if (value === '' || (!isNaN(value) && value >= 10 && value <= 500)) {
       setZoomInput(value);
     }
   };
 
   const handleZoomInputBlur = () => {
-    if (
-      zoomInput === "" ||
-      isNaN(zoomInput) ||
-      zoomInput < 10 ||
-      zoomInput > 500
-    ) {
+    if (zoomInput === '' || isNaN(zoomInput) || zoomInput < 10 || zoomInput > 500) {
       setZoomInput(Math.round(zoomLevel * 100));
     } else {
       setZoomLevel(zoomInput / 100);
@@ -249,21 +260,23 @@ function App() {
   };
 
   const handleZoomInputKeyPress = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleZoomInputBlur();
     }
   };
 
   return (
+
+
     <div className="main-container">
       <SideBar />
       {/* <div className='column column1'> column1</div> */}
-      <div className="column column1">
-        <header className="column1-header">
+      <div className='column column1'>
+        <header className='column1-header'>
           <SlNotebook size="3rem" />
           Document Organizer
         </header>
-        <div className="thumb">
+        <div className='thumb'>
           {/* {thumbnails.map((thumbnail, index) => ( */}
           <Thumbnail
             // key={index}
@@ -287,13 +300,13 @@ function App() {
         </div>
         <header className="App-header">
           <input
-            type="file"
-            name="file"
-            id="file"
+            type='file'
+            name='file'
+            id='file'
             onChange={handleFile}
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
           />
-          <label htmlFor="file" className="fileUploadButton">
+          <label htmlFor='file' className='fileUploadButton'>
             <MdOutlineFileUpload size="2.5rem" />
             <span>Upload</span>
           </label>
@@ -304,53 +317,36 @@ function App() {
           </button>
         </header>
         <main className="App-main">
-          {fileType === "pdf" && (
-            // <PDFViewer
-            //   pdfData={file}
-            //   pageNumber={pageNumber}
-            //   setPageNumber={setPageNumber}
-            //   zoomLevel={zoomLevel}
-            //   setZoomLevel={setZoomLevel}
-            //   onDocumentLoadSuccess={onDocumentLoadSuccess}
-            //   onSelection={handleSelection}
-            // />
-            <DrawingAppPdf
-            file={file}
-            pageNumber={pageNumber}
-            zoomLevel={zoomLevel}
-            setPageNumber={setPageNumber}
-            allowDrawing={allowDrawing}
-            onCapture={handleCapture}
-            onDelete={handleDelete}
-            onDocumentLoadSuccess={onDocumentLoadSuccess}
-            onSelection={handleSelection}
-          />
+          {fileType === 'pdf' && (
+            <PDFViewer
+              pdfData={file}
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+              zoomLevel={zoomLevel}
+              setZoomLevel={setZoomLevel}
+              onDocumentLoadSuccess={onDocumentLoadSuccess}
+              onSelection={handleSelection}
+            />
           )}
-          {fileType === "image" && (
+          {fileType === 'image' && (
             <ImageDisplay
               imageData={file}
               zoomLevel={zoomLevel}
               setImageSize={setImageSize}
               imageSize={imageSize}
               onSelection={handleSelection}
-              setImageWidth={setWidth}
-              setImageHeight={setHeight}
+              setImageWidth = {
+                setWidth
+              }
+              setImageHeight = {
+                setHeight
+              }
             />
           )}
 
-          {/* {fileType === "pdf" && (
-            <DrawingAppPdf
-              file={file}
-              pageNumber={pageNumber}
-              zoomLevel={zoomLevel}
-              allowDrawing={allowDrawing}
-              onCapture={handleCapture}
-              onDelete={handleDelete}
-              onSelection={handleSelection}
-            />
-          )} */}
-          {fileType === "image" && (
+         {fileType === 'image' && (
             <DrawingApp
+              file={file}
               onSelection={handleSelection}
               zoomLevel={zoomLevel}
               allowDrawing={allowDrawing}
@@ -358,12 +354,19 @@ function App() {
               onDelete={handleDelete}
               imageWidth={width}
               imageHeight={height}
-              file={file}
             />
           )}
-
-
-
+          {fileType === 'pdf' && (
+            <DrawingAppPdf
+              file={file}
+              onSelection={handleSelection}
+              zoomLevel={zoomLevel}
+              allowDrawing={allowDrawing}
+              onCapture={handleCapture}
+              onDelete={handleDelete}
+              pageNumber={pageNumber}
+            />
+          )}
         </main>
         <footer className="App-footer">
           <div>
@@ -403,26 +406,25 @@ function App() {
               <GrFormNextLink />
             </button>
           </div>
-        </footer>
-        -
+        </footer>-
       </div>
-      <div className="column column3">
-        <header className="samples-header">
-          {/* <button>
+      <div className='column column3'>
+      <header className='samples-header'>
+        {/* <button>
         Fields & Info
         </button> */}
-          <button className="Samples-button">
-            <h3>Samples</h3>
-          </button>
-        </header>
-        <Samples
-          samples={samples}
-          onEditSample={handleEditSample}
-          onDeleteSample={handleDeleteSample}
-          numSamples={numSamples}
-          file={file}
+        <button className='Samples-button'>
+        <h3>Samples</h3>
+        </button>
 
-        />
+      </header>
+      <Samples
+      samples={samples}
+      onEditSample={handleEditSample}
+      onDeleteSample={handleDeleteSample}
+      numSamples={numSamples}
+      file={file}
+    />
         {showAddSample && (
           <AddSample
             selectedArea={selectedArea}
@@ -430,9 +432,8 @@ function App() {
             onAddSample={handleAddSample}
             onCancel={handleCancel}
             sampleToEdit={editingSample}
-            pageNumber={pageNumber} />
-
-          
+            isPDF = {fileType === 'pdf'}
+          />
         )}
       </div>
     </div>
@@ -440,3 +441,5 @@ function App() {
 }
 
 export default App;
+
+

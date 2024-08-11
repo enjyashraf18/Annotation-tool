@@ -7,12 +7,16 @@ const AddSample = ({
   onAddSample,
   onCancel,
   sampleToEdit,
+  isPDF,
 }) => {
   const [label, setLabel] = useState("");
   const [kind, setKind] = useState("text");
   const [language, setLanguage] = useState("English");
+  const [pageNumber, setPageNumber] = useState(1); // Define it as a state
+
 
   useEffect(() => {
+    console.log(isPDF);
     if (sampleToEdit) {
       setLabel(sampleToEdit.label);
       setKind(sampleToEdit.kind);
@@ -76,6 +80,8 @@ const AddSample = ({
             <SelectedAreaDisplay
               selectedArea={selectedArea}
               imageData={imageData}
+              isPDF={isPDF} 
+              pdfPageNumber={pageNumber} 
             />
           </div>
           <footer className="sample-footer">
