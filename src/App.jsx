@@ -17,6 +17,8 @@ import DrawingApp from "./components/DrawingApp";
 import AddSample from "./components/AddSamples";
 import Samples from "./components/Samples";
 import { MdDraw } from "react-icons/md";
+import DrawingAppPdf from "./components/DrawingAppPdf";
+
 
 function App() {
   const [counter, setCounter] = useState(0);
@@ -303,15 +305,26 @@ function App() {
         </header>
         <main className="App-main">
           {fileType === "pdf" && (
-            <PDFViewer
-              pdfData={file}
-              pageNumber={pageNumber}
-              setPageNumber={setPageNumber}
-              zoomLevel={zoomLevel}
-              setZoomLevel={setZoomLevel}
-              onDocumentLoadSuccess={onDocumentLoadSuccess}
-              onSelection={handleSelection}
-            />
+            // <PDFViewer
+            //   pdfData={file}
+            //   pageNumber={pageNumber}
+            //   setPageNumber={setPageNumber}
+            //   zoomLevel={zoomLevel}
+            //   setZoomLevel={setZoomLevel}
+            //   onDocumentLoadSuccess={onDocumentLoadSuccess}
+            //   onSelection={handleSelection}
+            // />
+            <DrawingAppPdf
+            file={file}
+            pageNumber={pageNumber}
+            zoomLevel={zoomLevel}
+            setPageNumber={setPageNumber}
+            allowDrawing={allowDrawing}
+            onCapture={handleCapture}
+            onDelete={handleDelete}
+            onDocumentLoadSuccess={onDocumentLoadSuccess}
+            onSelection={handleSelection}
+          />
           )}
           {fileType === "image" && (
             <ImageDisplay
@@ -325,16 +338,32 @@ function App() {
             />
           )}
 
-          <DrawingApp
-            onSelection={handleSelection}
-            zoomLevel={zoomLevel}
-            allowDrawing={allowDrawing}
-            onCapture={handleCapture}
-            onDelete={handleDelete}
-            imageWidth={width}
-            imageHeight={height}
-            file={file}
-          />
+          {/* {fileType === "pdf" && (
+            <DrawingAppPdf
+              file={file}
+              pageNumber={pageNumber}
+              zoomLevel={zoomLevel}
+              allowDrawing={allowDrawing}
+              onCapture={handleCapture}
+              onDelete={handleDelete}
+              onSelection={handleSelection}
+            />
+          )} */}
+          {fileType === "image" && (
+            <DrawingApp
+              onSelection={handleSelection}
+              zoomLevel={zoomLevel}
+              allowDrawing={allowDrawing}
+              onCapture={handleCapture}
+              onDelete={handleDelete}
+              imageWidth={width}
+              imageHeight={height}
+              file={file}
+            />
+          )}
+
+
+
         </main>
         <footer className="App-footer">
           <div>
@@ -392,6 +421,7 @@ function App() {
           onDeleteSample={handleDeleteSample}
           numSamples={numSamples}
           file={file}
+
         />
         {showAddSample && (
           <AddSample

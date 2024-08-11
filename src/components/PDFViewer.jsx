@@ -2,12 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
-// import { FiZoomIn, FiZoomOut } from "react-icons/fi";
-// import { GrFormNextLink } from "react-icons/gr";
-// import { IoMdArrowBack } from "react-icons/io";
-// import { SlBookOpen } from "react-icons/sl";
-// import { CgScreen } from "react-icons/cg";
-// import { MdHeight } from 'react-icons/md';
 
 const PDFViewer = ({
   pdfData,
@@ -22,7 +16,7 @@ const PDFViewer = ({
 
   useEffect(() => {
     if (pdfData) {
-      setNumPages(null); // Reset numPages when pdfData changes
+      setNumPages(null); 
     }
   }, [pdfData]);
 

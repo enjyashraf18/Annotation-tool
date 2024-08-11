@@ -1,161 +1,46 @@
 
-// import React, { useState, useRef } from 'react';
-// import { Stage, Layer, Rect, Text, Group } from 'react-konva';
 
-// const DrawingAppPdf = ({ file, onSelection, zoomLevel, allowDrawing, onCapture, onDelete, pageNumber }) => {
-//     const [tool, setTool] = useState('rectangle');
-//     const [shapes, setShapes] = useState([]);
-//     const [activeShapeIndex, setActiveShapeIndex] = useState(null);
-//     const isDrawing = useRef(false);
-//     const startPoint = useRef({ x: 0, y: 0 });
+import React, { useState, useRef, useEffect } from 'react';
+import { Stage, Layer, Rect, Group } from 'react-konva';
+import { Document, Page } from 'react-pdf';
+import { Html } from 'react-konva-utils';
+import { TbCaptureFilled, TbCaptureOff } from "react-icons/tb";
 
-//     const handleMouseDown = (e) => {
-//         if (activeShapeIndex !== null || !allowDrawing) return;
-
-//         isDrawing.current = true;
-//         const pos = e.target.getStage().getPointerPosition();
-//         startPoint.current = pos;
-
-//         setShapes([...shapes, { tool, x: pos.x, y: pos.y, width: 0, height: 0 }]);
-//         setActiveShapeIndex(shapes.length);
-//     };
-
-//     const handleMouseMove = (e) => {
-//         if (!isDrawing.current || activeShapeIndex === null) return;
-
-//         const stage = e.target.getStage();
-//         const point = stage.getPointerPosition();
-//         const newShapes = shapes.slice();
-//         let lastShape = newShapes[activeShapeIndex];
-
-//         // Adjusting width, height, x, and y based on the direction of drawing
-//         if (point.x < startPoint.current.x) {
-//             lastShape.x = point.x;
-//             lastShape.width = startPoint.current.x - point.x;
-//         } else {
-//             lastShape.width = point.x - startPoint.current.x;
-//         }
-
-//         if (point.y < startPoint.current.y) {
-//             lastShape.y = point.y;
-//             lastShape.height = startPoint.current.y - point.y;
-//         } else {
-//             lastShape.height = point.y - startPoint.current.y;
-//         }
-
-//         setShapes(newShapes);
-//     };
-
-//     const handleMouseUp = () => {
-//         if (!isDrawing.current) return;
-
-//         isDrawing.current = false;
-//         onSelection(shapes);
-//     };
-
-//     const handleCapture = () => {
-//         onCapture();
-//         setActiveShapeIndex(null);
-//         onSelection(shapes[activeShapeIndex]);
-//     };
-
-//     const handleDelete = () => {
-//         const newShapes = shapes.slice();
-//         if (activeShapeIndex !== null) {
-//             newShapes.splice(activeShapeIndex, 1);
-//             setShapes(newShapes);
-//             onDelete();  // Call delete handler passed from parent
-//         }
-//         setActiveShapeIndex(null);
-//     };
-
-//     const adjustPosition = (x, y, offsetX, offsetY, stageWidth, stageHeight) => {
-//         const newX = x + offsetX > stageWidth - 60 ? stageWidth - 60 : x + offsetX;
-//         const newY = y + offsetY > stageHeight - 20 ? stageHeight - 20 : y + offsetY;
-//         return { x: newX, y: newY };
-//     };
-
-//     return (
-//         <div className='konva-div' id="konva-container">
-//             <Stage
-//                 // width={imageWidth}
-//                 // height={imageHeight}
-//                 onMouseDown={handleMouseDown}
-//                 onMouseMove={handleMouseMove}
-//                 onMouseUp={handleMouseUp}
-//                 scaleX={zoomLevel}
-//                 scaleY={zoomLevel}
-//             >
-//                 <Layer>
-//                     {shapes.map((shape, i) => (
-//                         <Group key={i}>
-//                             <Rect
-//                                 x={shape.x}
-//                                 y={shape.y}
-//                                 // width={shape.width}
-//                                 // height={shape.height}
-//                                 fill="transparent"
-//                                 stroke={i === activeShapeIndex ? "#00f" : "#df4b26"}
-//                                 strokeWidth={2}
-//                                 onClick={() => setActiveShapeIndex(i)}
-//                                 draggable={i === activeShapeIndex}
-//                                 onDragEnd={(e) => {
-//                                     const newShapes = shapes.slice();
-//                                     newShapes[i].x = e.target.x();
-//                                     newShapes[i].y = e.target.y();
-//                                     setShapes(newShapes);
-//                                 }}
-//                             />
-//                             {i === activeShapeIndex && (
-//                                 <>
-//                                     <Text
-//                                         text="Capture"
-//                                         fontSize={15}
-//                                         fill="#00f"
-//                                         // {...adjustPosition(shape.x, shape.y, 0, -20, imageWidth, imageHeight)}
-//                                         onClick={handleCapture}
-//                                         style={{ cursor: 'pointer' }}
-//                                     />
-//                                     <Text
-//                                         text="Delete"
-//                                         fontSize={15}
-//                                         fill="#f00"
-//                                         // {...adjustPosition(shape.x, shape.y, 60, -20, imageWidth, imageHeight)}
-//                                         onClick={handleDelete}
-//                                         style={{ cursor: 'pointer' }}
-//                                     />
-//                                 </>
-//                             )}
-//                         </Group>
-//                     ))}
-//                 </Layer>
-//             </Stage>
-//         </div>
-//     );
-// };
-
-// export default DrawingAppPdf;
-
-
-import React, { useState, useRef } from 'react';
-import { Stage, Layer, Rect, Text, Group } from 'react-konva';
-import '../App.css';  // Ensure this path is correct
-
-const DrawingAppPdf = ({ file, onSelection, zoomLevel, allowDrawing, onCapture, onDelete, pageNumber }) => {
-    const [tool, setTool] = useState('rectangle');
+const PDFDrawingApp = ({
+    file,
+    pageNumber,
+    zoomLevel,
+    setPageNumber,
+    allowDrawing,
+    onCapture,
+    onDelete,
+    onDocumentLoadSuccess,
+    onSelection,
+}) => {
     const [shapes, setShapes] = useState([]);
     const [activeShapeIndex, setActiveShapeIndex] = useState(null);
+    const [pageDimensions, setPageDimensions] = useState({ width: 0, height: 0 });
     const isDrawing = useRef(false);
-    const startPoint = useRef({ x: 0, y: 0 });
+    const [noOfPages, setNoOfPages] = useState(0);
+
+
+
+
+    useEffect(() => {
+        setShapes([]);
+        setActiveShapeIndex(null);
+    }, [file]);
 
     const handleMouseDown = (e) => {
         if (activeShapeIndex !== null || !allowDrawing) return;
 
         isDrawing.current = true;
-        const pos = e.target.getStage().getPointerPosition();
-        startPoint.current = pos;
+        const stage = e.target.getStage();
+        let pos = stage.getPointerPosition();
+        const transform = stage.getAbsoluteTransform();
+        pos = transform.invert().point(pos);
 
-        setShapes([...shapes, { tool, x: pos.x, y: pos.y, width: 0, height: 0 }]);
+        setShapes([...shapes, { x: pos.x, y: pos.y, width: 0, height: 0 }]);
         setActiveShapeIndex(shapes.length);
     };
 
@@ -163,39 +48,29 @@ const DrawingAppPdf = ({ file, onSelection, zoomLevel, allowDrawing, onCapture, 
         if (!isDrawing.current || activeShapeIndex === null) return;
 
         const stage = e.target.getStage();
-        const point = stage.getPointerPosition();
-        const newShapes = shapes.slice();
-        let lastShape = newShapes[activeShapeIndex];
+        let pos = stage.getPointerPosition();
+        const transform = stage.getAbsoluteTransform();
+        pos = transform.invert().point(pos);
 
-        // Adjusting width, height, x, and y based on the direction of drawing
-        if (point.x < startPoint.current.x) {
-            lastShape.x = point.x;
-            lastShape.width = startPoint.current.x - point.x;
-        } else {
-            lastShape.width = point.x - startPoint.current.x;
-        }
+        const newShapes = [...shapes];
+        const lastShape = newShapes[activeShapeIndex];
 
-        if (point.y < startPoint.current.y) {
-            lastShape.y = point.y;
-            lastShape.height = startPoint.current.y - point.y;
-        } else {
-            lastShape.height = point.y - startPoint.current.y;
-        }
+        lastShape.width = pos.x - lastShape.x;
+        lastShape.height = pos.y - lastShape.y;
 
         setShapes(newShapes);
     };
 
     const handleMouseUp = () => {
         if (!isDrawing.current) return;
-
         isDrawing.current = false;
         onSelection(shapes);
     };
 
     const handleCapture = () => {
         onCapture();
-        setActiveShapeIndex(null);
         onSelection(shapes[activeShapeIndex]);
+        setActiveShapeIndex(null);
     };
 
     const handleDelete = () => {
@@ -203,71 +78,105 @@ const DrawingAppPdf = ({ file, onSelection, zoomLevel, allowDrawing, onCapture, 
         if (activeShapeIndex !== null) {
             newShapes.splice(activeShapeIndex, 1);
             setShapes(newShapes);
-            onDelete();  // Call delete handler passed from parent
+            onDelete();
         }
         setActiveShapeIndex(null);
     };
 
+    const onRenderSuccess = (pdfPage) => {
+        setPageDimensions({
+            width: pdfPage.originalWidth * zoomLevel,
+            height: pdfPage.originalHeight * zoomLevel,
+        });
+    };
+
     return (
-        <div className='konvapdf-div' id="konva-container">
-            <Stage
-                width={window.innerWidth}  // Ensure the width and height are set correctly
-                height={window.innerHeight}
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
-                scaleX={zoomLevel}
-                scaleY={zoomLevel}
+        <div className="pdf-container" style={{ position: 'relative', width: pageDimensions.width, height: pageDimensions.height }}>
+            <Document file={file}
             >
-                <Layer>
-                    {shapes.map((shape, i) => (
-                        <Group key={i}>
-                            <Rect
-                                x={shape.x}
-                                y={shape.y}
-                                width={shape.width}
-                                height={shape.height}
-                                fill="transparent"
-                                stroke={i === activeShapeIndex ? "#00f" : "#df4b26"}
-                                strokeWidth={2}
-                                onClick={() => setActiveShapeIndex(i)}
-                                draggable={i === activeShapeIndex}
-                                onDragEnd={(e) => {
-                                    const newShapes = shapes.slice();
-                                    newShapes[i].x = e.target.x();
-                                    newShapes[i].y = e.target.y();
-                                    setShapes(newShapes);
-                                }}
-                            />
-                            {i === activeShapeIndex && (
-                                <>
-                                    <Text
-                                        text="Capture"
-                                        fontSize={15}
-                                        fill="#00f"
-                                        x={shape.x}
-                                        y={shape.y - 20}
-                                        onClick={handleCapture}
-                                        style={{ cursor: 'pointer' }}
-                                    />
-                                    <Text
-                                        text="Delete"
-                                        fontSize={15}
-                                        fill="#f00"
-                                        x={shape.x + 60}
-                                        y={shape.y - 20}
-                                        onClick={handleDelete}
-                                        style={{ cursor: 'pointer' }}
-                                    />
-                                </>
-                            )}
-                        </Group>
-                    ))}
-                </Layer>
-            </Stage>
+                <Page
+                    pageNumber={pageNumber}
+                    scale={zoomLevel}
+                    onLoadSuccess={onRenderSuccess}
+                    renderTextLayer={false}
+                    renderAnnotationLayer={false}
+                />
+            </Document>
+
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: pageDimensions.width,
+                    height: pageDimensions.height,
+                }}
+            >
+                <Stage
+                    width={pageDimensions.width}
+                    height={pageDimensions.height}
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    scaleX={zoomLevel}
+                    scaleY={zoomLevel}
+                >
+                    <Layer>
+                        {shapes.map((shape, i) => (
+                            <Group key={i}>
+                                <Rect
+                                    x={shape.x}
+                                    y={shape.y}
+                                    width={shape.width}
+                                    height={shape.height}
+                                    fill="transparent"
+                                    stroke={i === activeShapeIndex ? "#00f" : "#df4b26"}
+                                    strokeWidth={2}
+                                    onClick={() => setActiveShapeIndex(i)}
+                                    draggable={i === activeShapeIndex}
+                                    onDragEnd={(e) => {
+                                        const newShapes = [...shapes];
+                                        newShapes[i].x = e.target.x();
+                                        newShapes[i].y = e.target.y();
+                                        setShapes(newShapes);
+                                    }}
+                                />
+                                {i === activeShapeIndex && (
+                                    <>
+                                        <Rect
+                                            x={shape.x + shape.width + 10}
+                                            y={shape.y - 20}
+                                            width={80}
+                                            height={40}
+                                            fill="white"
+                                            stroke="black"
+                                        />
+                                        <Html>
+                                            <div style={{
+                                                position: 'absolute',
+                                                top: shape.y - 20,
+                                                left: shape.x + shape.width + 10,
+                                                display: 'flex',
+                                                gap: '5px'
+                                            }}>
+                                                <button className='capture-button' onClick={handleCapture}>
+                                                    <TbCaptureFilled />
+                                                </button>
+                                                <button className='delete-button' onClick={handleDelete}>
+                                                    <TbCaptureOff />
+                                                </button>
+                                            </div>
+                                        </Html>
+                                    </>
+                                )}
+                            </Group>
+                        ))}
+                    </Layer>
+                </Stage>
+            </div>
         </div>
     );
 };
 
-export default DrawingAppPdf;
+export default PDFDrawingApp;
 
