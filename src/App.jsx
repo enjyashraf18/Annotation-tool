@@ -315,16 +315,16 @@ function App() {
             //   onSelection={handleSelection}
             // />
             <DrawingAppPdf
-            file={file}
-            pageNumber={pageNumber}
-            zoomLevel={zoomLevel}
-            setPageNumber={setPageNumber}
-            allowDrawing={allowDrawing}
-            onCapture={handleCapture}
-            onDelete={handleDelete}
-            onDocumentLoadSuccess={onDocumentLoadSuccess}
-            onSelection={handleSelection}
-          />
+              file={file}
+              pageNumber={pageNumber}
+              zoomLevel={zoomLevel}
+              setPageNumber={setPageNumber}
+              allowDrawing={allowDrawing}
+              onCapture={handleCapture}
+              onDelete={handleDelete}
+              onDocumentLoadSuccess={onDocumentLoadSuccess}
+              onSelection={handleSelection}
+            />
           )}
           {fileType === "image" && (
             <ImageDisplay
@@ -421,6 +421,8 @@ function App() {
           onDeleteSample={handleDeleteSample}
           numSamples={numSamples}
           file={file}
+          pageNumber={pageNumber}
+          isPDF={fileType === "pdf"}
 
         />
         {showAddSample && (
@@ -430,11 +432,11 @@ function App() {
             onAddSample={handleAddSample}
             onCancel={handleCancel}
             sampleToEdit={editingSample}
-            pageNumber={pageNumber} 
-            isPDF = {fileType === "pdf" }
-            />
+            pageNumber={pageNumber}
+            isPDF={fileType === "pdf"}
+          />
 
-          
+
         )}
       </div>
     </div>

@@ -8,8 +8,11 @@ const Samples = ({
   onDeleteSample,
   numSamples,
   file,
+  isPDF,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1); 
+
 
   const handleDropdownAction = (sampleId, action) => {
     const sample = samples.find((s) => s.id === sampleId);
@@ -43,6 +46,8 @@ const Samples = ({
               <SelectedAreaSample
                 selectedArea={sample.selectedArea}
                 imageData={file}
+                isPDF={isPDF} 
+                pdfPageNumber={pageNumber} 
               />
             </div>
             <div className="sample-info">

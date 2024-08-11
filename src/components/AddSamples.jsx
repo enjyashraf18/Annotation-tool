@@ -12,7 +12,7 @@ const AddSample = ({
   const [label, setLabel] = useState("");
   const [kind, setKind] = useState("text");
   const [language, setLanguage] = useState("English");
-  const [pageNumber, setPageNumber] = useState(1); // Define it as a state
+  const [pageNumber, setPageNumber] = useState(1); 
 
 
   useEffect(() => {
