@@ -22,6 +22,8 @@ const PDFDrawingApp = ({
     const [pageDimensions, setPageDimensions] = useState({ width: 0, height: 0 });
     const isDrawing = useRef(false);
     const [noOfPages, setNoOfPages] = useState(0);
+    const [numPages, setNumPages] = useState(null);
+
 
 
 
@@ -92,7 +94,12 @@ const PDFDrawingApp = ({
 
     return (
         <div className="pdf-container" style={{ position: 'relative', width: pageDimensions.width, height: pageDimensions.height }}>
-            <Document file={file}
+            <Document
+                file={file}
+                onLoadSuccess={({ numPages }) => {
+                    setNumPages(numPages);
+                    onDocumentLoadSuccess(numPages);
+                }}
             >
                 <Page
                     pageNumber={pageNumber}
