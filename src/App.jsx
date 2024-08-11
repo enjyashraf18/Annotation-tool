@@ -430,7 +430,9 @@ function App() {
             onAddSample={handleAddSample}
             onCancel={handleCancel}
             sampleToEdit={editingSample}
-            pageNumber={pageNumber} />
+            pageNumber={pageNumber} 
+            isPDF = {fileType === "pdf" }
+            />
 
           
         )}
