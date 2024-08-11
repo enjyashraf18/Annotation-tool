@@ -6,6 +6,10 @@ import { Document, Page } from 'react-pdf';
 import { Html } from 'react-konva-utils';
 import { TbCaptureFilled, TbCaptureOff } from "react-icons/tb";
 
+let startPoint = {
+    x: 0,
+    y:0
+}
 const PDFDrawingApp = ({
     file,
     pageNumber,
@@ -41,7 +45,7 @@ const PDFDrawingApp = ({
         let pos = stage.getPointerPosition();
         const transform = stage.getAbsoluteTransform();
         pos = transform.invert().point(pos);
-
+        startPoint = pos;
         setShapes([...shapes, { x: pos.x, y: pos.y, width: 0, height: 0 }]);
         setActiveShapeIndex(shapes.length);
     };
@@ -54,14 +58,15 @@ const PDFDrawingApp = ({
         const transform = stage.getAbsoluteTransform();
         pos = transform.invert().point(pos);
 
-        const newShapes = [...shapes];
+        const newShapes = structuredClone(shapes);
         const lastShape = newShapes[activeShapeIndex];
 
-        lastShape.width = pos.x - lastShape.x;
-        lastShape.height = pos.y - lastShape.y;
+        lastShape.width = pos.x - startPoint.x;
+        lastShape.height = pos.y - startPoint.y;
 
         setShapes(newShapes);
     };
+
 
     const handleMouseUp = () => {
         if (!isDrawing.current) return;
@@ -99,6 +104,7 @@ const PDFDrawingApp = ({
                 onLoadSuccess={({ numPages }) => {
                     setNumPages(numPages);
                     onDocumentLoadSuccess(numPages);
+                    
                 }}
             >
                 <Page
@@ -107,6 +113,7 @@ const PDFDrawingApp = ({
                     onLoadSuccess={onRenderSuccess}
                     renderTextLayer={false}
                     renderAnnotationLayer={false}
+                    onRenderSuccess={() => {}}
                 />
             </Document>
 
@@ -122,9 +129,9 @@ const PDFDrawingApp = ({
                 <Stage
                     width={pageDimensions.width}
                     height={pageDimensions.height}
-                    onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
+                    onPointerDown={handleMouseDown}
+                    onPointerMove={handleMouseMove}
+                    onPointerUp={handleMouseUp}
                     scaleX={zoomLevel}
                     scaleY={zoomLevel}
                 >
@@ -180,6 +187,7 @@ const PDFDrawingApp = ({
                         ))}
                     </Layer>
                 </Stage>
+
             </div>
         </div>
     );
