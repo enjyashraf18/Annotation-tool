@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Rect, Group } from "react-konva";
 import { Html } from "react-konva-utils";
-import { TbCaptureFilled } from "react-icons/tb";
-import { TbCaptureOff } from "react-icons/tb";
+import { TbCaptureFilled, TbCaptureOff } from "react-icons/tb";
 
 const DrawingApp = ({
   onSelection,
@@ -38,10 +37,9 @@ const DrawingApp = ({
       x: pos.x,
       y: pos.y,
     };
-    const shapesLnegth = shapes.length;
 
     setShapes([...shapes, { tool, x: pos.x, y: pos.y, width: 0, height: 0 }]);
-    setActiveShapeIndex(shapesLnegth);
+    setActiveShapeIndex(shapes.length);
   };
 
   const handleMouseMove = (e) => {
@@ -52,14 +50,16 @@ const DrawingApp = ({
     const transform = stage.getAbsoluteTransform().copy();
     point = transform.invert().point(point);
 
-    // point.x = Math.max(0, Math.max(point.x / zoomLevel, imageWidth));
-    // point.y = Math.max(0, Math.max(point.y / zoomLevel, imageHeight));
     const newShapes = JSON.parse(JSON.stringify(shapes));
+    const activeShape = newShapes[activeShapeIndex];
 
-    newShapes[activeShapeIndex].width = point.x - startPoint.current.x;
-    newShapes[activeShapeIndex].height = point.y - startPoint.current.y;
+    const width = point.x - startPoint.current.x;
+    const height = point.y - startPoint.current.y;
 
-    console.log(startPoint.current.x, startPoint.current.y);
+    activeShape.x = width < 0 ? point.x : startPoint.current.x;
+    activeShape.y = height < 0 ? point.y : startPoint.current.y;
+    activeShape.width = Math.abs(width);
+    activeShape.height = Math.abs(height);
 
     setShapes(newShapes);
   };
@@ -120,10 +120,10 @@ const DrawingApp = ({
               {i === activeShapeIndex && (
                 <>
                   <Rect
-                    x={shape.x + shape.width + 10} // Adjust position as needed
-                    y={shape.y - 20} // Adjust position as needed
-                    width={80} // Adjust size as needed
-                    height={40} // Adjust size as needed
+                    x={shape.x + shape.width + 10}
+                    y={shape.y - 20}
+                    width={80}
+                    height={40}
                     fill="white"
                     stroke="black"
                   />
@@ -131,8 +131,8 @@ const DrawingApp = ({
                     <div
                       style={{
                         position: "absolute",
-                        top: shape.y - 20, // Adjust positioning based on zoom
-                        left: shape.x + shape.width + 10, // Adjust positioning based on zoom
+                        top: shape.y - 20,
+                        left: shape.x + shape.width + 10,
                         display: "flex",
                         gap: "5px",
                       }}
@@ -159,22 +159,3 @@ const DrawingApp = ({
 };
 
 export default DrawingApp;
-
-{
-  /* <Text
-                                        text="Capture"
-                                        fontSize={15}
-                                        fill="#00f"
-                                        {...adjustPosition(shape.x, shape.y, 0, -20, imageWidth, imageHeight)}
-                                        onClick={handleCapture}
-                                        style={{ cursor: 'pointer' }}
-                                    />
-                                    <Text
-                                        text="Delete"
-                                        fontSize={15}
-                                        fill="#f00"
-                                        {...adjustPosition(shape.x, shape.y, 60, -20, imageWidth, imageHeight)}
-                                        onClick={handleDelete}
-                                        style={{ cursor: 'pointer' }}
-                                    /> */
-}
