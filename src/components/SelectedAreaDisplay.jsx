@@ -85,25 +85,42 @@ const SelectedAreaDisplay = ({ selectedArea, imageData, isPDF, pdfPageNumber }) 
   if (!selectedArea || !(imageData || isPDF)) return null;
 
   return (
-    <div className="selected-area-display">
+    <div
+      className="selected-area-display"
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'auto', // or 'hidden' depending on your needs
+        //width: '100%',
+        height: '100%',
+      }}
+    >
       <div
         style={{
-          position: "relative",
-          overflow: "hidden",
-          width: "100%", 
-          height: "auto", 
+          width: '100%',
+          height: '100%',
+          maxWidth: '100%',
+          maxHeight: '100%',
+          objectFit: 'contain',
+          padding: '10px',
         }}
       >
         <canvas
           ref={destRef}
           style={{
-            width: "100%",
-            height: "230px",
+            width: '60%',
+            height: '230px',
+            objectFit: 'contain',
+            maxWidth: '100%',
+          maxHeight: '100%',
           }}
         />
       </div>
     </div>
   );
+  
+
 };
 
 export default SelectedAreaDisplay;

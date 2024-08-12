@@ -101,9 +101,9 @@ const AddSample = ({
             />
           </div>
           <footer className="sample-footer">
-            <button onClick={handleSubmit}>Add</button>
+            <button  className= 'popup-buttons-cancel ' onClick={onCancel}>CANCEL</button>
             <span> </span>
-            <button onClick={onCancel}>Cancel</button>
+            <button className= 'popup-buttons' onClick={handleSubmit}>ADD</button>
           </footer>
         </div>
       </div>
