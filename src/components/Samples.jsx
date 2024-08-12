@@ -8,10 +8,11 @@ const Samples = ({
   onDeleteSample,
   numSamples,
   file,
+  pageNumber,
   isPDF,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1); 
+
 
 
   const handleDropdownAction = (sampleId, action) => {

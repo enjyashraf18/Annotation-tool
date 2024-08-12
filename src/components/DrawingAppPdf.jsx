@@ -45,6 +45,7 @@ const PDFDrawingApp = ({
         let pos = stage.getPointerPosition();
         const transform = stage.getAbsoluteTransform();
         pos = transform.invert().point(pos);
+        
         startPoint = pos;
         setShapes([...shapes, { x: pos.x, y: pos.y, width: 0, height: 0 }]);
         setActiveShapeIndex(shapes.length);
