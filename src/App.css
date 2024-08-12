@@ -561,6 +561,11 @@ header {
   transition: background-color 0.3s ease;
 }
 
+.annotate-button:active {
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); */
+  background-color: gray;
+}
+
 .Samples-button {
   display: inline-flex;
   flex-direction: column;

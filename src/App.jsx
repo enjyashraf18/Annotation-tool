@@ -20,7 +20,10 @@ import { MdDraw } from "react-icons/md";
 import DrawingAppPdf from "./components/DrawingAppPdf";
 
 
+
+
 function App() {
+
   const [counter, setCounter] = useState(0);
   const [numSamples, setNumSamples] = useState(0);
   const [file, setFile] = useState(null);
@@ -50,6 +53,14 @@ function App() {
   const [samples, setSamples] = useState([]);
   const [editingSample, setEditingSample] = useState(null);
   const [fileName, setFileName] = useState(null);
+  const [isActive, setIsActive] = useState(false);
+
+  const handleToggle = () => {
+    setIsActive(!isActive);
+    handleAllowingAddSample();
+  };
+
+
 
   const loadSamples = (fileName) => {
     const storedSamples = localStorage.getItem(`samples_${fileName}`);
@@ -80,9 +91,9 @@ function App() {
   };
 
   const handleAllowingAddSample = (sampleDetails) => {
-    setAllowDrawing(true);
-    setAllowCapturing(true);
-    setAllowDeleting(true);
+    setAllowDrawing(!isActive);
+    setAllowCapturing(!isActive);
+    setAllowDeleting(!isActive);
   };
 
   const handleAddSample = (sampleDetails) => {
@@ -299,7 +310,11 @@ function App() {
             <span>Upload</span>
           </label>
 
-          <button className="annotate-button" onClick={handleAllowingAddSample}>
+          <button
+            className="annotate-button"
+            onClick={handleToggle}
+            style={{ backgroundColor: isActive ? '#d3d9e0' : 'white' }}
+          >
             <MdDraw size="2.5rem" />
             <span>Annotate</span>
           </button>

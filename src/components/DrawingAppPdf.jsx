@@ -99,7 +99,7 @@ const PDFDrawingApp = ({
     };
 
     return (
-        <div className="pdf-container" style={{ position: 'relative', width: pageDimensions.width, height: pageDimensions.height }}>
+        <div className="pdf-container" style={{ position: 'relative', width: pageDimensions.width, height: pageDimensions.height}}>
             <Document
                 file={file}
                 onLoadSuccess={({ numPages }) => {
