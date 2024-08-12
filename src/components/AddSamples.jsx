@@ -11,8 +11,8 @@ const AddSample = ({
   isPDF,
 }) => {
   const [label, setLabel] = useState("");
-  const [kind, setKind] = useState("text");
-  const [language, setLanguage] = useState("English");
+  const [kind, setKind] = useState("None");
+  const [language, setLanguage] = useState("None");
   // const [pageNumber, setPageNumber] = useState(1); 
 
 
@@ -25,7 +25,17 @@ const AddSample = ({
     }
   }, [sampleToEdit]);
 
+  // const handleSubmit = () => {
+  //   const sampleDetails = { label, kind, language, selectedArea, imageData };
+  //   onAddSample(sampleDetails);
+  // };
+
   const handleSubmit = () => {
+    if (!label || kind === 'None' || language === 'None') {
+      alert('Label, Kind, and Language are required fields.');
+      return;
+    }
+
     const sampleDetails = { label, kind, language, selectedArea, imageData };
     onAddSample(sampleDetails);
   };
@@ -46,6 +56,7 @@ const AddSample = ({
                 name="sampleLabel"
                 value={label}
                 onChange={(e) => setLabel(e.target.value)}
+                required
               />
             </div>
             <div className="sample-kind">
@@ -57,9 +68,11 @@ const AddSample = ({
                 name="sampleKind"
                 value={kind}
                 onChange={(e) => setKind(e.target.value)}
+                required
               >
-                <option value="text">Text</option>
-                <option value="object">Object</option>
+                <option value="None">Select a kind</option>
+                <option value="Object">Object</option>
+                <option value="Text">Text</option>
               </select>
             </div>
             <div className="sample-language">
@@ -71,7 +84,9 @@ const AddSample = ({
                 name="samplelanguage"
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
+                required
               >
+                <option value="None">Select a language</option>
                 <option value="Arabic">Arabic</option>
                 <option value="English">English</option>
               </select>
@@ -81,8 +96,8 @@ const AddSample = ({
             <SelectedAreaDisplay
               selectedArea={selectedArea}
               imageData={imageData}
-              isPDF={isPDF} 
-              pdfPageNumber={pageNumber} 
+              isPDF={isPDF}
+              pdfPageNumber={pageNumber}
             />
           </div>
           <footer className="sample-footer">
