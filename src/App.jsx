@@ -86,6 +86,7 @@ function App() {
   };
 
   const handleAddSample = (sampleDetails) => {
+    setShowAddSample(false);
     if (!fileName) return;
     if (editingSample) {
       const updatedSamples = samples.map((sample) =>
