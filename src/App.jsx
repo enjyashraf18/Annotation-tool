@@ -35,6 +35,9 @@ function App() {
   const [thumbnails, setThumbnails] = useState([]);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
+  // Ensures samples is always an array
+
+  const [samples, setSamples] = useState([]);  // Initialize as an empty array
 
   const [selectedArea, setSelectedArea] = useState({
     x: 10,
@@ -49,7 +52,7 @@ function App() {
   const [allowDeleting, setAllowDeleting] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [showAddSample, setShowAddSample] = useState(false);
-  const [samples, setSamples] = useState({});
+//  const [samples, setSamples] = useState({});
   const [editingSample, setEditingSample] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [isActive, setIsActive] = useState(false);
@@ -70,12 +73,44 @@ function App() {
     }
   };
 
-  const saveSamples = (fileName, samples) => {
-    console.log("Ay 7aga", (samples))
-
-    console.log("Ay 7aga", JSON.stringify(samples).length)
-    localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
+  const saveSamples = (fileName, samples = []) => {
+    try {
+      // Log the type and content of samples for debugging
+      console.log("Type of samples:", typeof samples);
+      console.log("Content of samples:", samples);
+  
+      // Ensure samples is an array; if not, handle accordingly
+      if (!Array.isArray(samples)) {
+        throw new Error("Samples must be an array");
+      }
+  
+      // Exclude large data like imageData if needed
+      const samplesToSave = samples.map(sample => {
+        const { imageData, ...sampleWithoutImageData } = sample;
+        return sampleWithoutImageData;
+      });
+  
+      // Convert samples to JSON and check the length
+      const samplesString = JSON.stringify(samplesToSave);
+      const samplesLength = samplesString.length;
+  
+      console.log("Samples to be saved:", samplesToSave);
+      console.log("Size of samples in bytes:", samplesLength);
+  
+      // Check if the size exceeds a certain limit (e.g., 5MB)
+      const limit = 5 * 1024 * 1024; // 5 MB
+      if (samplesLength > limit) {
+        throw new Error("Sample size exceeds storage limit");
+      }
+  
+      // Save to local storage
+      localStorage.setItem(`samples_${fileName}`, samplesString);
+    } catch (error) {
+      console.error("Failed to save samples:", error.message);
+    }
   };
+  
+  
 
   const handleSelection = (area) => {
     setSelectedArea({

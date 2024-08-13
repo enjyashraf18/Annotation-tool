@@ -28,7 +28,7 @@ const AddSample = ({
       return;
     }
 
-    const sampleDetails = { label, kind, language, selectedArea, imageData };
+    const sampleDetails = { label, kind, language, selectedArea};
     onAddSample(sampleDetails);
   };
 
