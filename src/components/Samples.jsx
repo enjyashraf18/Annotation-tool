@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import SelectedAreaSample from "./SelectedAreaSample";
 
@@ -12,10 +12,13 @@ const Samples = ({
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
-
+  // Ensure currentPageSamples is always an array
+  const currentPageSamples = Array.isArray(samples[pageNumber])
+    ? samples[pageNumber]
+    : [];
 
   const handleDropdownAction = (sampleId, action) => {
-    const sample = samples.find((s) => s.id === sampleId);
+    const sample = currentPageSamples.find((s) => s.id === sampleId);
     if (action === "edit") {
       onEditSample(sample);
     } else if (action === "delete") {
@@ -25,22 +28,18 @@ const Samples = ({
   };
 
   const toggleDropdown = (sampleId) => {
-    if (dropdownOpen === sampleId) {
-      setDropdownOpen(null); // Close the dropdown
-    } else {
-      setDropdownOpen(sampleId); // Open the dropdown
-    }
+    setDropdownOpen(dropdownOpen === sampleId ? null : sampleId); // Toggle dropdown
   };
 
   return (
     <div className="samples">
       <div className="samples-counter">
         <h5>Total uploaded samples</h5>
-        <span>{samples[pageNumber]?.length ?? 0}</span>
+        <span>{currentPageSamples.length}</span>
       </div>
 
       <ul className="samples-content">
-        {samples[pageNumber]?.map((sample) => (
+        {currentPageSamples.map((sample) => (
           <li className="one-sample" key={sample.id}>
             <div className="sample-thumbnail">
               <SelectedAreaSample
