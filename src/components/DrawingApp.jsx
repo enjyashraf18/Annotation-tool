@@ -140,7 +140,7 @@ const DrawingApp = ({
                       <button
                         className="capture-button"
                         onClick={handleCapture}
-                      > n
+                      > 
                         <TbCaptureFilled />
                       </button>
                       <button className="delete-button" onClick={handleDelete}>
