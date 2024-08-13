@@ -25,7 +25,6 @@ import DrawingAppPdf from "./components/DrawingAppPdf";
 function App() {
 
   const [counter, setCounter] = useState(0);
-  const [numSamples, setNumSamples] = useState(0);
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -50,7 +49,7 @@ function App() {
   const [allowDeleting, setAllowDeleting] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [showAddSample, setShowAddSample] = useState(false);
-  const [samples, setSamples] = useState([]);
+  const [samples, setSamples] = useState({});
   const [editingSample, setEditingSample] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [isActive, setIsActive] = useState(false);
@@ -67,15 +66,12 @@ function App() {
     const storedNumSamples = localStorage.getItem(`numSamples_${fileName}`);
     if (storedSamples) {
       setSamples(JSON.parse(storedSamples));
-      setNumSamples(storedNumSamples ? JSON.parse(storedNumSamples) : 0);
     } else {
-      setSamples([]);
-      setNumSamples(0);
+      setSamples({});
     }
   };
 
   const saveSamples = (fileName, samples) => {
-    setNumSamples(samples.length);
     localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
     localStorage.setItem(
       `numSamples_${fileName}`,
@@ -100,7 +96,7 @@ function App() {
     setShowAddSample(false);
     if (!fileName) return;
     if (editingSample) {
-      const updatedSamples = samples.map((sample) =>
+      const updatedSamples = samples[pageNumber]?.map((sample) =>
         sample.id === editingSample.id
           ? { ...sampleDetails, id: editingSample.id }
           : sample
@@ -109,8 +105,15 @@ function App() {
       saveSamples(fileName, updatedSamples);
     } else {
       const newSample = { ...sampleDetails, id: counter };
-      const updatedSamples = [...samples, newSample];
-      setSamples(updatedSamples);
+      const clonedSamples = structuredClone(samples);
+
+      clonedSamples[pageNumber]  = [...(clonedSamples[pageNumber] ?? []), newSample];
+      // if(clonedSamples[pageNumber]){
+      // }
+      // else {
+      //   clonedSamples[pageNumber] = [newSample]
+      // }
+      setSamples(clonedSamples);
       setCounter(counter + 1);
       saveSamples(fileName, updatedSamples);
     }
@@ -120,7 +123,7 @@ function App() {
 
   const handleDeleteSample = (id) => {
     if (!fileName) return;
-    const updatedSamples = samples.filter((sample) => sample.id !== id);
+    const updatedSamples = samples[pageNumber]?.filter((sample) => sample.id !== id);
     setSamples(updatedSamples);
     saveSamples(fileName, updatedSamples);
   };
@@ -435,7 +438,6 @@ function App() {
           samples={samples}
           onEditSample={handleEditSample}
           onDeleteSample={handleDeleteSample}
-          numSamples={numSamples}
           file={file}
           pageNumber={pageNumber}
           isPDF={fileType === "pdf"}

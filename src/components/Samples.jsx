@@ -6,7 +6,6 @@ const Samples = ({
   samples,
   onEditSample,
   onDeleteSample,
-  numSamples,
   file,
   pageNumber,
   isPDF,
@@ -37,11 +36,11 @@ const Samples = ({
     <div className="samples">
       <div className="samples-counter">
         <h5>Total uploaded samples</h5>
-        <span>{numSamples}</span>
+        <span>{samples[pageNumber]?.length ?? 0}</span>
       </div>
 
       <ul className="samples-content">
-        {samples.map((sample) => (
+        {samples[pageNumber]?.map((sample) => (
           <li className="one-sample" key={sample.id}>
             <div className="sample-thumbnail">
               <SelectedAreaSample
