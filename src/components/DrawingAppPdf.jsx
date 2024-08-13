@@ -1,5 +1,3 @@
-
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Stage, Layer, Rect, Group } from 'react-konva';
 import { Document, Page } from 'react-pdf';
@@ -8,8 +6,9 @@ import { TbCaptureFilled, TbCaptureOff } from "react-icons/tb";
 
 let startPoint = {
     x: 0,
-    y:0
-}
+    y: 0
+};
+
 const PDFDrawingApp = ({
     file,
     pageNumber,
@@ -25,17 +24,13 @@ const PDFDrawingApp = ({
     const [activeShapeIndex, setActiveShapeIndex] = useState(null);
     const [pageDimensions, setPageDimensions] = useState({ width: 0, height: 0 });
     const isDrawing = useRef(false);
-    const [noOfPages, setNoOfPages] = useState(0);
     const [numPages, setNumPages] = useState(null);
 
-
-
-
-
+    // Clear shapes and reset activeShapeIndex whenever the file or pageNumber changes
     useEffect(() => {
         setShapes([]);
         setActiveShapeIndex(null);
-    }, [file]);
+    }, [file, pageNumber]);
 
     const handleMouseDown = (e) => {
         if (activeShapeIndex !== null || !allowDrawing) return;
@@ -45,7 +40,7 @@ const PDFDrawingApp = ({
         let pos = stage.getPointerPosition();
         const transform = stage.getAbsoluteTransform();
         pos = transform.invert().point(pos);
-        
+
         startPoint = pos;
         setShapes([...shapes, { x: pos.x, y: pos.y, width: 0, height: 0 }]);
         setActiveShapeIndex(shapes.length);
@@ -62,12 +57,18 @@ const PDFDrawingApp = ({
         const newShapes = structuredClone(shapes);
         const lastShape = newShapes[activeShapeIndex];
 
-        lastShape.width = pos.x - startPoint.x;
-        lastShape.height = pos.y - startPoint.y;
+        // Calculate width and height
+        const width = pos.x - startPoint.x;
+        const height = pos.y - startPoint.y;
+
+        // Adjust x and y based on the direction of drawing
+        lastShape.x = width < 0 ? pos.x : startPoint.x;
+        lastShape.y = height < 0 ? pos.y : startPoint.y;
+        lastShape.width = Math.abs(width);
+        lastShape.height = Math.abs(height);
 
         setShapes(newShapes);
     };
-
 
     const handleMouseUp = () => {
         if (!isDrawing.current) return;
@@ -99,13 +100,12 @@ const PDFDrawingApp = ({
     };
 
     return (
-        <div className="pdf-container" style={{ position: 'relative', width: pageDimensions.width, height: pageDimensions.height}}>
+        <div className="pdf-container" style={{ position: 'relative', width: pageDimensions.width, height: pageDimensions.height }}>
             <Document
                 file={file}
                 onLoadSuccess={({ numPages }) => {
                     setNumPages(numPages);
                     onDocumentLoadSuccess(numPages);
-                    
                 }}
             >
                 <Page
@@ -114,7 +114,7 @@ const PDFDrawingApp = ({
                     onLoadSuccess={onRenderSuccess}
                     renderTextLayer={false}
                     renderAnnotationLayer={false}
-                    onRenderSuccess={() => {}}
+                    onRenderSuccess={() => { }}
                 />
             </Document>
 
@@ -188,11 +188,9 @@ const PDFDrawingApp = ({
                         ))}
                     </Layer>
                 </Stage>
-
             </div>
         </div>
     );
 };
 
 export default PDFDrawingApp;
-
