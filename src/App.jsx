@@ -29,7 +29,7 @@ function App() {
   const [fileType, setFileType] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [numPages, setNumPages] = useState(0);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const [pageInput, setPageInput] = useState("");
   const [zoomInput, setZoomInput] = useState("");
   const [thumbnails, setThumbnails] = useState([]);
@@ -63,7 +63,6 @@ function App() {
 
   const loadSamples = (fileName) => {
     const storedSamples = localStorage.getItem(`samples_${fileName}`);
-    const storedNumSamples = localStorage.getItem(`numSamples_${fileName}`);
     if (storedSamples) {
       setSamples(JSON.parse(storedSamples));
     } else {
@@ -72,11 +71,10 @@ function App() {
   };
 
   const saveSamples = (fileName, samples) => {
+    console.log("Ay 7aga", (samples))
+
+    console.log("Ay 7aga", JSON.stringify(samples).length)
     localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
-    localStorage.setItem(
-      `numSamples_${fileName}`,
-      JSON.stringify(samples.length)
-    );
   };
 
   const handleSelection = (area) => {
@@ -93,6 +91,7 @@ function App() {
   };
 
   const handleAddSample = (sampleDetails) => {
+    console.log("Alloooo")
     setShowAddSample(false);
     if (!fileName) return;
     if (editingSample) {
@@ -115,7 +114,7 @@ function App() {
       // }
       setSamples(clonedSamples);
       setCounter(counter + 1);
-      saveSamples(fileName, updatedSamples);
+      saveSamples(fileName, clonedSamples);
     }
     setShowAddSample(false);
     setEditingSample(null);

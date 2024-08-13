@@ -3,6 +3,7 @@ import { Stage, Layer, Rect, Group } from "react-konva";
 import { Html } from "react-konva-utils";
 import { TbCaptureFilled, TbCaptureOff } from "react-icons/tb";
 
+const DEFAULT_PAGE_NUMBER=1;
 const DrawingApp = ({
   onSelection,
   zoomLevel,
@@ -14,14 +15,14 @@ const DrawingApp = ({
   file,
 }) => {
   const [tool, setTool] = useState("rectangle");
-  const [shapes, setShapes] = useState([]);
+  const [shapes, setShapes] = useState({[DEFAULT_PAGE_NUMBER]: []});
   const [activeShapeIndex, setActiveShapeIndex] = useState(null);
   const isDrawing = useRef(false);
   let startPoint = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     console.log("Image source changed:", file);
-    setShapes([]);
+    setShapes({[DEFAULT_PAGE_NUMBER]: []});
     setActiveShapeIndex(null);
   }, [file]);
 
@@ -38,8 +39,8 @@ const DrawingApp = ({
       y: pos.y,
     };
 
-    setShapes([...shapes, { tool, x: pos.x, y: pos.y, width: 0, height: 0 }]);
-    setActiveShapeIndex(shapes.length);
+    setShapes({[DEFAULT_PAGE_NUMBER]: [...shapes[DEFAULT_PAGE_NUMBER], { tool, x: pos.x, y: pos.y, width: 0, height: 0 }]});
+    setActiveShapeIndex(shapes[DEFAULT_PAGE_NUMBER].length);
   };
 
   const handleMouseMove = (e) => {
@@ -51,7 +52,7 @@ const DrawingApp = ({
     point = transform.invert().point(point);
 
     const newShapes = JSON.parse(JSON.stringify(shapes));
-    const activeShape = newShapes[activeShapeIndex];
+    const activeShape = newShapes[DEFAULT_PAGE_NUMBER][activeShapeIndex];
 
     const width = point.x - startPoint.current.x;
     const height = point.y - startPoint.current.y;
@@ -73,13 +74,13 @@ const DrawingApp = ({
   const handleCapture = () => {
     onCapture();
     setActiveShapeIndex(null);
-    onSelection(shapes[activeShapeIndex]);
+    onSelection(shapes[DEFAULT_PAGE_NUMBER][activeShapeIndex]);
   };
 
   const handleDelete = () => {
-    const newShapes = shapes.slice();
+    const newShapes = structuredClone(shapes);
     if (activeShapeIndex !== null) {
-      newShapes.splice(activeShapeIndex, 1);
+      newShapes[DEFAULT_PAGE_NUMBER].splice(activeShapeIndex, 1);
       setShapes(newShapes);
       onDelete();
     }
@@ -98,7 +99,7 @@ const DrawingApp = ({
         scaleY={zoomLevel}
       >
         <Layer>
-          {shapes.map((shape, i) => (
+          {shapes[DEFAULT_PAGE_NUMBER].map((shape, i) => (
             <Group key={i}>
               <Rect
                 x={shape.x}

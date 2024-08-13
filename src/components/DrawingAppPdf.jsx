@@ -96,7 +96,7 @@ const PDFDrawingApp = ({
   };
 
   const handleDelete = () => {
-    const newShapes = shapes.slice();
+    const newShapes = structuredClone(shapes);
     if (activeShapeIndex !== null) {
       newShapes[pageNumber].splice(activeShapeIndex, 1);
       setShapes(newShapes);
