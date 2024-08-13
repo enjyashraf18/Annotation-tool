@@ -13,11 +13,8 @@ const AddSample = ({
   const [label, setLabel] = useState("");
   const [kind, setKind] = useState("None");
   const [language, setLanguage] = useState("None");
-  // const [pageNumber, setPageNumber] = useState(1); 
-
 
   useEffect(() => {
-    console.log(isPDF);
     if (sampleToEdit) {
       setLabel(sampleToEdit.label);
       setKind(sampleToEdit.kind);
@@ -25,14 +22,9 @@ const AddSample = ({
     }
   }, [sampleToEdit]);
 
-  // const handleSubmit = () => {
-  //   const sampleDetails = { label, kind, language, selectedArea, imageData };
-  //   onAddSample(sampleDetails);
-  // };
-
   const handleSubmit = () => {
-    if (!label || kind === 'None' || language === 'None') {
-      alert('Label, Kind, and Language are required fields.');
+    if (!label || kind === 'None') {
+      alert('Label and Kind are required fields.');
       return;
     }
 
@@ -84,9 +76,8 @@ const AddSample = ({
                 name="samplelanguage"
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                required
               >
-                <option value="None">Select a language</option>
+                <option value="None">Select a language (optional)</option>
                 <option value="Arabic">Arabic</option>
                 <option value="English">English</option>
               </select>
@@ -101,9 +92,9 @@ const AddSample = ({
             />
           </div>
           <footer className="sample-footer">
-            <button  className= 'popup-buttons-cancel ' onClick={onCancel}>CANCEL</button>
+            <button className='popup-buttons-cancel' onClick={onCancel}>CANCEL</button>
             <span> </span>
-            <button className= 'popup-buttons' onClick={handleSubmit}>ADD</button>
+            <button className='popup-buttons' onClick={handleSubmit}>ADD</button>
           </footer>
         </div>
       </div>
