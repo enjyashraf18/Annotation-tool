@@ -125,53 +125,119 @@ function App() {
     setAllowDeleting(!isActive);
   };
 
+  // const handleAddSample = (sampleDetails) => {
+  //   console.log("Alloooo")
+  //   setShowAddSample(false);
+  //   if (!fileName) return;
+  //   if (editingSample) {
+  //     const updatedSamples = samples[pageNumber]?.map((sample) =>
+  //       sample.id === editingSample.id
+  //         ? { ...sampleDetails, id: editingSample.id }
+  //         : sample
+  //     );
+  //     setSamples(updatedSamples);
+  //     saveSamples(fileName, updatedSamples);
+  //   } else {
+  //     const newSample = { ...sampleDetails, id: counter };
+  //     const clonedSamples = structuredClone(samples);
+
+  //     clonedSamples[pageNumber]  = [...(clonedSamples[pageNumber] ?? []), newSample];
+  //     // if(clonedSamples[pageNumber]){
+  //     // }
+  //     // else {
+  //     //   clonedSamples[pageNumber] = [newSample]
+  //     // }
+  //     setSamples(clonedSamples);
+  //     setCounter(counter + 1);
+  //     saveSamples(fileName, clonedSamples);
+  //   }
+  //   setShowAddSample(false);
+  //   setEditingSample(null);
+  // };
   const handleAddSample = (sampleDetails) => {
-    console.log("Alloooo")
+    console.log("Alloooo");
     setShowAddSample(false);
     if (!fileName) return;
-    if (editingSample) {
-      const updatedSamples = samples[pageNumber]?.map((sample) =>
-        sample.id === editingSample.id
-          ? { ...sampleDetails, id: editingSample.id }
-          : sample
-      );
-      setSamples(updatedSamples);
+  
+    setSamples((prevSamples) => {
+      const updatedSamples = structuredClone(prevSamples);
+  
+      if (editingSample) {
+        // Initialize the array if it doesn't exist
+        if (!updatedSamples[pageNumber]) {
+          updatedSamples[pageNumber] = [];
+        }
+        
+        // Map over the current page's samples and update the one being edited
+        updatedSamples[pageNumber] = updatedSamples[pageNumber].map((sample) =>
+          sample.id === editingSample.id
+            ? { ...sampleDetails, id: editingSample.id }
+            : sample
+        );
+      } else {
+        const newSample = { ...sampleDetails, id: counter };
+  
+        // Ensure that updatedSamples[pageNumber] is an array
+        if (!Array.isArray(updatedSamples[pageNumber])) {
+          updatedSamples[pageNumber] = [];
+        }
+  
+        // Add the new sample to the current page's array
+        updatedSamples[pageNumber] = [
+          ...updatedSamples[pageNumber],
+          newSample,
+        ];
+        setCounter(counter + 1);
+      }
+  
+      // Save the updated samples to localStorage
       saveSamples(fileName, updatedSamples);
-    } else {
-      const newSample = { ...sampleDetails, id: counter };
-      const clonedSamples = structuredClone(samples);
-
-      clonedSamples[pageNumber]  = [...(clonedSamples[pageNumber] ?? []), newSample];
-      // if(clonedSamples[pageNumber]){
-      // }
-      // else {
-      //   clonedSamples[pageNumber] = [newSample]
-      // }
-      setSamples(clonedSamples);
-      setCounter(counter + 1);
-      saveSamples(fileName, clonedSamples);
-    }
-    setShowAddSample(false);
+  
+      return updatedSamples; // Return the updated samples state
+    });
+  
     setEditingSample(null);
   };
-
-  const handleDeleteSample = (id) => {
-    if (!fileName) return;
-    const updatedSamples = samples[pageNumber]?.filter((sample) => sample.id !== id);
-    setSamples(updatedSamples);
-    saveSamples(fileName, updatedSamples);
-  };
-
-  const handleCancel = () => {
-    setShowAddSample(false);
-    setEditingSample(null);
-  };
+  
+  
   const handleEditSample = (sample) => {
     setSelectedArea(sample.selectedArea);
     setImageData(sample.imageData);
     setEditingSample(sample);
     setShowAddSample(true);
   };
+  
+  
+  const handleDeleteSample = (id) => {
+    if (!fileName) return;
+  
+    // Create a deep copy of the current samples to avoid mutating state directly
+    const updatedSamples = structuredClone(samples);
+  
+    // Filter out the sample with the matching id on the current page
+    if (updatedSamples[pageNumber]) {
+      updatedSamples[pageNumber] = updatedSamples[pageNumber].filter(
+        (sample) => sample.id !== id
+      );
+    }
+  
+    // Update the state with the new samples object
+    setSamples(updatedSamples);
+  
+    // Save the updated samples to localStorage
+    saveSamples(fileName, updatedSamples);
+  };
+  
+  const handleCancel = () => {
+    setShowAddSample(false);
+    setEditingSample(null);
+  };
+  // const handleEditSample = (sample) => {
+  //   setSelectedArea(sample.selectedArea);
+  //   setImageData(sample.imageData);
+  //   setEditingSample(sample);
+  //   setShowAddSample(true);
+  // };
 
   const handleCapture = () => {
     setCounter(counter + 1);
