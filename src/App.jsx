@@ -74,41 +74,36 @@ function App() {
   };
 
   const saveSamples = (fileName, samples = []) => {
-    try {
-      // Log the type and content of samples for debugging
-      console.log("Type of samples:", typeof samples);
-      console.log("Content of samples:", samples);
-  
       // Ensure samples is an array; if not, handle accordingly
-      if (!Array.isArray(samples)) {
-        throw new Error("Samples must be an array");
-      }
+      // if (!Array.isArray(samples)) {
+      //   throw new Error("Samples must be an array");
+      // }
   
       // Exclude large data like imageData if needed
-      const samplesToSave = samples.map(sample => {
-        const { imageData, ...sampleWithoutImageData } = sample;
-        return sampleWithoutImageData;
-      });
+      // const samplesToSave = samples.map(sample => {
+      //   const { imageData, ...sampleWithoutImageData } = sample;
+      //   return sampleWithoutImageData;
+      // });
   
       // Convert samples to JSON and check the length
-      const samplesString = JSON.stringify(samplesToSave);
-      const samplesLength = samplesString.length;
+      // const samplesString = JSON.stringify(samplesToSave);
+      // const samplesLength = samples.length;
   
-      console.log("Samples to be saved:", samplesToSave);
-      console.log("Size of samples in bytes:", samplesLength);
+      // console.log("Samples to be saved:", samplesToSave);
+      // console.log("Size of samples in bytes:", samplesLength);
   
       // Check if the size exceeds a certain limit (e.g., 5MB)
-      const limit = 5 * 1024 * 1024; // 5 MB
-      if (samplesLength > limit) {
-        throw new Error("Sample size exceeds storage limit");
-      }
+      // const limit = 5 * 1024 * 1024; 
+      // if (samplesLength > limit) {
+      //   throw new Error("Sample size exceeds storage limit");
+      // }
   
       // Save to local storage
-      localStorage.setItem(`samples_${fileName}`, samplesString);
-    } catch (error) {
-      console.error("Failed to save samples:", error.message);
-    }
+      localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
   };
+
+
+  
   
   
 
