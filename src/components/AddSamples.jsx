@@ -32,6 +32,8 @@ const AddSample = ({
     onAddSample(sampleDetails);
   };
 
+  
+
   return (
     <div className="modal">
       <div className="modal-content">

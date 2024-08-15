@@ -178,14 +178,14 @@ const PDFDrawingApp = ({
                 />
                 {i === activeShapeIndex && (
                   <>
-                    <Rect
+                    {/* <Rect
                       x={shape.x + shape.width + 10}
                       y={shape.y - 20}
                       width={80}
                       height={40}
                       fill="white"
                       stroke="black"
-                    />
+                    /> */}
                     <Html>
                       <div
                         style={{
@@ -203,10 +203,10 @@ const PDFDrawingApp = ({
                           <TbCaptureFilled />
                         </button>
                         <button
-                          className="delete-button"
+                          className="capture-button"
                           onClick={handleDelete}
                         >
-                          <TbCaptureOff />
+                          <TbCaptureOff/>
                         </button>
                       </div>
                     </Html>

@@ -3,6 +3,7 @@ import { Stage, Layer, Rect, Group } from "react-konva";
 import { Html } from "react-konva-utils";
 import { TbCaptureFilled, TbCaptureOff } from "react-icons/tb";
 
+
 const DEFAULT_PAGE_NUMBER=1;
 const DrawingApp = ({
   onSelection,
@@ -120,14 +121,14 @@ const DrawingApp = ({
               />
               {i === activeShapeIndex && (
                 <>
-                  <Rect
+                  {/* <Rect
                     x={shape.x + shape.width + 10}
                     y={shape.y - 20}
                     width={80}
                     height={40}
                     fill="white"
                     stroke="black"
-                  />
+                  /> */}
                   <Html>
                     <div
                       style={{

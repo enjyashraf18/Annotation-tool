@@ -7,7 +7,7 @@ export const ShapeProvider = ({ children }) => {
   const [shapes, setShapes] = useState([]);
   const [activeShapeIndex, setActiveShapeIndex] = useState(null);
 
-  const handleCapture = (onCapture, onSelection) => {
+  const handleCapturee = (onCapture, onSelection) => {
     onCapture();
     setActiveShapeIndex(null);
     if (activeShapeIndex !== null) {
@@ -15,7 +15,8 @@ export const ShapeProvider = ({ children }) => {
     }
   };
 
-  const handleDelete = (onDelete) => {
+  const handleDeletee = (onDelete) => {
+    console.log('ahhhhhhhhhhh')
     const newShapes = shapes.slice();
     if (activeShapeIndex !== null) {
       newShapes.splice(activeShapeIndex, 1);
@@ -32,8 +33,8 @@ export const ShapeProvider = ({ children }) => {
         setShapes,
         activeShapeIndex,
         setActiveShapeIndex,
-        handleCapture,
-        handleDelete,
+        handleCapturee,
+        handleDeletee,
       }}
     >
       {children}
@@ -41,5 +42,5 @@ export const ShapeProvider = ({ children }) => {
   );
 };
 
-
+// Custom hook to use the shape context
 export const useShapes = () => useContext(ShapeContext);

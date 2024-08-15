@@ -1,0 +1,42 @@
+{
+  "samples": [
+    {
+      "1": [
+        {
+          "label": "ss",
+          "kind": "Object",
+          "language": "None",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 93.05001831054688,
+            "y": 161.98749542236328,
+            "width": 391.9999694824219,
+            "height": 166.4000701904297,
+            "scale": 1
+          },
+          "id": 1
+        }
+      ],
+      "id": "92c8"
+    },
+    {
+      "1": [
+        {
+          "label": "ss",
+          "kind": "Object",
+          "language": "None",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 93.05001831054688,
+            "y": 161.98749542236328,
+            "width": 391.9999694824219,
+            "height": 166.4000701904297,
+            "scale": 1
+          },
+          "id": 1
+        }
+      ],
+      "id": "237f"
+    }
+  ]
+}

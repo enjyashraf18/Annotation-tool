@@ -733,10 +733,10 @@ header {
 }
 
 .capture-button {
-  border-radius: 50%;
-  width: 20px;
+  border-radius: 70%;
+  width: 23px;
 
-  height: 18px;
+  height: 21px;
 
   align-items: center;
 

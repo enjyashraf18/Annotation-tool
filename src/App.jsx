@@ -18,6 +18,10 @@ import AddSample from "./components/AddSamples";
 import Samples from "./components/Samples";
 import { MdDraw } from "react-icons/md";
 import DrawingAppPdf from "./components/DrawingAppPdf";
+import axios from 'axios';
+// import { ShapeProvider } from "./components/ShapeProvider";
+// import { useShapes } from "./components/ShapeProvider";
+
 
 
 
@@ -57,6 +61,8 @@ function App() {
   const [fileName, setFileName] = useState(null);
   const [isActive, setIsActive] = useState(false);
 
+  
+
   const handleToggle = () => {
     setIsActive(!isActive);
     handleAllowingAddSample();
@@ -73,33 +79,18 @@ function App() {
     }
   };
 
-  const saveSamples = (fileName, samples = []) => {
-      // Ensure samples is an array; if not, handle accordingly
-      // if (!Array.isArray(samples)) {
-      //   throw new Error("Samples must be an array");
-      // }
-  
-      // Exclude large data like imageData if needed
-      // const samplesToSave = samples.map(sample => {
-      //   const { imageData, ...sampleWithoutImageData } = sample;
-      //   return sampleWithoutImageData;
-      // });
-  
-      // Convert samples to JSON and check the length
-      // const samplesString = JSON.stringify(samplesToSave);
-      // const samplesLength = samples.length;
-  
-      // console.log("Samples to be saved:", samplesToSave);
-      // console.log("Size of samples in bytes:", samplesLength);
-  
-      // Check if the size exceeds a certain limit (e.g., 5MB)
-      // const limit = 5 * 1024 * 1024; 
-      // if (samplesLength > limit) {
-      //   throw new Error("Sample size exceeds storage limit");
-      // }
-  
-      // Save to local storage
-      localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
+  // const saveSamples = (fileName, samples = []) => {
+  //     localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
+  // };
+
+  const saveSamples = (sample) => {
+    axios.post('http://localhost:5000/samples', sample)
+      .then(response => {
+        console.log('Sample saved:', response.data);
+      })
+      .catch(error => {
+        console.error('Error saving sample:', error);
+      });
   };
 
 
@@ -186,7 +177,7 @@ function App() {
       }
   
       // Save the updated samples to localStorage
-      saveSamples(fileName, updatedSamples);
+      saveSamples(updatedSamples);
   
       return updatedSamples; // Return the updated samples state
     });
@@ -548,8 +539,6 @@ function App() {
             pageNumber={pageNumber}
             isPDF={fileType === "pdf"}
           />
-
-
         )}
       </div>
     </div>
