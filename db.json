@@ -1,42 +1,88 @@
 {
   "samples": [
     {
+      "0": null,
       "1": [
         {
-          "label": "ss",
-          "kind": "Object",
-          "language": "None",
+          "fileName": "41Lrj7yR5rL._AC_UF894,1000_QL80_.jpg",
+          "label": "hozier",
+          "kind": "Text",
+          "language": "English",
           "selectedArea": {
             "tool": "rectangle",
-            "x": 93.05001831054688,
-            "y": 161.98749542236328,
-            "width": 391.9999694824219,
-            "height": 166.4000701904297,
+            "x": 26.162490844726562,
+            "y": 33.18751525878906,
+            "width": 327.20001220703125,
+            "height": 244.79999542236328,
             "scale": 1
           },
           "id": 1
         }
       ],
-      "id": "92c8"
+      "id": "7467"
     },
     {
+      "0": null,
       "1": [
         {
-          "label": "ss",
-          "kind": "Object",
-          "language": "None",
+          "fileName": "41Lrj7yR5rL._AC_UF894,1000_QL80_.jpg",
+          "label": "hozier",
+          "kind": "Text",
+          "language": "English",
           "selectedArea": {
             "tool": "rectangle",
-            "x": 93.05001831054688,
-            "y": 161.98749542236328,
-            "width": 391.9999694824219,
-            "height": 166.4000701904297,
+            "x": 26.162490844726562,
+            "y": 33.18751525878906,
+            "width": 327.20001220703125,
+            "height": 244.79999542236328,
             "scale": 1
           },
           "id": 1
         }
       ],
-      "id": "237f"
+      "id": "e775"
+    },
+    {
+      "0": null,
+      "1": [
+        {
+          "fileName": "4a7e895bfc3b51081255c1fc2dd9ceac.jpg",
+          "label": "knkj",
+          "kind": "Object",
+          "language": "None",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 141.45001220703125,
+            "y": 205.18749237060547,
+            "width": 242.4000244140625,
+            "height": 196.80001831054688,
+            "scale": 1
+          },
+          "id": 1
+        }
+      ],
+      "id": "9fa4"
+    },
+    {
+      "0": null,
+      "1": [
+        {
+          "fileName": "4a7e895bfc3b51081255c1fc2dd9ceac.jpg",
+          "label": "knkj",
+          "kind": "Object",
+          "language": "None",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 141.45001220703125,
+            "y": 205.18749237060547,
+            "width": 242.4000244140625,
+            "height": 196.80001831054688,
+            "scale": 1
+          },
+          "id": 1
+        }
+      ],
+      "id": "da1f"
     }
   ]
 }

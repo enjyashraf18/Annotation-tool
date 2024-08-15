@@ -60,6 +60,7 @@ function App() {
   const [editingSample, setEditingSample] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [isActive, setIsActive] = useState(false);
+  const [data, setData] = useState([]);
 
   
 
@@ -70,28 +71,125 @@ function App() {
 
 
 
-  const loadSamples = (fileName) => {
-    const storedSamples = localStorage.getItem(`samples_${fileName}`);
-    if (storedSamples) {
-      setSamples(JSON.parse(storedSamples));
-    } else {
-      setSamples({});
-    }
-  };
 
-  // const saveSamples = (fileName, samples = []) => {
-  //     localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
+  // const loadSamples = (fileName) => {
+  //   // console.log('it worked 11')
+  //   axios.get(`http://localhost:5000/samples`)
+  //     .then(response => {
+  //       // console.log('it worked 22')
+  //       if (response.data.length > 0) {
+  //         setSamples(response.data);
+  //         // console.log('it worked 33')
+  //       } else {
+  //         setSamples({});
+  //         // console.log('it didnt work')
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error('Error loading samples:', error);
+  //       setSamples({});
+  //     });
   // };
 
-  const saveSamples = (sample) => {
-    axios.post('http://localhost:5000/samples', sample)
-      .then(response => {
-        console.log('Sample saved:', response.data);
+    const loadSampless = (fileName) => {
+    console.log('it worked 11');
+    axios.get(`http://localhost:5000/samples`)
+      .then(response =>{
+        console.log('it worked 22');
+        if (response.data) {
+          const filteredSamples = Object.values(response.data).flat().filter(sample => sample.fileName === fileName);
+          if (filteredSamples.length > 0) {
+            console.log('it worked 33');
+            setSamples(filteredSamples);
+          } else {
+            setSamples([]);
+          }
+        } else {
+          setSamples([]);
+        }
       })
       .catch(error => {
-        console.error('Error saving sample:', error);
+        console.error('Error loading samples:', error);
+        setSamples([]);
       });
   };
+
+  const loadSamples = (fileName) => {
+    console.log('it worked 11');
+    axios.get(`http://localhost:5000/samples`)
+      .then(response => {
+        setData(response.data);
+        console.log('it worked 22');
+        if (response.data) {
+          const filteredSamples = Object.values(response.data).flat().filter(sample => sample.fileName === fileName);
+          if (filteredSamples.length > 0) {
+            console.log('it worked 33');
+            setSamples(filteredSamples);
+          } else {
+            setSamples([]);
+          }
+        } else {
+          setSamples([]);
+        }
+      })
+      .catch(error => {
+        console.error('Error loading samples:', error);
+        setSamples([]);
+      });
+  };
+  
+  
+  
+    const saveSamples = (sample) => {
+      axios.post('http://localhost:5000/samples', sample)
+        .then(response => {
+          console.log('Sample saved:', response.data);
+        })
+        .catch(error => {
+          console.error('Error saving sample:', error);
+        });
+    };
+
+
+// const saveSamples = (fileName, sample) => {
+//   axios.get(`http://localhost:5000/samples/${fileName}`)
+//     .then(response => {
+//       if (response.data) {
+//         const existingSamples = response.data;
+//         const updatedSamples = [...existingSamples, sample];
+        
+//         axios.put(`http://localhost:5000/samples/${fileName}`, updatedSamples)
+//           .then(response => {
+//             console.log('Sample saved:', response.data);
+//           })
+//           .catch(error => {
+//             console.error('Error updating samples:', error);
+//           });
+//       } else {
+//         axios.put(`http://localhost:5000/samples/${fileName}`, [sample])
+//           .then(response => {
+//             console.log('File and sample created:', response.data);
+//           })
+//           .catch(error => {
+//             console.error('Error creating file and saving sample:', error);
+//           });
+//       }
+//     })
+//     .catch(error => {
+//       if (error.response && error.response.status === 404) {
+//         axios.put(`http://localhost:5000/samples/${fileName}`, [sample])
+//           .then(response => {
+//             console.log('File and sample created:', response.data);
+//           })
+//           .catch(error => {
+//             console.error('Error creating file and saving sample:', error);
+//           });
+//       } else {
+//         console.error('Error checking file existence:', error);
+//       }
+//     });
+// };
+
 
 
   
@@ -111,35 +209,6 @@ function App() {
     setAllowDeleting(!isActive);
   };
 
-  // const handleAddSample = (sampleDetails) => {
-  //   console.log("Alloooo")
-  //   setShowAddSample(false);
-  //   if (!fileName) return;
-  //   if (editingSample) {
-  //     const updatedSamples = samples[pageNumber]?.map((sample) =>
-  //       sample.id === editingSample.id
-  //         ? { ...sampleDetails, id: editingSample.id }
-  //         : sample
-  //     );
-  //     setSamples(updatedSamples);
-  //     saveSamples(fileName, updatedSamples);
-  //   } else {
-  //     const newSample = { ...sampleDetails, id: counter };
-  //     const clonedSamples = structuredClone(samples);
-
-  //     clonedSamples[pageNumber]  = [...(clonedSamples[pageNumber] ?? []), newSample];
-  //     // if(clonedSamples[pageNumber]){
-  //     // }
-  //     // else {
-  //     //   clonedSamples[pageNumber] = [newSample]
-  //     // }
-  //     setSamples(clonedSamples);
-  //     setCounter(counter + 1);
-  //     saveSamples(fileName, clonedSamples);
-  //   }
-  //   setShowAddSample(false);
-  //   setEditingSample(null);
-  // };
   const handleAddSample = (sampleDetails) => {
     console.log("Alloooo");
     setShowAddSample(false);
@@ -531,6 +600,7 @@ function App() {
         />
         {showAddSample && (
           <AddSample
+            fileName = {fileName}
             selectedArea={selectedArea}
             imageData={file}
             onAddSample={handleAddSample}

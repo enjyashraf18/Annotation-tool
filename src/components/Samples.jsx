@@ -3,6 +3,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import SelectedAreaSample from "./SelectedAreaSample";
 
 const Samples = ({
+  data,
   samples,
   onEditSample,
   onDeleteSample,
