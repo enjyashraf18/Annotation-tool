@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import SelectedAreaDisplay from "./SelectedAreaDisplay";
 
 const AddSample = ({
+  fileName,
   selectedArea,
   imageData,
   onAddSample,
@@ -28,7 +29,7 @@ const AddSample = ({
       return;
     }
 
-    const sampleDetails = { label, kind, language, selectedArea};
+    const sampleDetails = { fileName, label, kind, language, selectedArea};
     onAddSample(sampleDetails);
   };
 

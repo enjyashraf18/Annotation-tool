@@ -3,40 +3,67 @@
     {
       "1": [
         {
-          "label": "ss",
+          "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
+          "label": "kkk",
           "kind": "Object",
           "language": "None",
           "selectedArea": {
             "tool": "rectangle",
-            "x": 93.05001831054688,
-            "y": 161.98749542236328,
-            "width": 391.9999694824219,
-            "height": 166.4000701904297,
+            "x": 81.64999389648438,
+            "y": 85.98749542236328,
+            "width": 144.80001831054688,
+            "height": 123.20001220703125,
             "scale": 1
           },
           "id": 1
-        }
-      ],
-      "id": "92c8"
-    },
-    {
-      "1": [
+        },
         {
-          "label": "ss",
+          "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
+          "label": ",,,",
           "kind": "Object",
           "language": "None",
           "selectedArea": {
             "tool": "rectangle",
-            "x": 93.05001831054688,
-            "y": 161.98749542236328,
-            "width": 391.9999694824219,
-            "height": 166.4000701904297,
+            "x": 274.45001220703125,
+            "y": 124.38750457763672,
+            "width": 142.4000244140625,
+            "height": 124.80000305175781,
+            "scale": 1
+          },
+          "id": 3
+        },
+        {
+          "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
+          "label": "kkk",
+          "kind": "Object",
+          "language": "None",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 208.85003662109375,
+            "y": 267.5875015258789,
+            "width": 226.39996337890625,
+            "height": 74.39999389648438,
+            "scale": 1
+          },
+          "id": 5
+        },
+        {
+          "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
+          "label": "mmm",
+          "kind": "Object",
+          "language": "None",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 95.25,
+            "y": 44.38751220703125,
+            "width": 184,
+            "height": 255.19998931884766,
             "scale": 1
           },
           "id": 1
         }
       ],
-      "id": "237f"
+      "id": "9e9e336a40ec2f42e3623ae7f710461b.jpg"
     }
   ]
 }

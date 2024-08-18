@@ -56,12 +56,12 @@ function App() {
   const [allowDeleting, setAllowDeleting] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [showAddSample, setShowAddSample] = useState(false);
-//  const [samples, setSamples] = useState({});
+  //  const [samples, setSamples] = useState({});
   const [editingSample, setEditingSample] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [isActive, setIsActive] = useState(false);
 
-  
+
 
   const handleToggle = () => {
     setIsActive(!isActive);
@@ -70,33 +70,82 @@ function App() {
 
 
 
-  const loadSamples = (fileName) => {
-    const storedSamples = localStorage.getItem(`samples_${fileName}`);
-    if (storedSamples) {
-      setSamples(JSON.parse(storedSamples));
-    } else {
-      setSamples({});
-    }
-  };
-
-  // const saveSamples = (fileName, samples = []) => {
-  //     localStorage.setItem(`samples_${fileName}`, JSON.stringify(samples));
+  // const loadSamples = (fileName) => {
+  //   axios.get('http://localhost:5000/samples')
+  //     .then(response => {
+  //       if (response.data.length > 0) {
+  //         setSamples(response.data);
+  //       } else {
+  //         setSamples({});
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error('Error loading samples:', error);
+  //       setSamples({});
+  //     });
   // };
 
-  const saveSamples = (sample) => {
-    axios.post('http://localhost:5000/samples', sample)
+  const loadSamples = (fileName) => {
+    axios.get('http://localhost:5000/samples/' + fileName)
       .then(response => {
-        console.log('Sample saved:', response.data);
+        console.log("resp",response)
+          const ay_7aga = response.data;
+          // const filteredSamples = Object.values(ay_7aga).filter(sample => sample.fileName === fileName);
+
+
+
+          setSamples(ay_7aga);
+          console.log('response' + ay_7aga);
+      
       })
       .catch(error => {
-        console.error('Error saving sample:', error);
+        console.error('Error loading samples:', error);
+        setSamples({});
       });
   };
 
 
+  const saveSamples = async (sample) => {
+    console.log("Test",{
+      ...sample,
+      id: fileName
+  })
+
+    const fileSamples = await fetch('http://localhost:5000/samples/' + fileName);
+
+    console.log(fileSamples)
+    if (fileSamples.ok) {
+      axios.put('http://localhost:5000/samples/' +fileName, {
+        ...sample,
+        id: fileName
+      })
+        .then(response => {
+          console.log('Sample saved:', response.data[1]);
   
+        })
+        .catch(error => {
+          console.error('Error saving sample:', error);
+        });
+    }
+    else {
+      axios.post('http://localhost:5000/samples', {
+        ...sample,
+        id: fileName
+      })
+        .then(response => {
+          console.log('Sample saved:', response.data[1]);
   
+        })
+        .catch(error => {
+          console.error('Error saving sample:', error);
+        });
+    }
   
+  };
+
+
+
+
 
   const handleSelection = (area) => {
     setSelectedArea({
@@ -144,76 +193,74 @@ function App() {
     console.log("Alloooo");
     setShowAddSample(false);
     if (!fileName) return;
-  
-    setSamples((prevSamples) => {
-      const updatedSamples = structuredClone(prevSamples);
-  
-      if (editingSample) {
-        // Initialize the array if it doesn't exist
-        if (!updatedSamples[pageNumber]) {
-          updatedSamples[pageNumber] = [];
-        }
+
+    const updatedSamples = structuredClone(samples);
         
-        // Map over the current page's samples and update the one being edited
-        updatedSamples[pageNumber] = updatedSamples[pageNumber].map((sample) =>
-          sample.id === editingSample.id
-            ? { ...sampleDetails, id: editingSample.id }
-            : sample
-        );
-      } else {
-        const newSample = { ...sampleDetails, id: counter };
-  
-        // Ensure that updatedSamples[pageNumber] is an array
-        if (!Array.isArray(updatedSamples[pageNumber])) {
-          updatedSamples[pageNumber] = [];
-        }
-  
-        // Add the new sample to the current page's array
-        updatedSamples[pageNumber] = [
-          ...updatedSamples[pageNumber],
-          newSample,
-        ];
-        setCounter(counter + 1);
+      
+    if (editingSample) {
+      // Initialize the array if it doesn't exist
+      if (!updatedSamples[pageNumber]) {
+        updatedSamples[pageNumber] = [];
       }
-  
-      // Save the updated samples to localStorage
-      saveSamples(updatedSamples);
-  
-      return updatedSamples; // Return the updated samples state
-    });
-  
+
+      // Map over the current page's samples and update the one being edited
+      updatedSamples[pageNumber] = updatedSamples[pageNumber].map((sample) =>
+        sample.id === editingSample.id
+          ? { ...sampleDetails, id: editingSample.id }
+          : sample
+      );
+    } else {
+      const newSample = { ...sampleDetails, id: counter };
+
+      // Ensure that updatedSamples[pageNumber] is an array
+      if (!Array.isArray(updatedSamples[pageNumber])) {
+        updatedSamples[pageNumber] = [];
+      }
+
+      // Add the new sample to the current page's array
+      updatedSamples[pageNumber] = [
+        ...updatedSamples[pageNumber],
+        newSample,
+      ];
+      setCounter(counter + 1);
+    }
+
+    // Save the updated samples to localStorage
+
+    setSamples(updatedSamples);
+    saveSamples(updatedSamples);
     setEditingSample(null);
   };
-  
-  
+
+
   const handleEditSample = (sample) => {
     setSelectedArea(sample.selectedArea);
     setImageData(sample.imageData);
     setEditingSample(sample);
     setShowAddSample(true);
   };
-  
-  
+
+
   const handleDeleteSample = (id) => {
     if (!fileName) return;
-  
+
     // Create a deep copy of the current samples to avoid mutating state directly
     const updatedSamples = structuredClone(samples);
-  
+
     // Filter out the sample with the matching id on the current page
     if (updatedSamples[pageNumber]) {
       updatedSamples[pageNumber] = updatedSamples[pageNumber].filter(
         (sample) => sample.id !== id
       );
     }
-  
+
     // Update the state with the new samples object
     setSamples(updatedSamples);
-  
+
     // Save the updated samples to localStorage
     saveSamples(fileName, updatedSamples);
   };
-  
+
   const handleCancel = () => {
     setShowAddSample(false);
     setEditingSample(null);
@@ -531,6 +578,7 @@ function App() {
         />
         {showAddSample && (
           <AddSample
+          fileName = {fileName}
             selectedArea={selectedArea}
             imageData={file}
             onAddSample={handleAddSample}
