@@ -1,24 +1,5 @@
 {
-  "samples": [
-    {
-      "1": [
-        {
-          "fileName": "50b07ed902db174abb4f377d930faaa4.jpg",
-          "label": "aaa",
-          "kind": "Object",
-          "language": "None",
-          "selectedArea": {
-            "tool": "rectangle",
-            "x": 54.25,
-            "y": 204.38750457763672,
-            "width": 456,
-            "height": 198.39999389648438,
-            "scale": 1
-          },
-          "id": 1
-        }
-      ],
-      "id": "50b07ed902db174abb4f377d930faaa4.jpg"
-    }
-  ]
+    "samples":[
+        
+    ]
 }
