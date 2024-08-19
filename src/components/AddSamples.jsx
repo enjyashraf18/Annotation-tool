@@ -14,14 +14,16 @@ const AddSample = ({
   const [label, setLabel] = useState("");
   const [kind, setKind] = useState("None");
   const [language, setLanguage] = useState("None");
-  const [objectType, setObjectType] = useState("None");
+  const [description, setDescription] = useState(""); 
+  const [objectType, setObjectType] = useState("None"); // New state for object type
 
   useEffect(() => {
     if (sampleToEdit) {
       setLabel(sampleToEdit.label);
       setKind(sampleToEdit.kind);
       setLanguage(sampleToEdit.language);
-      setObjectType(sampleToEdit.objectType || "None");
+      setDescription(sampleToEdit.description || "");
+      setObjectType(sampleToEdit.objectType || "None"); // Update for object type
     }
   }, [sampleToEdit]);
 
@@ -31,7 +33,7 @@ const AddSample = ({
       return;
     }
 
-    const sampleDetails = { fileName, label, kind, language, selectedArea, objectType };
+    const sampleDetails = { fileName, label, kind, language, description, selectedArea, objectType };
     onAddSample(sampleDetails);
   };
 
@@ -73,15 +75,15 @@ const AddSample = ({
             {kind === "Object" && (
               <div className="object-type">
                 <label htmlFor="objectType">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object Type <span> </span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object
+                  Type <span> </span>
                 </label>
                 <select
-                className="object-input"
+                  className="object-input"
                   id="objectType"
                   name="objectType"
                   value={objectType}
                   onChange={(e) => setObjectType(e.target.value)}
-                  required
                 >
                   <option value="None">Select an object type</option>
                   <option value="ID">ID</option>
@@ -107,6 +109,20 @@ const AddSample = ({
                 <option value="English">English</option>
               </select>
             </div>
+
+            <div className="sample-description">
+            <label htmlFor="sampleDescription">
+            Description
+            <span> </span>   </label>
+      <textarea
+                id="sampleDescription"
+                name="sampleDescription"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows="4"
+              />
+            </div>
+            
           </div>
           <div className="pic-display">
             <SelectedAreaDisplay
