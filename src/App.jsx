@@ -56,16 +56,32 @@ function App() {
   const [allowDeleting, setAllowDeleting] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [showAddSample, setShowAddSample] = useState(false);
+  const [showSamples, setshowSamples] = useState(false);
   //  const [samples, setSamples] = useState({});
   const [editingSample, setEditingSample] = useState(null);
   const [fileName, setFileName] = useState(null);
-  const [isActive, setIsActive] = useState(false);
+  const [isActiveAnnotate, setIsActiveAnnotate] = useState(false);
+  const [isActiveFields, setIsActiveFields] = useState(false);
+  const [isActiveJson, setIsActiveJson] = useState(false);
 
 
 
-  const handleToggle = () => {
-    setIsActive(!isActive);
+  const handleToggleAnnotate = () => {
+    setIsActiveAnnotate(!isActiveAnnotate);
     handleAllowingAddSample();
+  };
+
+  const handleToggleFields = () => {
+    setIsActiveFields(!isActiveFields);
+    setshowSamples(true);
+    setIsActiveJson(false);
+  };
+
+  const handleToggleJson = () => {
+    setIsActiveJson(!isActiveJson);
+    setIsActiveFields(false);
+    setshowSamples(false);
+    
   };
 
 
@@ -155,9 +171,9 @@ function App() {
   };
 
   const handleAllowingAddSample = (sampleDetails) => {
-    setAllowDrawing(!isActive);
-    setAllowCapturing(!isActive);
-    setAllowDeleting(!isActive);
+    setAllowDrawing(!isActiveAnnotate);
+    setAllowCapturing(!isActiveAnnotate);
+    setAllowDeleting(!isActiveAnnotate);
   };
 
   // const handleAddSample = (sampleDetails) => {
@@ -448,8 +464,8 @@ function App() {
 
           <button
             className="annotate-button"
-            onClick={handleToggle}
-            style={{ backgroundColor: isActive ? '#d3d9e0' : 'white' }}
+            onClick={handleToggleAnnotate}
+            style={{ backgroundColor: isActiveAnnotate ? '#d3d9e0' : 'white' }}
           >
             <MdDraw size="2.5rem" />
             <span>Annotate</span>
@@ -560,22 +576,36 @@ function App() {
       </div>
       <div className="column column3">
         <header className="samples-header">
-          {/* <button>
-        Fields & Info
-        </button> */}
-          <button className="Samples-button">
-            <h3>Samples</h3>
+          <button
+           className="Samples-button-fields"
+           onClick={handleToggleFields}
+           style={{ backgroundColor: isActiveFields ? '#d3d9e0' : 'white' }}
+           >
+            <h3>Fields</h3>
+          </button>
+          {/* <span>                       </span> */}
+          <div className="vertical-line"></div>
+          <button
+           className="Samples-button-json"
+           onClick={handleToggleJson}
+           style={{ 
+            backgroundColor: isActiveJson ? '#d3d9e0' : 'white',
+            }}
+           >
+          <h3>Json</h3>
           </button>
         </header>
-        <Samples
-          samples={samples}
-          onEditSample={handleEditSample}
-          onDeleteSample={handleDeleteSample}
-          file={file}
-          pageNumber={pageNumber}
-          isPDF={fileType === "pdf"}
-
-        />
+        {showSamples && (
+                  <Samples
+                  samples={samples}
+                  onEditSample={handleEditSample}
+                  onDeleteSample={handleDeleteSample}
+                  file={file}
+                  pageNumber={pageNumber}
+                  isPDF={fileType === "pdf"}
+        
+                />
+        )}
         {showAddSample && (
           <AddSample
           fileName = {fileName}

@@ -582,7 +582,7 @@ header {
   /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); */
   background-color: gray;
 }
-
+/* 
 .Samples-button {
   display: inline-flex;
   flex-direction: column;
@@ -595,6 +595,56 @@ header {
   border-radius: 4px;
   font-size: 16px;
   transition: background-color 0.3s ease;
+} */
+ .samples-header-left{
+  width: 70px;
+  background-color: red;
+ }
+.samples-header{
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  position: relative; /* To position the shadow correctly */
+}
+.Samples-button-fields {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  /* padding: 8px 12px; */
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+.Samples-button-json{
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  /* padding: 8px 12px; */
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+
+}
+
+.vertical-line {
+  border-left: 1px solid gray;
+  height: 100%;
+  margin-right: 70px;
+  margin-left: 70px;
+}
+
+.Samples-button-fields:active  {
+  background-color: gray;
+}
+.Samples-button-json:active  {
+  background-color: gray;
 }
 
 .samples-counter {
