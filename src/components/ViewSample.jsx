@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import SelectedAreaDisplay from "./SelectedAreaDisplay";
-
 const ViewSample = ({
   fileName,
   selectedArea,
@@ -13,13 +12,15 @@ const ViewSample = ({
   const [label, setLabel] = useState("");
   const [kind, setKind] = useState("None");
   const [language, setLanguage] = useState("None");
-  const [objectType, setObjectType] = useState("None"); // Added state for objectType
+  const [objectType, setObjectType] = useState("None"); // State for objectType
+  const [description, setDescription] = useState(""); // State for description
 
   useEffect(() => {
     if (sampleToEdit) {
       setLabel(sampleToEdit.label);
       setKind(sampleToEdit.kind);
       setLanguage(sampleToEdit.language);
+      setDescription(sampleToEdit.description || ""); // Set description if available
       if (sampleToEdit.kind === "Object") {
         setObjectType(sampleToEdit.objectType || "None"); // Load object type if editing
       }
@@ -52,8 +53,8 @@ const ViewSample = ({
                 id="sampleKind"
                 name="sampleKind"
                 value={kind}
-                onChange={(e) => setKind(e.target.value)}
                 required
+                disabled // Make select read-only
               >
                 <option value="None">Select a kind</option>
                 <option value="Object">Object</option>
@@ -71,8 +72,7 @@ const ViewSample = ({
                   id="objectType"
                   name="objectType"
                   value={objectType}
-                  onChange={(e) => setObjectType(e.target.value)}
-                  readOnly
+                  disabled // Make select read-only
                 >
                   <option value="None">Select an object type</option>
                   <option value="ID">ID</option>
@@ -91,12 +91,25 @@ const ViewSample = ({
                 id="samplelanguage"
                 name="samplelanguage"
                 value={language}
-                readOnly // Make select read-only
+                disabled // Make select read-only
               >
                 <option value="None">Select a language (optional)</option>
                 <option value="Arabic">Arabic</option>
                 <option value="English">English</option>
               </select>
+            </div>
+
+            <div className="sample-description">
+              <label htmlFor="sampleDescription">
+                Description<span> </span>
+              </label>
+              <textarea
+                id="sampleDescription"
+                name="sampleDescription"
+                value={description}
+                rows="4"
+                readOnly // Make textarea read-only
+              />
             </div>
           </div>
           <div className="pic-display">
@@ -108,10 +121,7 @@ const ViewSample = ({
             />
           </div>
           <footer className="sample-footer">
-            <button
-              className="popup-buttons-cancel"
-              onClick={onCancel}
-            >
+            <button className="popup-buttons-cancel" onClick={onCancel}>
               CANCEL
             </button>
           </footer>
@@ -120,6 +130,5 @@ const ViewSample = ({
     </div>
   );
 };
-
 export default ViewSample;
 
