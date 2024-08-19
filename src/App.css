@@ -777,3 +777,18 @@ header {
   /* to make push */
  
 }
+.object-type{
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: rgb(37, 57, 87);
+  text-align: left;
+  
+}
+.object-input{
+  box-sizing: border-box;
+  width: 60%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}

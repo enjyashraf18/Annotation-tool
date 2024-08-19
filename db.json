@@ -1,5 +1,141 @@
 {
-    "samples":[
-        
-    ]
+  "samples": [
+    {
+      "0": "B",
+      "1": [
+        {
+          "fileName": "Blue and Yellow Playful Doodle Digital Brainstorm Presentation.pdf",
+          "label": "demdem",
+          "kind": "Text",
+          "language": "English",
+          "selectedArea": {
+            "x": 315.6750030517578,
+            "y": 220.67359670730116,
+            "width": 374.4000244140625,
+            "height": 200.02138697598832,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        },
+        {
+          "fileName": "Blue and Yellow Playful Doodle Digital Brainstorm Presentation.pdf",
+          "label": "dash",
+          "kind": "Object",
+          "language": "None",
+          "selectedArea": {
+            "x": 184.47499084472656,
+            "y": 115.86240214021991,
+            "width": 161.60003662109375,
+            "height": 164.0175373203104,
+            "scale": 1
+          },
+          "objectType": "Logo",
+          "id": 3
+        }
+      ],
+      "2": "u",
+      "3": [
+        {
+          "fileName": "Blue and Yellow Playful Doodle Digital Brainstorm Presentation.pdf",
+          "label": "eyes",
+          "kind": "Object",
+          "language": "None",
+          "selectedArea": {
+            "x": 398.87501525878906,
+            "y": 287.080691079161,
+            "width": 109.5999755859375,
+            "height": 35.20377631611052,
+            "scale": 1
+          },
+          "objectType": "Other",
+          "id": 1
+        }
+      ],
+      "4": " ",
+      "5": "a",
+      "6": "n",
+      "7": "d",
+      "8": " ",
+      "9": "Y",
+      "10": "e",
+      "11": "l",
+      "12": "l",
+      "13": "o",
+      "14": "w",
+      "15": " ",
+      "16": "P",
+      "17": "l",
+      "18": "a",
+      "19": "y",
+      "20": "f",
+      "21": "u",
+      "22": "l",
+      "23": " ",
+      "24": "D",
+      "25": "o",
+      "26": "o",
+      "27": "d",
+      "28": "l",
+      "29": "e",
+      "30": " ",
+      "31": "D",
+      "32": "i",
+      "33": "g",
+      "34": "i",
+      "35": "t",
+      "36": "a",
+      "37": "l",
+      "38": " ",
+      "39": "B",
+      "40": "r",
+      "41": "a",
+      "42": "i",
+      "43": "n",
+      "44": "s",
+      "45": "t",
+      "46": "o",
+      "47": "r",
+      "48": "m",
+      "49": " ",
+      "50": "P",
+      "51": "r",
+      "52": "e",
+      "53": "s",
+      "54": "e",
+      "55": "n",
+      "56": "t",
+      "57": "a",
+      "58": "t",
+      "59": "i",
+      "60": "o",
+      "61": "n",
+      "62": ".",
+      "63": "p",
+      "64": "d",
+      "65": "f",
+      "id": "Blue and Yellow Playful Doodle Digital Brainstorm Presentation.pdf"
+    },
+    {
+      "1": [
+        {
+          "fileName": "66-alx-aice-ai-career-essentials-certificate-hana-elanshassy.png",
+          "label": "3",
+          "kind": "Object",
+          "language": "Arabic",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 46.87498474121094,
+            "y": 171.04999542236328,
+            "width": 377.6000061035156,
+            "height": 120,
+            "scale": 1
+          },
+          "objectType": "Cover",
+          "id": 1
+        }
+      ],
+      "id": "66-alx-aice-ai-career-essentials-certificate-hana-elanshassy.png"
+    }
+  ]
 }

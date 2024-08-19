@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import SelectedAreaSample from "./SelectedAreaSample";
+import ViewSample from "./ViewSample"; //new
 
 const Samples = ({
   data,
   samples,
   onEditSample,
   onDeleteSample,
+  onViewSample, //new
   file,
   pageNumber,
   isPDF,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
+  //new
+  const [viewingSample, setViewingSample] = useState(null);
 
-  // Ensure currentPageSamples is always an array
   const currentPageSamples = Array.isArray(samples[pageNumber])
     ? samples[pageNumber]
     : [];
@@ -24,12 +27,20 @@ const Samples = ({
       onEditSample(sample);
     } else if (action === "delete") {
       onDeleteSample(sampleId);
+    } 
+    //new
+    else if (action === "view") {
+      setViewingSample(sample); // Set sample to view
     }
-    setDropdownOpen(null); // Close the dropdown after action
+    setDropdownOpen(null);
   };
 
   const toggleDropdown = (sampleId) => {
-    setDropdownOpen(dropdownOpen === sampleId ? null : sampleId); // Toggle dropdown
+    setDropdownOpen(dropdownOpen === sampleId ? null : sampleId);
+  };
+//new
+  const handleCloseViewModal = () => {
+    setViewingSample(null);
   };
 
   return (
@@ -46,8 +57,8 @@ const Samples = ({
               <SelectedAreaSample
                 selectedArea={sample.selectedArea}
                 imageData={file}
-                isPDF={isPDF} 
-                pdfPageNumber={pageNumber} 
+                isPDF={isPDF}
+                pdfPageNumber={pageNumber}
               />
             </div>
             <div className="sample-info">
@@ -69,6 +80,12 @@ const Samples = ({
                 </button>
                 {dropdownOpen === sample.id && (
                   <div className="dropdown-menu">
+                    {/*new*/}
+                    <button
+                      onClick={() => handleDropdownAction(sample.id, "view")}
+                    >
+                      View
+                    </button>
                     <button
                       onClick={() => handleDropdownAction(sample.id, "edit")}
                     >
@@ -86,6 +103,18 @@ const Samples = ({
           </li>
         ))}
       </ul>
+{/*new*/}
+      {viewingSample && (
+        <ViewSample
+          fileName={viewingSample.fileName}
+          selectedArea={viewingSample.selectedArea}
+          imageData={file}
+          onCancel={handleCloseViewModal}
+          sampleToEdit={viewingSample}
+          pageNumber={pageNumber}
+          isPDF={isPDF}
+        />
+      )}
     </div>
   );
 };

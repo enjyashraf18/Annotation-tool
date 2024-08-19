@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import SelectedAreaDisplay from "./SelectedAreaDisplay";
 
-const AddSample = ({
+const ViewSample = ({
   fileName,
   selectedArea,
   imageData,
-  onAddSample,
   onCancel,
   sampleToEdit,
   pageNumber,
@@ -14,33 +13,25 @@ const AddSample = ({
   const [label, setLabel] = useState("");
   const [kind, setKind] = useState("None");
   const [language, setLanguage] = useState("None");
-  const [objectType, setObjectType] = useState("None");
+  const [objectType, setObjectType] = useState("None"); // Added state for objectType
 
   useEffect(() => {
     if (sampleToEdit) {
       setLabel(sampleToEdit.label);
       setKind(sampleToEdit.kind);
       setLanguage(sampleToEdit.language);
-      setObjectType(sampleToEdit.objectType || "None");
+      if (sampleToEdit.kind === "Object") {
+        setObjectType(sampleToEdit.objectType || "None"); // Load object type if editing
+      }
     }
   }, [sampleToEdit]);
-
-  const handleSubmit = () => {
-    if (!label || kind === 'None') {
-      alert('Label and Kind are required fields.');
-      return;
-    }
-
-    const sampleDetails = { fileName, label, kind, language, selectedArea, objectType };
-    onAddSample(sampleDetails);
-  };
 
   return (
     <div className="modal">
       <div className="modal-content">
         <div className="sample">
           <div className="sample-data">
-            <div className="sample-text">Add new sample</div>
+            <div className="sample-text">View Sample</div>
             <div className="sample-input">
               <label htmlFor="sampleLabel">
                 Label <span> </span>
@@ -50,8 +41,7 @@ const AddSample = ({
                 id="sampleLabel"
                 name="sampleLabel"
                 value={label}
-                onChange={(e) => setLabel(e.target.value)}
-                required
+                readOnly // Make input read-only
               />
             </div>
             <div className="sample-kind">
@@ -73,15 +63,16 @@ const AddSample = ({
             {kind === "Object" && (
               <div className="object-type">
                 <label htmlFor="objectType">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object Type <span> </span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object
+                  Type <span> </span>
                 </label>
                 <select
-                className="object-input"
+                  className="object-input"
                   id="objectType"
                   name="objectType"
                   value={objectType}
                   onChange={(e) => setObjectType(e.target.value)}
-                  required
+                  readOnly
                 >
                   <option value="None">Select an object type</option>
                   <option value="ID">ID</option>
@@ -100,7 +91,7 @@ const AddSample = ({
                 id="samplelanguage"
                 name="samplelanguage"
                 value={language}
-                onChange={(e) => setLanguage(e.target.value)}
+                readOnly // Make select read-only
               >
                 <option value="None">Select a language (optional)</option>
                 <option value="Arabic">Arabic</option>
@@ -117,9 +108,12 @@ const AddSample = ({
             />
           </div>
           <footer className="sample-footer">
-            <button className='popup-buttons-cancel' onClick={onCancel}>CANCEL</button>
-            <span> </span>
-            <button className='popup-buttons' onClick={handleSubmit}>ADD</button>
+            <button
+              className="popup-buttons-cancel"
+              onClick={onCancel}
+            >
+              CANCEL
+            </button>
           </footer>
         </div>
       </div>
@@ -127,4 +121,5 @@ const AddSample = ({
   );
 };
 
-export default AddSample;
+export default ViewSample;
+
