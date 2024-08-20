@@ -626,8 +626,11 @@ header {
   text-align: center;
   justify-content: center;
   display: flex;
-  position: relative; /* To position the shadow correctly */
+  position: relative; 
+
 }
+
+
 .Samples-button-fields {
   display: inline-flex;
   align-items: center;
@@ -661,12 +664,12 @@ header {
   margin-left: 70px;
 }
 
-.Samples-button-fields:active  {
-  background-color: gray;
+/* .Samples-button-fields:active  {
+  background-color: rgb(177, 175, 175);
 }
 .Samples-button-json:active  {
-  background-color: gray;
-}
+  background-color: rgb(177, 175, 175);
+} */
 
 .samples-counter {
   margin-top: 20px;
@@ -675,9 +678,7 @@ header {
   border-bottom: 0.2px solid rgb(226, 232, 240);
   display: flex;
   flex-direction: column;
-  /* Display items vertically */
   align-items: flex-start;
-  /* Align items to the left */
 }
 
 .samples-counter h5 {

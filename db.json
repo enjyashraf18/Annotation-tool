@@ -1,4 +1,45 @@
 {
   "samples": [
+    {
+      "1": [
+        {
+          "fileName": "calming the emotional storm.pdf",
+          "pageNumber": 1,
+          "label": "calming 1",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "x": 33.850006103515625,
+            "y": 281.98751068115234,
+            "width": 361.6000061035156,
+            "height": 189.5999755859375,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        }
+      ],
+      "2": [
+        {
+          "fileName": "calming the emotional storm.pdf",
+          "pageNumber": 2,
+          "label": "calming 2",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "x": 25.850006103515625,
+            "y": 165.18750762939453,
+            "width": 374.3999938964844,
+            "height": 167.20005798339844,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 3
+        }
+      ],
+      "id": "calming the emotional storm.pdf"
+    }
   ]
 }

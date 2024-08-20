@@ -19,8 +19,8 @@ import Samples from "./components/Samples";
 import { MdDraw } from "react-icons/md";
 import DrawingAppPdf from "./components/DrawingAppPdf";
 import axios from 'axios';
-// import { ShapeProvider } from "./components/ShapeProvider";
-// import { useShapes } from "./components/ShapeProvider";
+import JsonData from "./components/JsonData";
+
 
 
 
@@ -39,9 +39,9 @@ function App() {
   const [thumbnails, setThumbnails] = useState([]);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-  // Ensures samples is always an array
 
-  const [samples, setSamples] = useState([]);  // Initialize as an empty array
+  const [samples, setSamples] = useState([]); 
+  const [data, setData] = useState([]);
 
   const [selectedArea, setSelectedArea] = useState({
     x: 10,
@@ -56,8 +56,8 @@ function App() {
   const [allowDeleting, setAllowDeleting] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [showAddSample, setShowAddSample] = useState(false);
-  const [showSamples, setshowSamples] = useState(false);
-  //  const [samples, setSamples] = useState({});
+  const [showSamples, setshowSamples] = useState(true);
+  const [showJson, setshowJson] = useState(false);
   const [editingSample, setEditingSample] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [isActiveAnnotate, setIsActiveAnnotate] = useState(false);
@@ -75,42 +75,28 @@ function App() {
     setIsActiveFields(!isActiveFields);
     setshowSamples(true);
     setIsActiveJson(false);
+    setshowJson(false);
   };
 
   const handleToggleJson = () => {
     setIsActiveJson(!isActiveJson);
     setIsActiveFields(false);
     setshowSamples(false);
+    setshowJson(true);
     
   };
 
 
 
-  // const loadSamples = (fileName) => {
-  //   axios.get('http://localhost:5000/samples')
-  //     .then(response => {
-  //       if (response.data.length > 0) {
-  //         setSamples(response.data);
-  //       } else {
-  //         setSamples({});
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error('Error loading samples:', error);
-  //       setSamples({});
-  //     });
-  // };
+
 
   const loadSamples = (fileName) => {
     axios.get('http://localhost:5000/samples/' + fileName)
       .then(response => {
         console.log("resp",response)
           const ay_7aga = response.data;
-          // const filteredSamples = Object.values(ay_7aga).filter(sample => sample.fileName === fileName);
-
-
-
           setSamples(ay_7aga);
+          setData(response.data);
           console.log('response' + ay_7aga);
       
       })
@@ -150,7 +136,6 @@ function App() {
       })
         .then(response => {
           console.log('Sample saved:', response.data[1]);
-  
         })
         .catch(error => {
           console.error('Error saving sample:', error);
@@ -605,6 +590,12 @@ function App() {
                   isPDF={fileType === "pdf"}
         
                 />
+        )}
+        {showJson && (
+          <JsonData
+          pageNumber = {pageNumber}
+          data = {data}
+          />
         )}
         {showAddSample && (
           <AddSample

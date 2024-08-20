@@ -33,7 +33,7 @@ const AddSample = ({
       return;
     }
 
-    const sampleDetails = { fileName, label, kind, language, description, selectedArea, objectType };
+    const sampleDetails = { fileName, pageNumber, label, kind, language, description, selectedArea, objectType };
     onAddSample(sampleDetails);
   };
 
