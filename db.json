@@ -3,79 +3,97 @@
     {
       "1": [
         {
-          "fileName": "calming the emotional storm.pdf",
+          "fileName": "Blue and Yellow Playful Doodle Digital Brainstorm Presentation.pdf",
           "pageNumber": 1,
-          "label": "calming 1",
+          "label": "dsfdszv",
+          "kind": "Object",
+          "language": "None",
+          "description": "dsczscx",
+          "selectedArea": {
+            "x": 123.67500305175781,
+            "y": 96.66033678218842,
+            "width": 251.20001220703125,
+            "height": 180.8193521387983,
+            "scale": 1
+          },
+          "objectType": "Cover",
+          "id": 1
+        }
+      ],
+      "id": "Blue and Yellow Playful Doodle Digital Brainstorm Presentation.pdf"
+    },
+    {
+      "1": [
+        {
+          "fileName": "1 Orientation and Introduction- SOC107.pdf",
+          "pageNumber": 1,
+          "label": "cdsvs",
           "kind": "Text",
           "language": "None",
           "description": "",
           "selectedArea": {
-            "x": 33.850006103515625,
-            "y": 281.98751068115234,
-            "width": 361.6000061035156,
-            "height": 189.5999755859375,
+            "x": 431.6750030517578,
+            "y": 210.25000762939453,
+            "width": 130.4000244140625,
+            "height": 116.79998779296875,
             "scale": 1
           },
           "objectType": "None",
           "id": 1
         },
         {
-          "fileName": "calming the emotional storm.pdf",
+          "fileName": "1 Orientation and Introduction- SOC107.pdf",
           "pageNumber": 1,
-          "label": "calming p1",
-          "kind": "Text",
-          "language": "English",
-          "description": "",
-          "selectedArea": {
-            "x": 43.11248779296875,
-            "y": 284.3875045776367,
-            "width": 256.0000305175781,
-            "height": 88.00006103515625,
-            "scale": 1
-          },
-          "objectType": "None",
-          "id": 1
-        }
-      ],
-      "2": [
-        {
-          "fileName": "calming the emotional storm.pdf",
-          "pageNumber": 2,
-          "label": "calming 2",
-          "kind": "Text",
+          "label": "fbdzb",
+          "kind": "Object",
           "language": "None",
           "description": "",
           "selectedArea": {
-            "x": 25.850006103515625,
-            "y": 165.18750762939453,
-            "width": 374.3999938964844,
-            "height": 167.20005798339844,
+            "x": 208.47499084472656,
+            "y": 106.25000762939453,
+            "width": 243.20001220703125,
+            "height": 85.60000610351562,
             "scale": 1
           },
-          "objectType": "None",
+          "objectType": "Cover",
           "id": 3
-        }
-      ],
-      "3": [
+        },
         {
-          "fileName": "calming the emotional storm.pdf",
-          "pageNumber": 3,
-          "label": "calming 3",
+          "fileName": "1 Orientation and Introduction- SOC107.pdf",
+          "pageNumber": 1,
+          "label": "ccc",
           "kind": "Text",
           "language": "None",
           "description": "",
           "selectedArea": {
-            "x": 35.45001220703125,
-            "y": 156.38750457763672,
-            "width": 353.5999755859375,
-            "height": 172.79998779296875,
+            "x": 193.27500915527344,
+            "y": 55.849998474121094,
+            "width": 259.9999694824219,
+            "height": 76,
             "scale": 1
           },
           "objectType": "None",
           "id": 1
+        },
+        {
+          "fileName": "1 Orientation and Introduction- SOC107.pdf",
+          "pageNumber": 1,
+          "label": "hbiugoih[",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "x": 52.47499084472656,
+            "y": 292.6500015258789,
+            "width": 220.80001831054688,
+            "height": 103.20001220703125,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 2
         }
       ],
-      "id": "calming the emotional storm.pdf"
+      "id": "1 Orientation and Introduction- SOC107.pdf"
     }
   ]
 }

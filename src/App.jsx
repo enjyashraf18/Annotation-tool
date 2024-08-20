@@ -193,45 +193,47 @@ function App() {
   const handleAddSample = (sampleDetails) => {
     console.log("Alloooo");
     setShowAddSample(false);
+
     if (!fileName) return;
 
+    // Deep clone the samples object to avoid mutating the original state
     const updatedSamples = structuredClone(samples);
-        
-      
+
     if (editingSample) {
-      // Initialize the array if it doesn't exist
-      if (!updatedSamples[pageNumber]) {
-        updatedSamples[pageNumber] = [];
-      }
+        // Initialize the array if it doesn't exist for the page
+        if (!updatedSamples[pageNumber]) {
+            updatedSamples[pageNumber] = [];
+        }
 
-      // Map over the current page's samples and update the one being edited
-      updatedSamples[pageNumber] = updatedSamples[pageNumber].map((sample) =>
-        sample.id === editingSample.id
-          ? { ...sampleDetails, id: editingSample.id }
-          : sample
-      );
+        // Update the specific sample being edited
+        updatedSamples[pageNumber] = updatedSamples[pageNumber].map((sample) =>
+            sample.id === editingSample.id
+                ? { ...sampleDetails, id: editingSample.id }
+                : sample
+        );
     } else {
-      const newSample = { ...sampleDetails, id: counter };
+        const newSample = { ...sampleDetails, id: counter };
 
-      // Ensure that updatedSamples[pageNumber] is an array
-      if (!Array.isArray(updatedSamples[pageNumber])) {
-        updatedSamples[pageNumber] = [];
-      }
+        // Ensure the page's array exists before adding the new sample
+        if (!Array.isArray(updatedSamples[pageNumber])) {
+            updatedSamples[pageNumber] = [];
+        }
 
-      // Add the new sample to the current page's array
-      updatedSamples[pageNumber] = [
-        ...updatedSamples[pageNumber],
-        newSample,
-      ];
-      setCounter(counter + 1);
+        // Add the new sample to the array for the current page
+        updatedSamples[pageNumber].push(newSample);
+
+        // Increment the counter for unique IDs
+        setCounter((prevCounter) => prevCounter + 1);
     }
 
-    // Save the updated samples to localStorage
+    // Save the updated samples to localStorage and update the state
+    setSamples(updatedSamples); // Update the state with the new samples
 
-    setSamples(updatedSamples);
-    saveSamples(updatedSamples);
-    setEditingSample(null);
-  };
+    saveSamples(updatedSamples); // Optionally save to localStorage or another persistence layer
+    
+    setEditingSample(null); // Reset the editing sample state
+};
+
 
 
   const handleEditSample = (sample) => {
