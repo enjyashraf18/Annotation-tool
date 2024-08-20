@@ -6,12 +6,14 @@ function JsonData({
     data,
 }) {
     
-
+    const selectedData = data[pageNumber] || []; 
 
   return (
-    <div>
+    <div
+    style = {{overflow: 'auto'}} 
+    >
         <pre>
-            {JSON.stringify(data, null, 2)}
+            {JSON.stringify(selectedData, null, 2)}
         </pre>
 
     </div>
@@ -19,3 +21,6 @@ function JsonData({
 }
 
 export default JsonData;
+
+
+

@@ -96,7 +96,7 @@ function App() {
         console.log("resp",response)
           const ay_7aga = response.data;
           setSamples(ay_7aga);
-          setData(response.data);
+          setData(ay_7aga);
           console.log('response' + ay_7aga);
       
       })
