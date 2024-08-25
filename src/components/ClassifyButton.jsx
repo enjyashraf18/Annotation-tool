@@ -68,13 +68,13 @@ const ClassifyComponent = ({ file, fileName, isPdf, onClassifyFile, onClassifyPa
     <>
   
       <div>
-        {!fileClassification && (
+        {!fileClassification && fileName && (
           <button className="action-button" onClick={() => handleOpenModal('file')} disabled={!fileName}>Classify Entire File</button>
         )}
         </div>
         <span>      </span>
         <div>
-        {!pageClassifications[pageNumber] && (
+        {!pageClassifications[pageNumber] && fileName && isPdf && (
           <button className="action-button" onClick={() => handleOpenModal('page')} disabled= {!isPdf}>Classify Specific Page</button>
         )}
         </div>

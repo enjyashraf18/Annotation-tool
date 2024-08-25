@@ -916,6 +916,7 @@ header {
   margin-top: 20px; /* Ensure uniform spacing */
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 20px;
   
  
 ; /* Aligns button to the start of its container */
