@@ -446,7 +446,7 @@ header {
   border: 1px solid #ccc;
   box-sizing: border-box;
   resize: none; /* Prevents resizing */
-  flex: 1; /* Ensures textarea takes up the remaining space */
+  flex: 1; 
 }
 
 
@@ -496,7 +496,6 @@ header {
   margin-right: 20px ;
   margin-bottom: 20px;
   border: 3px dotted  #888;
-  /* ay 7aga 3shan a3mel push*/
 }
 
 .modal {
@@ -511,7 +510,6 @@ header {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
-  width: 900px;
 }
 
 .modal-content {
@@ -543,6 +541,16 @@ header {
   overflow-y: auto;
   /* Enable vertical scrolling for thumbnails */
   height: 76vh;
+  /* Full viewport height */
+  position: relative;
+}
+.jsonData{
+  list-style-type: none;
+  padding: 0;
+  flex: 1;
+  overflow-y: auto;
+  /* Enable vertical scrolling for thumbnails */
+  height: 85vh;
   /* Full viewport height */
   position: relative;
 }

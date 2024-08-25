@@ -10,7 +10,7 @@ function JsonData({ pageNumber, data }) {
 
 
   return (
-    <div style={{ overflow: 'auto' }}>
+    <div className="jsonData">
       <pre>{JSON.stringify(selectedData, null, 2)}</pre>
     </div>
   );
