@@ -511,6 +511,7 @@ header {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
+  width: 900px;
 }
 
 .modal-content {
@@ -973,8 +974,6 @@ header {
 }
 .json-container{    
     overflow-y: auto;
-    /* Enable vertical scrolling for thumbnails */
     height: 87vh;
-    /* Full viewport height */
     position: relative;
 }

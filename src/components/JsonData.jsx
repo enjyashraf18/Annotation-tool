@@ -1,20 +1,20 @@
 import { useEffect } from "react";
 import "../App.css";
-import Samples from "./Samples";
 
-function JsonData({ pageNumber, data, Samples }) {
+function JsonData({ pageNumber, data }) {
   const selectedData = data[pageNumber] || [];
 
   useEffect(() => {
-    // This effect runs every time the component re-renders
     console.log(`JsonData component updated. Page number: ${pageNumber}`);
   }, [pageNumber, data]);
 
+
   return (
-    <div className="json-container">
+    <div style={{ overflow: 'auto' }}>
       <pre>{JSON.stringify(selectedData, null, 2)}</pre>
     </div>
   );
 }
 
 export default JsonData;
+

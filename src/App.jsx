@@ -141,6 +141,7 @@ function App() {
       })
         .then(response => {
           console.log('Sample saved:', response.data[1]);
+          loadSamples(fileName);
   
         })
         .catch(error => {
@@ -162,10 +163,6 @@ function App() {
   
   };
 
-
-
-
-
   const handleSelection = (area) => {
     setSelectedArea({
       ...area,
@@ -179,35 +176,7 @@ function App() {
     setAllowDeleting(!isActiveAnnotate);
   };
 
-  // const handleAddSample = (sampleDetails) => {
-  //   console.log("Alloooo")
-  //   setShowAddSample(false);
-  //   if (!fileName) return;
-  //   if (editingSample) {
-  //     const updatedSamples = samples[pageNumber]?.map((sample) =>
-  //       sample.id === editingSample.id
-  //         ? { ...sampleDetails, id: editingSample.id }
-  //         : sample
-  //     );
-  //     setSamples(updatedSamples);
-  //     saveSamples(fileName, updatedSamples);
-  //   } else {
-  //     const newSample = { ...sampleDetails, id: counter };
-  //     const clonedSamples = structuredClone(samples);
 
-  //     clonedSamples[pageNumber]  = [...(clonedSamples[pageNumber] ?? []), newSample];
-  //     // if(clonedSamples[pageNumber]){
-  //     // }
-  //     // else {
-  //     //   clonedSamples[pageNumber] = [newSample]
-  //     // }
-  //     setSamples(clonedSamples);
-  //     setCounter(counter + 1);
-  //     saveSamples(fileName, clonedSamples);
-  //   }
-  //   setShowAddSample(false);
-  //   setEditingSample(null);
-  // };
   const handleAddSample = (sampleDetails) => {
     console.log("Alloooo");
     setShowAddSample(false);
@@ -238,11 +207,12 @@ function App() {
         setCounter((prevCounter) => prevCounter + 1);
     }
 
-    setSamples(updatedSamples); // Update the state with the new samples
-    saveSamples(updatedSamples); // Save to localStorage or another persistence layer
+    setSamples(updatedSamples); 
+    saveSamples(updatedSamples); 
     setEditingSample(null);
 
-    console.log(updatedSamples); // Confirm that the samples are updated
+    console.log(updatedSamples); 
+
 };
 
 
@@ -472,7 +442,6 @@ function App() {
       <ClassifyComponent
         file={file}
         pageNumber={pageNumber}
-        
         onClassifyFile={handleClassifyFile}
         onClassifyPage={handleClassifyPage}
       />
@@ -480,15 +449,7 @@ function App() {
         </header>
         <main className="App-main">
           {fileType === "pdf" && (
-            // <PDFViewer
-            //   pdfData={file}
-            //   pageNumber={pageNumber}
-            //   setPageNumber={setPageNumber}
-            //   zoomLevel={zoomLevel}
-            //   setZoomLevel={setZoomLevel}
-            //   onDocumentLoadSuccess={onDocumentLoadSuccess}
-            //   onSelection={handleSelection}
-            // />
+
             <DrawingAppPdf
               file={file}
               pageNumber={pageNumber}
@@ -513,17 +474,7 @@ function App() {
             />
           )}
 
-          {/* {fileType === "pdf" && (
-            <DrawingAppPdf
-              file={file}
-              pageNumber={pageNumber}
-              zoomLevel={zoomLevel}
-              allowDrawing={allowDrawing}
-              onCapture={handleCapture}
-              onDelete={handleDelete}
-              onSelection={handleSelection}
-            />
-          )} */}
+
           {fileType === "image" && (
             <DrawingApp
               onSelection={handleSelection}
@@ -590,7 +541,6 @@ function App() {
            >
             <h3>Fields</h3>
           </button>
-          {/* <span>                       </span> */}
           <div className="vertical-line"></div>
           <button
            className="Samples-button-json"
