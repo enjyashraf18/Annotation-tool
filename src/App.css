@@ -864,3 +864,117 @@ header {
   border-radius: 4px;
   margin-bottom: 20px;
 }
+.classification-container {
+  display: flex;
+  gap: 20px; /* Keep the gap between classification boxes */
+  margin-top: 20px;
+  flex-wrap: wrap; /* Allow boxes to wrap if necessary */
+}
+
+.classification-box {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+  width: 200px; /* Fixed width for consistency */
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px; /* Minimum height to keep boxes aligned */
+  display: flex;
+  flex-direction: column;
+}
+
+.classification-box p {
+  margin: 5px 0 10px;
+  text-align: center;
+  flex-grow: 1; /* Make the text expand to fill available space */
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.action-button {
+  background-color: grey;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 20px; /* Ensure uniform spacing */
+  border-radius: 5px;
+  cursor: pointer;
+  
+ 
+; /* Aligns button to the start of its container */
+  position: relative; /* Keeps it in the normal document flow */ /* Ensures it stays on top of other elements */
+}
+
+.edit-button {
+  background-color: black;
+}
+
+.edit-button:hover {
+  background-color: black;
+}
+
+.delete-button {
+  background-color: grey;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+.modal-button {
+  background-color: grey;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.save-button {
+  background-color: grey;
+}
+
+.save-button:hover {
+  background-color: whitesmoke;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+}
+.json-container{    
+    overflow-y: auto;
+    /* Enable vertical scrolling for thumbnails */
+    height: 87vh;
+    /* Full viewport height */
+    position: relative;
+}

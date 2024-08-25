@@ -21,13 +21,13 @@ import DrawingAppPdf from "./components/DrawingAppPdf";
 import axios from 'axios';
 import JsonData from "./components/JsonData";
 
-
+import ClassifyComponent from "./components/ClassifyButton";
 
 
 
 
 function App() {
-
+  const [fileClassifications, setFileClassifications] = useState({}); 
   const [counter, setCounter] = useState(0);
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
@@ -64,6 +64,24 @@ function App() {
   const [isActiveFields, setIsActiveFields] = useState(false);
   const [isActiveJson, setIsActiveJson] = useState(false);
 
+  const handleClassifyFile = (file, classification) => {
+    setFileClassifications(prevState => ({
+      ...prevState,
+      file: classification,
+    }));
+    console.log('Classified entire file:', file, 'as', classification);
+  };
+
+  const handleClassifyPage = (file, pageNumber, classification) => {
+    setFileClassifications(prevState => ({
+      ...prevState,
+      pages: {
+        ...prevState.pages,
+        [pageNumber]: classification,
+      },
+    }));
+    console.log(`Classified page ${pageNumber} of file:`, file, 'as', classification);
+  };
 
 
   const handleToggleAnnotate = () => {
@@ -196,16 +214,13 @@ function App() {
 
     if (!fileName) return;
 
-    // Deep clone the samples object to avoid mutating the original state
     const updatedSamples = structuredClone(samples);
 
     if (editingSample) {
-        // Initialize the array if it doesn't exist for the page
         if (!updatedSamples[pageNumber]) {
             updatedSamples[pageNumber] = [];
         }
 
-        // Update the specific sample being edited
         updatedSamples[pageNumber] = updatedSamples[pageNumber].map((sample) =>
             sample.id === editingSample.id
                 ? { ...sampleDetails, id: editingSample.id }
@@ -214,24 +229,20 @@ function App() {
     } else {
         const newSample = { ...sampleDetails, id: counter };
 
-        // Ensure the page's array exists before adding the new sample
         if (!Array.isArray(updatedSamples[pageNumber])) {
             updatedSamples[pageNumber] = [];
         }
 
-        // Add the new sample to the array for the current page
         updatedSamples[pageNumber].push(newSample);
 
-        // Increment the counter for unique IDs
         setCounter((prevCounter) => prevCounter + 1);
     }
 
-    // Save the updated samples to localStorage and update the state
     setSamples(updatedSamples); // Update the state with the new samples
+    saveSamples(updatedSamples); // Save to localStorage or another persistence layer
+    setEditingSample(null);
 
-    saveSamples(updatedSamples); // Optionally save to localStorage or another persistence layer
-    
-    setEditingSample(null); // Reset the editing sample state
+    console.log(updatedSamples); // Confirm that the samples are updated
 };
 
 
@@ -457,6 +468,15 @@ function App() {
             <MdDraw size="2.5rem" />
             <span>Annotate</span>
           </button>
+        
+      <ClassifyComponent
+        file={file}
+        pageNumber={pageNumber}
+        
+        onClassifyFile={handleClassifyFile}
+        onClassifyPage={handleClassifyPage}
+      />
+      
         </header>
         <main className="App-main">
           {fileType === "pdf" && (
@@ -597,6 +617,7 @@ function App() {
           <JsonData
           pageNumber = {pageNumber}
           data = {data}
+          samples= {samples}
           />
         )}
         {showAddSample && (

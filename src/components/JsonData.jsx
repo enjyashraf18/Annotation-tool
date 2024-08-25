@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import "../App.css";
+import Samples from "./Samples";
 
-function JsonData({ pageNumber, data }) {
+function JsonData({ pageNumber, data, Samples }) {
   const selectedData = data[pageNumber] || [];
 
   useEffect(() => {
@@ -10,7 +11,7 @@ function JsonData({ pageNumber, data }) {
   }, [pageNumber, data]);
 
   return (
-    <div style={{ overflow: 'auto' }}>
+    <div className="json-container">
       <pre>{JSON.stringify(selectedData, null, 2)}</pre>
     </div>
   );
