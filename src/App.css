@@ -606,6 +606,9 @@ header {
   border-radius: 4px;
   font-size: 16px;
   transition: background-color 0.3s ease;
+  border-right: 1px solid gray;
+  margin-right: 30px;
+  
 }
 
 .annotate-button:active {
@@ -951,7 +954,7 @@ header {
 }
 
 .save-button:hover {
-  background-color: whitesmoke;
+  background-color: grey;
 }
 
 .cancel-button {
@@ -962,7 +965,7 @@ header {
   background-color: #5a6268;
 }
 
-.modal {
+/* .modal{
   position: fixed;
   top: 0;
   left: 0;
@@ -979,7 +982,7 @@ header {
   padding: 20px;
   border-radius: 5px;
   width: 300px;
-}
+} */
 .json-container{    
     overflow-y: auto;
     height: 87vh;

@@ -72,6 +72,7 @@ const ClassifyComponent = ({ file, fileName, isPdf, onClassifyFile, onClassifyPa
           <button className="action-button" onClick={() => handleOpenModal('file')} disabled={!fileName}>Classify Entire File</button>
         )}
         </div>
+        <span>      </span>
         <div>
         {!pageClassifications[pageNumber] && (
           <button className="action-button" onClick={() => handleOpenModal('page')} disabled= {!isPdf}>Classify Specific Page</button>
@@ -113,13 +114,15 @@ const ClassifyComponent = ({ file, fileName, isPdf, onClassifyFile, onClassifyPa
               <option value="Passport">Passport</option>
               <option value="Document">Document</option>
             </select>
+            <span>     </span>
             <input
               type="text"
               placeholder="Or add your own"
               value={customOption}
               onChange={(e) => setCustomOption(e.target.value)}
             />
-            <button className="modal-button save-button" onClick={handleSaveClassification}>Save</button>
+            <span>     </span>
+            <button className="modal-button save-button" onClick={handleSaveClassification} disabled={!(customOption || selectedOption)}>Save</button>
             <button className="modal-button cancel-button" onClick={handleCloseModal}>Cancel</button>
           </div>
         </div>
