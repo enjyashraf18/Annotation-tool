@@ -218,9 +218,132 @@
           },
           "objectType": "None",
           "id": 1
+        },
+        {
+          "fileName": "diane.jpg",
+          "pageNumber": 1,
+          "label": "nose",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 128.61248779296875,
+            "y": 239.04999542236328,
+            "width": 52.79998779296875,
+            "height": 34.4000244140625,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 3
         }
       ],
       "id": "diane.jpg"
+    },
+    {
+      "1": [
+        {
+          "fileName": "images.png",
+          "pageNumber": 1,
+          "label": "oto",
+          "kind": "Text",
+          "language": "English",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 44.3499755859375,
+            "y": 71.75,
+            "width": 147.20001220703125,
+            "height": 96.80001831054688,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        },
+        {
+          "fileName": "images.png",
+          "pageNumber": 1,
+          "label": "oto2",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 32.01251220703125,
+            "y": 65.35000610351562,
+            "width": 167.20001220703125,
+            "height": 113.60000610351562,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 5
+        }
+      ],
+      "id": "images.png"
+    },
+    {
+      "1": [
+        {
+          "fileName": "fotopia logo.png",
+          "pageNumber": 1,
+          "label": "oto",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 52.01251220703125,
+            "y": 80.54998779296875,
+            "width": 138.39996337890625,
+            "height": 100.80001831054688,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 7
+        }
+      ],
+      "id": "fotopia logo.png"
+    },
+    {
+      "1": [
+        {
+          "fileName": "ba0581cb07e683e2867aa5fbdd478d8a.jpg",
+          "pageNumber": 1,
+          "label": "aaaaa",
+          "kind": "Text",
+          "language": "English",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 180.25,
+            "y": 257.98751068115234,
+            "width": 384,
+            "height": 236,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 9
+        },
+        {
+          "fileName": "ba0581cb07e683e2867aa5fbdd478d8a.jpg",
+          "pageNumber": 1,
+          "label": "tw",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 129.51248168945312,
+            "y": 174.7874984741211,
+            "width": 433.60003662109375,
+            "height": 221.60006713867188,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        }
+      ],
+      "id": "ba0581cb07e683e2867aa5fbdd478d8a.jpg"
     }
   ]
 }

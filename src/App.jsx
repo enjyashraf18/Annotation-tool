@@ -109,6 +109,8 @@ function App() {
 
 
   const loadSamples = (fileName) => {
+    setSamples({});
+    setData({});
     axios.get('http://localhost:5000/samples/' + fileName)
       .then(response => {
         console.log("resp",response)
@@ -441,6 +443,8 @@ function App() {
         
       <ClassifyComponent
         file={file}
+        fileName = {fileName}
+        isPdf = {fileType === "pdf"}
         pageNumber={pageNumber}
         onClassifyFile={handleClassifyFile}
         onClassifyPage={handleClassifyPage}

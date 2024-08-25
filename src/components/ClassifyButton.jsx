@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const ClassifyComponent = ({ file, onClassifyFile, onClassifyPage, pageNumber }) => {
+const ClassifyComponent = ({ file, fileName, isPdf, onClassifyFile, onClassifyPage, pageNumber }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [customOption, setCustomOption] = useState('');
@@ -10,7 +10,6 @@ const ClassifyComponent = ({ file, onClassifyFile, onClassifyPage, pageNumber })
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // Reset classifications when a new file is uploaded
     setFileClassification('');
     setPageClassifications({});
   }, [file]);
@@ -70,12 +69,12 @@ const ClassifyComponent = ({ file, onClassifyFile, onClassifyPage, pageNumber })
   
       <div>
         {!fileClassification && (
-          <button className="action-button" onClick={() => handleOpenModal('file')}>Classify Entire File</button>
+          <button className="action-button" onClick={() => handleOpenModal('file')} disabled={!fileName}>Classify Entire File</button>
         )}
         </div>
         <div>
         {!pageClassifications[pageNumber] && (
-          <button className="action-button" onClick={() => handleOpenModal('page')}>Classify Specific Page</button>
+          <button className="action-button" onClick={() => handleOpenModal('page')} disabled= {!isPdf}>Classify Specific Page</button>
         )}
         </div>
       
