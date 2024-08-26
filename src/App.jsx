@@ -27,7 +27,7 @@ import ClassifyComponent from "./components/ClassifyButton";
 
 
 function App() {
-  const [fileClassifications, setFileClassifications] = useState({}); 
+  const [fileClassifications, setFileClassifications] = useState({});
   const [counter, setCounter] = useState(0);
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
@@ -40,7 +40,7 @@ function App() {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
 
-  const [samples, setSamples] = useState([]); 
+  const [samples, setSamples] = useState([]);
   const [data, setData] = useState([]);
 
   const [selectedArea, setSelectedArea] = useState({
@@ -101,7 +101,7 @@ function App() {
     setIsActiveFields(false);
     setshowSamples(false);
     setshowJson(true);
-    
+
   };
 
 
@@ -113,12 +113,12 @@ function App() {
     setData({});
     axios.get('http://localhost:5000/samples/' + fileName)
       .then(response => {
-        console.log("resp",response)
-          const ay_7aga = response.data;
-          setSamples(ay_7aga);
-          setData(ay_7aga);
-          console.log('response' + ay_7aga);
-      
+        console.log("resp", response)
+        const ay_7aga = response.data;
+        setSamples(ay_7aga);
+        setData(ay_7aga);
+        console.log('response' + ay_7aga);
+
       })
       .catch(error => {
         console.error('Error loading samples:', error);
@@ -128,23 +128,23 @@ function App() {
 
 
   const saveSamples = async (sample) => {
-    console.log("Test",{
+    console.log("Test", {
       ...sample,
       id: fileName
-  })
+    })
 
     const fileSamples = await fetch('http://localhost:5000/samples/' + fileName);
 
     console.log(fileSamples)
     if (fileSamples.ok) {
-      axios.put('http://localhost:5000/samples/' +fileName, {
+      axios.put('http://localhost:5000/samples/' + fileName, {
         ...sample,
         id: fileName
       })
         .then(response => {
           console.log('Sample saved:', response.data[1]);
           loadSamples(fileName);
-  
+
         })
         .catch(error => {
           console.error('Error saving sample:', error);
@@ -162,7 +162,7 @@ function App() {
           console.error('Error saving sample:', error);
         });
     }
-  
+
   };
 
   const handleSelection = (area) => {
@@ -188,34 +188,34 @@ function App() {
     const updatedSamples = structuredClone(samples);
 
     if (editingSample) {
-        if (!updatedSamples[pageNumber]) {
-            updatedSamples[pageNumber] = [];
-        }
+      if (!updatedSamples[pageNumber]) {
+        updatedSamples[pageNumber] = [];
+      }
 
-        updatedSamples[pageNumber] = updatedSamples[pageNumber].map((sample) =>
-            sample.id === editingSample.id
-                ? { ...sampleDetails, id: editingSample.id }
-                : sample
-        );
+      updatedSamples[pageNumber] = updatedSamples[pageNumber].map((sample) =>
+        sample.id === editingSample.id
+          ? { ...sampleDetails, id: editingSample.id }
+          : sample
+      );
     } else {
-        const newSample = { ...sampleDetails, id: counter };
+      const newSample = { ...sampleDetails, id: counter };
 
-        if (!Array.isArray(updatedSamples[pageNumber])) {
-            updatedSamples[pageNumber] = [];
-        }
+      if (!Array.isArray(updatedSamples[pageNumber])) {
+        updatedSamples[pageNumber] = [];
+      }
 
-        updatedSamples[pageNumber].push(newSample);
+      updatedSamples[pageNumber].push(newSample);
 
-        setCounter((prevCounter) => prevCounter + 1);
+      setCounter((prevCounter) => prevCounter + 1);
     }
 
-    setSamples(updatedSamples); 
-    saveSamples(updatedSamples); 
+    setSamples(updatedSamples);
+    saveSamples(updatedSamples);
     setEditingSample(null);
 
-    console.log(updatedSamples); 
+    console.log(updatedSamples);
 
-};
+  };
 
 
 
@@ -440,16 +440,7 @@ function App() {
             <MdDraw size="2.5rem" />
             <span>Annotate</span>
           </button>
-        
-      <ClassifyComponent
-        file={file}
-        fileName = {fileName}
-        isPdf = {fileType === "pdf"}
-        pageNumber={pageNumber}
-        onClassifyFile={handleClassifyFile}
-        onClassifyPage={handleClassifyPage}
-      />
-      
+
         </header>
         <main className="App-main">
           {fileType === "pdf" && (
@@ -539,44 +530,56 @@ function App() {
       <div className="column column3">
         <header className="samples-header">
           <button
-           className="Samples-button-fields"
-           onClick={handleToggleFields}
-           style={{ backgroundColor: isActiveFields ? '#d3d9e0' : 'white' }}
-           >
+            className="Samples-button-fields"
+            onClick={handleToggleFields}
+            style={{ backgroundColor: isActiveFields ? '#d3d9e0' : 'white' }}
+          >
             <h3>Fields</h3>
           </button>
           <div className="vertical-line"></div>
           <button
-           className="Samples-button-json"
-           onClick={handleToggleJson}
-           style={{ 
-            backgroundColor: isActiveJson ? '#d3d9e0' : 'white',
+            className="Samples-button-json"
+            onClick={handleToggleJson}
+            style={{
+              backgroundColor: isActiveJson ? '#d3d9e0' : 'white',
             }}
-           >
-          <h3>Json</h3>
+          >
+            <h3>Json</h3>
           </button>
         </header>
+
         {showSamples && (
-                  <Samples
-                  samples={samples}
-                  onEditSample={handleEditSample}
-                  onDeleteSample={handleDeleteSample}
-                  file={file}
-                  pageNumber={pageNumber}
-                  isPDF={fileType === "pdf"}
-        
-                />
+          <ClassifyComponent
+            file={file}
+            fileName={fileName}
+            isPdf={fileType === "pdf"}
+            pageNumber={pageNumber}
+            onClassifyFile={handleClassifyFile}
+            onClassifyPage={handleClassifyPage}
+          />
         )}
+        {showSamples && (
+          <Samples
+            samples={samples}
+            onEditSample={handleEditSample}
+            onDeleteSample={handleDeleteSample}
+            file={file}
+            pageNumber={pageNumber}
+            isPDF={fileType === "pdf"}
+
+          />
+        )}
+
         {showJson && (
           <JsonData
-          pageNumber = {pageNumber}
-          data = {data}
-          samples= {samples}
+            pageNumber={pageNumber}
+            data={data}
+            samples={samples}
           />
         )}
         {showAddSample && (
           <AddSample
-          fileName = {fileName}
+            fileName={fileName}
             selectedArea={selectedArea}
             imageData={file}
             onAddSample={handleAddSample}
