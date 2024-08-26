@@ -441,6 +441,15 @@ function App() {
             <span>Annotate</span>
           </button>
 
+          <ClassifyComponent
+            file={file}
+            fileName={fileName}
+            isPdf={fileType === "pdf"}
+            pageNumber={pageNumber}
+            onClassifyFile={handleClassifyFile}
+            onClassifyPage={handleClassifyPage}
+          />
+
         </header>
         <main className="App-main">
           {fileType === "pdf" && (
@@ -548,16 +557,7 @@ function App() {
           </button>
         </header>
 
-        {showSamples && (
-          <ClassifyComponent
-            file={file}
-            fileName={fileName}
-            isPdf={fileType === "pdf"}
-            pageNumber={pageNumber}
-            onClassifyFile={handleClassifyFile}
-            onClassifyPage={handleClassifyPage}
-          />
-        )}
+
         {showSamples && (
           <Samples
             samples={samples}

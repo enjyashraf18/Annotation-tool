@@ -60,6 +60,25 @@
       "id": "9e9e336a40ec2f42e3623ae7f710461b.jpg"
     },
     {
+      "1": [
+        {
+          "fileName": "calming the emotional storm.pdf",
+          "pageNumber": 1,
+          "label": "title ",
+          "kind": "Object",
+          "language": "Arabic",
+          "description": "",
+          "selectedArea": {
+            "x": 32.25,
+            "y": 272.3875045776367,
+            "width": 377.60003662109375,
+            "height": 197.60000610351562,
+            "scale": 1
+          },
+          "objectType": "Cover",
+          "id": 1
+        }
+      ],
       "2": [
         {
           "fileName": "calming the emotional storm.pdf",

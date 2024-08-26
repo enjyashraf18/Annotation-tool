@@ -607,7 +607,7 @@ header {
   border-radius: 4px;
   font-size: 16px;
   transition: background-color 0.3s ease;
-  border-right: 1px solid gray;
+  /* border-right: 1px solid gray; */
   margin-right: 30px;
   
 }
@@ -919,11 +919,7 @@ header {
   cursor: pointer;
   /* margin-bottom: 20px; */
   flex-direction: column;
-  
-  
- 
-; /* Aligns button to the start of its container */
-  position: relative; /* Keeps it in the normal document flow */ /* Ensures it stays on top of other elements */
+  position: relative; 
 }
 
 .edit-button {
