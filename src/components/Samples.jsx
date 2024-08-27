@@ -34,8 +34,9 @@ const Samples = ({
   return (
     <div className="samples">
       <div className="samples-counter">
-        <h5>Total uploaded samples</h5>
+        <h5>Total uploaded samples </h5>
         <span>{currentPageSamples.length}</span>
+
       </div>
 
       <ul className="samples-content">

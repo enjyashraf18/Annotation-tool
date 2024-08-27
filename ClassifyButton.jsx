@@ -3,18 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, onClassifyPage, handleAddClassification ,pageClassifications, setPageClassifications}) => {
+const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, onClassifyPage, handleAddClassification ,pageClassifications, setPageClassifications, numOfPages}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [customOption, setCustomOption] = useState('');
   const [classificationTarget, setClassificationTarget] = useState(null);
-  const [fileClassification, setFileClassification] = useState('');
+  // const [fileClassification, setFileClassification] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
   const classification = customOption || selectedOption;
 
   useEffect(() => {
-    setFileClassification('');
+    // setFileClassification('');
     setPageClassifications({});
   }, [file]);
 
@@ -60,7 +60,11 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
     const classification = customOption || selectedOption;
 
     if (classificationTarget === 'file') {
-      setFileClassification(classification);
+      // setFileClassification(classification);
+
+      setPageClassifications(Array(numOfPages).reduce((prev, i) => {
+        prev[i] =classification
+      }, {}))
       onClassifyFile(file, classification);
     } else if (classificationTarget === 'page') {
       setPageClassifications((prev) => ({
@@ -85,7 +89,7 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
 
   const handleDeleteClassification = (target) => {
     if (target === 'file') {
-      setFileClassification('');
+      // setFileClassification();
       onClassifyFile(file, null);
     } else if (target === 'page') {
       setPageClassifications((prev) => {
@@ -107,7 +111,7 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
   return (
     <>
       <div>
-        {!fileClassification && fileName && (
+        {fileName && (
           <button className="action-button" onClick={() => handleOpenModal('file')} disabled={!fileName}>
             Classify Entire File
           </button>

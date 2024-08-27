@@ -20,7 +20,6 @@ import { MdDraw } from "react-icons/md";
 import DrawingAppPdf from "./components/DrawingAppPdf";
 import axios from 'axios';
 import JsonData from "./components/JsonData";
-
 import ClassifyComponent from "./components/ClassifyButton";
 
 
@@ -29,6 +28,7 @@ import ClassifyComponent from "./components/ClassifyButton";
 function App() {
   const [fileClassifications, setFileClassifications] = useState({});
   const [counter, setCounter] = useState(0);
+  const [ccounter, setCcounter] = useState(0);
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -42,6 +42,9 @@ function App() {
 
   const [samples, setSamples] = useState([]);
   const [data, setData] = useState([]);
+
+  const [pageClassifications, setPageClassifications] = useState({});
+  // const [classificationData, setClassificationData] = useState([]);
 
   const [selectedArea, setSelectedArea] = useState({
     x: 10,
@@ -104,10 +107,6 @@ function App() {
 
   };
 
-
-
-
-
   const loadSamples = (fileName) => {
     setSamples({});
     setData({});
@@ -165,6 +164,124 @@ function App() {
 
   };
 
+  // const loadClassification = (fileName) => {
+  //   axios.get('http://localhost:5000/classification/' + fileName)
+  //     .then(response => {
+  //       console.log("Classification resp", response);
+  //       const data = response.data;
+  //       setClassificationData(data);
+  //       console.log(' Classification Loaded data:', data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error loading classification:', error);
+  //     });
+  // };
+
+  // const saveClassification = async () => {
+
+  //   console.log("Saving Classification Data:", data);
+
+  //   try {
+  //     const fileClassification = await fetch('http://localhost:5000/classification/' + fileName);
+
+  //     if (fileClassification.ok) {
+  //       await axios.put('http://localhost:5000/classification/' + fileName, data);
+  //       console.log('Classification updated:', data);
+  //     } else {
+  //       await axios.post('http://localhost:5000/classification', data);
+  //       console.log('Classification saved:', data);
+  //     }
+  //     loadClassification(fileClassification);
+  //   } catch (error) {
+  //     console.error('Error saving classification:', error);
+  //   }
+  // };
+
+  const loadClassification = (fileName) => {
+    setPageClassifications({});
+    axios.get('http://localhost:5000/classification/' + fileName)
+      .then(response => {
+        console.log("Response Sameh", response);
+        const ay_7aga = response.data;
+        setPageClassifications({1: ay_7aga.classification});
+      })
+      .catch(error => {
+        console.error('Error loading classification:', error);
+      });
+  };
+
+
+  // const saveClassification = async (classificationDetails, fileName) => {
+
+  //   console.log("Saving Classification Data:", classificationDetails);
+  
+  //   try {
+  //     await axios.post('http://localhost:5000/classification', classificationDetails)
+  //       .then(response => {
+  //         console.log('Classification saved:', classificationDetails);
+  //         loadClassification(fileName); 
+  //       })
+  //       .catch(error => {
+  //         console.error('Error saving classification:', error);
+  //       });
+  
+  //   } catch (error) {
+  //     console.error('Unexpected error occurred while saving classification:', error);
+  //   }
+  // };
+  
+
+
+  const saveClassification = async (classificationDetails, fileName) => {
+    console.log("Daniel", classificationDetails)
+    const fileClassification = await fetch('http://localhost:5000/classification' + fileName);
+    if (fileClassification.ok) {
+      axios.put('http://localhost:5000/classification/' + fileName, {
+        ...classificationDetails,
+        id: fileName
+      })
+        .then(response => {
+          console.log('Sample saved:', response.data[1]);
+          loadSamples(fileName);
+
+        })
+        .catch(error => {
+          console.error('Error saving sample:', error);
+        });
+    }
+    else {
+      axios.post('http://localhost:5000/classification', {
+        ...classificationDetails,
+        id: fileName
+      })
+        .then(response => {
+          console.log('Sample saved:', response.data[1]);
+        })
+        .catch(error => {
+          console.error('Error saving sample:', error);
+        });
+    }
+    // try {
+    //   await axios.post('http://localhost:5000/classification',
+    //     {
+    //       ...classificationDetails,
+    //       id: fileName
+    //     })
+    //     .then(response => {
+    //       console.log('Classification saved:', classificationDetails);
+    //       loadClassification(fileName); 
+    //     })
+    //     .catch(error => {
+    //       console.error('Error saving classification:', error);
+    //     });
+  
+    // } catch (error) {
+    //   console.error('Unexpected error occurred while saving classification:', error);
+    // }
+  };
+
+
+
   const handleSelection = (area) => {
     setSelectedArea({
       ...area,
@@ -216,6 +333,39 @@ function App() {
     console.log(updatedSamples);
 
   };
+
+  // const handleAddClassification = (editingClassification, classificationDetails, fileName) => {
+
+  //   const updatedClassifications = structuredClone(classificationDetails);
+
+  //   // if (editingClassification) {
+  //   //   if (!updatedClassifications[pageNumber]) {
+  //   //     updatedClassifications[pageNumber] = [];
+  //   //   }
+
+  //   //   updatedClassifications[pageNumber] = updatedClassifications[pageNumber].map((classification) =>
+  //   //     classification.id === editingClassification.id
+  //   //       ? { ...classificationDetails, id: editingClassification.id }
+  //   //       : classification
+  //   //   );
+  //   // } else {
+  //   //   const newClassification = { ...classificationDetails, id: ccounter };
+
+  //   //   if (!Array.isArray(updatedClassifications[pageNumber])) {
+  //   //     updatedClassifications[pageNumber] = [];
+  //   //   }
+
+  //   //   updatedClassifications[pageNumber].push(newClassification);
+
+  //   //   setCcounter((prevCounter) => prevCounter + 1);
+  //   // }
+
+
+  //   // console.log("Aaaaaaaaaah Pls Work",editingClassification, classificationDetails);
+
+  //   // setClassificationData(updatedClassifications);
+  //   saveClassification(updatedClassifications, fileName);
+  // };
 
 
 
@@ -282,6 +432,7 @@ function App() {
         setFile(e.target.result);
       };
       reader.readAsDataURL(selectedFile);
+      loadClassification(selectedFile.name);
       loadSamples(selectedFile.name);
     } else if (fileType.startsWith("image/")) {
       const objectURL = URL.createObjectURL(selectedFile);
@@ -292,6 +443,7 @@ function App() {
       setPageNumber(1);
       setThumbnails([objectURL]);
       loadSamples(selectedFile.name);
+      loadClassification(selectedFile.name);
     } else {
       alert("The selected file should be an image or a PDF.");
     }
@@ -446,8 +598,13 @@ function App() {
             fileName={fileName}
             isPdf={fileType === "pdf"}
             pageNumber={pageNumber}
+            numOfPages={numPages}
             onClassifyFile={handleClassifyFile}
             onClassifyPage={handleClassifyPage}
+            handleAddClassification = {saveClassification}
+            pageClassifications={pageClassifications}
+            setPageClassifications = {setPageClassifications}
+            // setClassificationData = {setClassificationData}
           />
 
         </header>
