@@ -11,7 +11,6 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
   const [fileClassification, setFileClassification] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
-  const classificationsss = customOption || selectedOption;
 
   useEffect(() => {
     setFileClassification('');
@@ -19,42 +18,12 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
   }, [file]);
 
 
-  const handleSubmit = () => {
-    const classification = customOption || selectedOption
-    const classificationDetails = {classification, fileName, pageNumber};
-  };
-
   const handleOpenModal = (target) => {
     setClassificationTarget(target);
     setIsModalOpen(true);
   };
 
-/*
-    const updatedSamples = structuredClone(samples);
 
-    if (editingSample) {
-      if (!updatedSamples[pageNumber]) {
-        updatedSamples[pageNumber] = [];
-      }
-
-      updatedSamples[pageNumber] = updatedSamples[pageNumber].map((sample) =>
-        sample.id === editingSample.id
-          ? { ...sampleDetails, id: editingSample.id }
-          : sample
-      );
-    } else {
-      const newSample = { ...sampleDetails, id: counter };
-
-      if (!Array.isArray(updatedSamples[pageNumber])) {
-        updatedSamples[pageNumber] = [];
-      }
-
-      updatedSamples[pageNumber].push(newSample);
-
-      setCounter((prevCounter) => prevCounter + 1);
-    }
-
-*/
   const handleSaveClassification = () => {
     const classification = customOption || selectedOption;
 
@@ -72,7 +41,6 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
     setIsEditing(false);
     const classificationDetails = {classification, fileName, pageNumber};
     handleAddClassification(classificationDetails, fileName);
-    // onSaveClassification(classificationDetails, fileName);
     handleCloseModal();
   };
 

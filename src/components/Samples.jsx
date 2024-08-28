@@ -9,6 +9,8 @@ const Samples = ({
   file,
   pageNumber,
   isPDF,
+  fileClassifications1,
+
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
@@ -33,9 +35,11 @@ const Samples = ({
 
   return (
     <div className="samples">
+      {/* <div> File Classifications :  {fileClassifications1}</div> */}
       <div className="samples-counter">
-        <h5>Total uploaded samples</h5>
+        <h5>Total uploaded samples </h5>
         <span>{currentPageSamples.length}</span>
+
       </div>
 
       <ul className="samples-content">
