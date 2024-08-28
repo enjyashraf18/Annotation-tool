@@ -3,78 +3,18 @@
     {
       "1": [
         {
-          "fileName": "calming the emotional storm.pdf",
-          "pageNumber": 1,
-          "label": "intro",
-          "kind": "Text",
-          "language": "None",
-          "description": "",
-          "selectedArea": {
-            "x": 53.050018310546875,
-            "y": 287.58751678466797,
-            "width": 321.6000061035156,
-            "height": 167.19998168945312,
-            "scale": 1
-          },
-          "objectType": "None",
-          "id": 1
-        }
-      ],
-      "2": [
-        {
-          "fileName": "calming the emotional storm.pdf",
-          "pageNumber": 2,
-          "label": "jjdjd",
-          "kind": "Text",
-          "language": "None",
-          "description": "",
-          "selectedArea": {
-            "x": 33.050018310546875,
-            "y": 34.787498474121094,
-            "width": 385.6000061035156,
-            "height": 130.40000915527344,
-            "scale": 1
-          },
-          "objectType": "None",
-          "id": 1
-        }
-      ],
-      "4": [
-        {
-          "fileName": "calming the emotional storm.pdf",
-          "pageNumber": 4,
-          "label": "the27",
-          "kind": "Text",
-          "language": "None",
-          "description": "",
-          "selectedArea": {
-            "x": 119.91250610351562,
-            "y": 161.18750762939453,
-            "width": 96.79998779296875,
-            "height": 38.40000915527344,
-            "scale": 1
-          },
-          "objectType": "None",
-          "id": 1
-        }
-      ],
-      "id": "calming the emotional storm.pdf"
-    },
-    {
-      "1": [
-        {
           "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
           "pageNumber": 1,
-          "label": "cdscsd",
-          "kind": "Object",
-          "language": "None",
+          "label": "star",
+          "kind": "Text",
+          "language": "English",
           "description": "",
           "selectedArea": {
             "tool": "rectangle",
-            "x": 184.85003662109375,
-            "y": 157.98749542236328,
-            "width": 197.5999755859375,
-            "height": 148.00001525878906,
+            "x": 197.31246948242188,
+            "y": 85.98751068115234,
+            "width": 182.4000244140625,
+            "height": 129.60000610351562,
             "scale": 1
           },
           "objectType": "None",
@@ -83,16 +23,34 @@
         {
           "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
           "pageNumber": 1,
-          "label": " xccc",
+          "label": "lion",
           "kind": "Text",
           "language": "None",
           "description": "",
           "selectedArea": {
             "tool": "rectangle",
-            "x": 216.85003662109375,
-            "y": 79.58753204345703,
-            "width": 161.5999755859375,
-            "height": 115.99998474121094,
+            "x": 114.11248779296875,
+            "y": 297.18750762939453,
+            "width": 310.3999938964844,
+            "height": 313.59999084472656,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        },
+        {
+          "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
+          "pageNumber": 1,
+          "label": "ay 7aga",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 220.51248168945312,
+            "y": 66.7874984741211,
+            "width": 236,
+            "height": 294.3999938964844,
             "scale": 1
           },
           "objectType": "None",
@@ -104,95 +62,307 @@
     {
       "1": [
         {
-          "fileName": "images.png",
+          "fileName": "calming the emotional storm.pdf",
           "pageNumber": 1,
-          "fileClassification": null,
-          "pageClassification": null,
-          "label": "hybhki",
+          "label": "title ",
+          "kind": "Object",
+          "language": "Arabic",
+          "description": "",
+          "selectedArea": {
+            "x": 32.25,
+            "y": 272.3875045776367,
+            "width": 377.60003662109375,
+            "height": 197.60000610351562,
+            "scale": 1
+          },
+          "objectType": "Cover",
+          "id": 1
+        }
+      ],
+      "2": [
+        {
+          "fileName": "calming the emotional storm.pdf",
+          "pageNumber": 2,
+          "label": "calming22",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "x": 23.9124755859375,
+            "y": 170.7874984741211,
+            "width": 377.6000061035156,
+            "height": 160,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        }
+      ],
+      "id": "calming the emotional storm.pdf"
+    },
+    {
+      "1": [
+        {
+          "fileName": "50b07ed902db174abb4f377d930faaa4.jpg",
+          "pageNumber": 1,
+          "label": "amm",
           "kind": "Text",
           "language": "None",
           "description": "",
           "selectedArea": {
             "tool": "rectangle",
-            "x": 26.75,
-            "y": 61.350006103515625,
-            "width": 164.79998779296875,
-            "height": 119.19998168945312,
+            "x": 44.649993896484375,
+            "y": 172.38750457763672,
+            "width": 459.2000427246094,
+            "height": 205.60000610351562,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 3
+        },
+        {
+          "fileName": "50b07ed902db174abb4f377d930faaa4.jpg",
+          "pageNumber": 1,
+          "label": "a2",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 139.51248168945312,
+            "y": 145.18750762939453,
+            "width": 335.20001220703125,
+            "height": 95.19999694824219,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        }
+      ],
+      "id": "50b07ed902db174abb4f377d930faaa4.jpg"
+    },
+    {
+      "1": [
+        {
+          "fileName": "uk-id-card-for-over-18s-2023.png",
+          "pageNumber": 1,
+          "label": "Name",
+          "kind": "Text",
+          "language": "English",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 192.2125244140625,
+            "y": 51.25,
+            "width": 101.5999755859375,
+            "height": 66.39999389648438,
             "scale": 1
           },
           "objectType": "None",
           "id": 1
         },
         {
-          "fileName": "images.png",
+          "fileName": "uk-id-card-for-over-18s-2023.png",
           "pageNumber": 1,
-          "fileClassification": "",
-          "pageClassification": null,
-          "label": "xaxas",
-          "kind": "Object",
+          "label": "add",
+          "kind": "Text",
           "language": "None",
           "description": "",
           "selectedArea": {
             "tool": "rectangle",
-            "x": 45.61248779296875,
-            "y": 62.95001220703125,
-            "width": 52,
-            "height": 84,
+            "x": 373.3500061035156,
+            "y": 113.64999389648438,
+            "width": 127.20001220703125,
+            "height": 92.80001831054688,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 5
+        },
+        {
+          "fileName": "uk-id-card-for-over-18s-2023.png",
+          "pageNumber": 1,
+          "label": "pp",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 46.61248779296875,
+            "y": 47.25,
+            "width": 145.60003662109375,
+            "height": 204.79998779296875,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        }
+      ],
+      "id": "uk-id-card-for-over-18s-2023.png"
+    },
+    {
+      "1": [
+        {
+          "fileName": "diane.jpg",
+          "pageNumber": 1,
+          "label": "eyes",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 60.1500244140625,
+            "y": 206.25000762939453,
+            "width": 258.3999938964844,
+            "height": 47.20001220703125,
             "scale": 1
           },
           "objectType": "None",
           "id": 1
         },
         {
-          "fileName": "images.png",
+          "fileName": "diane.jpg",
           "pageNumber": 1,
-          "fileClassification": "",
-          "pageClassification": null,
-          "label": "aaaaaa",
-          "kind": "Object",
+          "label": "lips",
+          "kind": "Text",
           "language": "None",
           "description": "",
           "selectedArea": {
             "tool": "rectangle",
-            "x": 123.2125244140625,
-            "y": 46.95001220703125,
-            "width": 63.199951171875,
-            "height": 114.39999389648438,
+            "x": 111.8125,
+            "y": 271.85001373291016,
+            "width": 84,
+            "height": 34.400054931640625,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        },
+        {
+          "fileName": "diane.jpg",
+          "pageNumber": 1,
+          "label": "nose",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 128.61248779296875,
+            "y": 239.04999542236328,
+            "width": 52.79998779296875,
+            "height": 34.4000244140625,
             "scale": 1
           },
           "objectType": "None",
           "id": 3
         }
       ],
-      "id": "images.png"
-    }
-  ],
-  "classification": [
-    {
-      "id": "1.jpg",
-      "classification": "ID",
-      "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
-      "pageNumber": 1
+      "id": "diane.jpg"
     },
     {
-      "id": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
-      "classification": [
-        "ID",
-        "ID2"
+      "1": [
+        {
+          "fileName": "images.png",
+          "pageNumber": 1,
+          "label": "oto",
+          "kind": "Text",
+          "language": "English",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 44.3499755859375,
+            "y": 71.75,
+            "width": 147.20001220703125,
+            "height": 96.80001831054688,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        },
+        {
+          "fileName": "images.png",
+          "pageNumber": 1,
+          "label": "oto2",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 32.01251220703125,
+            "y": 65.35000610351562,
+            "width": 167.20001220703125,
+            "height": 113.60000610351562,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 5
+        }
       ],
-      "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg"
+      "id": "images.png"
     },
     {
-      "id": "calming the emotional storm.pdf",
-      "classification": "Passport",
-      "fileName": "calming the emotional storm.pdf",
-      "pageNumber": 1
+      "1": [
+        {
+          "fileName": "fotopia logo.png",
+          "pageNumber": 1,
+          "label": "oto",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 52.01251220703125,
+            "y": 80.54998779296875,
+            "width": 138.39996337890625,
+            "height": 100.80001831054688,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 7
+        }
+      ],
+      "id": "fotopia logo.png"
     },
     {
-      "id": "calming the emotional storm.pdf",
-      "classification": "ID",
-      "fileName": "calming the emotional storm.pdf",
-      "pageNumber": 1
+      "1": [
+        {
+          "fileName": "ba0581cb07e683e2867aa5fbdd478d8a.jpg",
+          "pageNumber": 1,
+          "label": "aaaaa",
+          "kind": "Text",
+          "language": "English",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 180.25,
+            "y": 257.98751068115234,
+            "width": 384,
+            "height": 236,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 9
+        },
+        {
+          "fileName": "ba0581cb07e683e2867aa5fbdd478d8a.jpg",
+          "pageNumber": 1,
+          "label": "tw",
+          "kind": "Text",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 129.51248168945312,
+            "y": 174.7874984741211,
+            "width": 433.60003662109375,
+            "height": 221.60006713867188,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        }
+      ],
+      "id": "ba0581cb07e683e2867aa5fbdd478d8a.jpg"
     }
   ]
 }

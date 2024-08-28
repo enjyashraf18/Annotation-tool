@@ -11,7 +11,7 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
   const [fileClassification, setFileClassification] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
-  const classification = customOption || selectedOption;
+  const classificationsss = customOption || selectedOption;
 
   useEffect(() => {
     setFileClassification('');
@@ -22,7 +22,6 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
   const handleSubmit = () => {
     const classification = customOption || selectedOption
     const classificationDetails = {classification, fileName, pageNumber};
-    // onSaveClassification(classificationDetails);
   };
 
   const handleOpenModal = (target) => {
