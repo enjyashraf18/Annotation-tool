@@ -214,7 +214,6 @@ import React, { useState, useEffect } from 'react';
 const FileClassificationComponent = ({ file, fileName, onClassifyFile, handleAddClassification, fileClassifications1 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [allowClassification, setAllowClassification] = useState(true);
-  const [allowEditing, setAllowEditing] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [customOption, setCustomOption] = useState('');
   const [fileClassification, setFileClassification] = useState(fileClassifications1 || '');
@@ -223,7 +222,7 @@ const FileClassificationComponent = ({ file, fileName, onClassifyFile, handleAdd
   useEffect(() => {
     setFileClassification(fileClassifications1 || '');
     setAllowClassification(!fileClassifications1);
-    setAllowEditing(!!fileClassifications1);
+    // setAllowEditing(!!fileClassifications1);
   }, [file, fileClassifications1]);
 
   const handleOpenModal = () => {
@@ -239,7 +238,7 @@ const FileClassificationComponent = ({ file, fileName, onClassifyFile, handleAdd
     handleAddClassification(classificationDetails, fileName);
     
     setAllowClassification(false);
-    setAllowEditing(true);
+    // setAllowEditing(true);
     setIsModalOpen(false);
     setIsEditing(false);
   };
@@ -248,12 +247,13 @@ const FileClassificationComponent = ({ file, fileName, onClassifyFile, handleAdd
     setIsEditing(true);
     setIsModalOpen(true);
   };
+  
 
   const handleDeleteClassification = () => {
     setFileClassification('');
     onClassifyFile(file, null);
     setAllowClassification(true);
-    setAllowEditing(false);
+    // setAllowEditing(false);
   };
 
   const handleCloseModal = () => {
@@ -272,13 +272,6 @@ const FileClassificationComponent = ({ file, fileName, onClassifyFile, handleAdd
         )}
       </div>
 
-      {/* <div>
-        {fileName && allowEditing && (
-          <button className="action-button" onClick={handleEditClassification} disabled={!fileName}>
-            Edit File Classification
-          </button>
-        )}
-      </div> */}
 
       {fileClassification && (
         <div className="classification-container">

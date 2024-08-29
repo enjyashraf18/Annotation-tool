@@ -3,63 +3,99 @@
     {
       "1": [
         {
-          "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
+          "fileName": "calming the emotional storm.pdf",
           "pageNumber": 1,
-          "label": "gf",
-          "kind": "Text",
+          "label": "title",
+          "kind": "Object",
           "language": "None",
           "description": "",
           "selectedArea": {
-            "tool": "rectangle",
-            "x": 90.9124755859375,
-            "y": 176.38750457763672,
-            "width": 424.0000305175781,
-            "height": 184.79998779296875,
+            "x": 15.45001220703125,
+            "y": 256.38748931884766,
+            "width": 378.4000244140625,
+            "height": 239.20004272460938,
             "scale": 1
           },
-          "objectType": "None",
+          "objectType": "ID",
           "id": 1
         },
         {
-          "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
+          "fileName": "calming the emotional storm.pdf",
           "pageNumber": 1,
-          "label": "dkjdk",
+          "label": "hhhh",
+          "kind": "Object",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "x": 60.712493896484375,
+            "y": 62.787498474121094,
+            "width": 245.5999755859375,
+            "height": 214.39999389648438,
+            "scale": 1
+          },
+          "objectType": "Cover",
+          "id": 2
+        },
+        {
+          "fileName": "calming the emotional storm.pdf",
+          "pageNumber": 1,
+          "label": "hh",
           "kind": "Text",
           "language": "None",
           "description": "",
           "selectedArea": {
-            "tool": "rectangle",
-            "x": 88.51248168945312,
-            "y": 161.18750762939453,
-            "width": 390.4000244140625,
-            "height": 164.00001525878906,
+            "x": 87.11251831054688,
+            "y": 329.18749237060547,
+            "width": 249.5999755859375,
+            "height": 158.39999389648438,
             "scale": 1
           },
           "objectType": "None",
-          "id": 1
+          "id": 4
         }
       ],
-      "id": "9e9e336a40ec2f42e3623ae7f710461b.jpg"
+      "2": [
+        {
+          "fileName": "calming the emotional storm.pdf",
+          "pageNumber": 2,
+          "label": "ooo",
+          "kind": "Text",
+          "language": "None",
+          "description": "nhghg",
+          "selectedArea": {
+            "x": 45.850006103515625,
+            "y": 164.38750457763672,
+            "width": 355.1999816894531,
+            "height": 138.39999389648438,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 6
+        }
+      ],
+      "id": "calming the emotional storm.pdf"
     }
   ],
   "classification": [
     {
-      "classification": "Passport",
+      "classification": "book",
       "fileName": "calming the emotional storm.pdf",
       "pageNumber": null,
       "id": "calming the emotional storm.pdf"
     },
     {
-      "id": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
-      "classification": "hana",
-      "fileName": "9e9e336a40ec2f42e3623ae7f710461b.jpg",
-      "pageNumber": null
-    },
-    {
-      "id": "5e7e42b941ce7.image.jpg",
-      "classification": "enjy",
+      "classification": "license",
       "fileName": "5e7e42b941ce7.image.jpg",
-      "pageNumber": null
+      "pageNumber": null,
+      "id": "5e7e42b941ce7.image.jpg"
+    }
+  ],
+  "classificationPage": [
+    {
+      "classification": "4165",
+      "fileName": "calming the emotional storm.pdf",
+      "pageNumber": 4,
+      "id": "calming the emotional storm.pdf"
     }
   ]
 }

@@ -45,6 +45,8 @@ function App() {
   const [data, setData] = useState([]);
   const [pageClassifications, setPageClassifications] = useState({});
   const [fileClassifications1, setFileClassifications1] = useState(null);
+  const [fileClassifications2, setFileClassifications2] = useState(null);
+
 
   // const [classificationData, setClassificationData] = useState([]);
 
@@ -190,7 +192,6 @@ function App() {
   //     });
   // };
   const loadClassification = (fileName) => {
-    // Clear current classification state before making the API call
     setFileClassifications1(''); 
     setPageClassifications({});
   
@@ -249,23 +250,64 @@ function App() {
         });
     }
     loadClassification(fileName);
-    // try {
-    //   await axios.post('http://localhost:5000/classification',
-    //     {
-    //       ...classificationDetails,
-    //       id: fileName
-    //     })
-    //     .then(response => {
-    //       console.log('Classification saved:', classificationDetails);
-    //       loadClassification(fileName); 
-    //     })
-    //     .catch(error => {
-    //       console.error('Error saving classification:', error);
-    //     });
+  };
 
-    // } catch (error) {
-    //   console.error('Unexpected error occurred while saving classification:', error);
-    // }
+
+  const saveClassificationPage = async (classificationDetails, fileName) => {
+    console.log("Daniel", classificationDetails)
+    const fileClassification = await fetch('http://localhost:5000/classificationPage/' + fileName);
+    if (fileClassification.ok) {
+      axios.put('http://localhost:5000/classificationPage/' + fileName, {
+        ...classificationDetails,
+        id: fileName
+      })
+        .then(response => {
+          console.log('Sample saved:', response.data[1]);
+        })
+        .catch(error => {
+          console.error('Error saving sample:', error);
+        });
+    }
+    else {
+      setIsNewFile(true);
+      axios.post('http://localhost:5000/classificationPage/', {
+        ...classificationDetails,
+        id: fileName
+      })
+        .then(response => {
+          console.log('Sample saved:', response.data[1]);
+        })
+        .catch(error => {
+          console.error('Error saving sample:', error);
+        });
+    }
+    loadClassificationPage(fileName);
+  };
+
+  const loadClassificationPage = (fileName) => {
+    setPageClassifications(''); 
+    setPageClassifications({});
+  
+    axios.get('http://localhost:5000/classificationPage/'+ fileName)
+      .then(response => {
+        console.log("Response", response);
+        const classificationData = response.data;
+  
+        if (classificationData && classificationData.classification) {
+          setPageClassifications(classificationData.classification);
+          setPageClassifications({ 1: classificationData.classification });
+        } else {
+          // If there's no classification for the file, ensure the states are reset
+          setPageClassifications('');
+          setPageClassifications({});
+        }
+      })
+      .catch(error => {
+        console.error('Error loading classification:', error);
+        // Reset states on error as well
+        setPageClassifications('');
+        setPageClassifications({});
+      });
   };
 
 
@@ -421,6 +463,7 @@ function App() {
       };
       reader.readAsDataURL(selectedFile);
       loadClassification(selectedFile.name);
+      loadClassificationPage(selectedFile.name);
       loadSamples(selectedFile.name);
     } else if (fileType.startsWith("image/")) {
       const objectURL = URL.createObjectURL(selectedFile);
@@ -432,6 +475,7 @@ function App() {
       setThumbnails([objectURL]);
       loadSamples(selectedFile.name);
       loadClassification(selectedFile.name);
+      loadClassificationPage(selectedFile.name);
     } else {
       alert("The selected file should be an image or a PDF.");
     }
@@ -609,7 +653,7 @@ function App() {
             pageNumber={pageNumber}
             // numOfPages={numPages}
             onClassifyPage={handleClassifyPage}
-            handleAddClassification={saveClassification}
+            handleAddClassification={saveClassificationPage}
             pageClassifications={pageClassifications}
             setPageClassifications={setPageClassifications}
             

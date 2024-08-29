@@ -10,6 +10,7 @@ const AddSample = ({
   sampleToEdit,
   pageNumber,
   isPDF,
+  
 }) => {
   const [label, setLabel] = useState("");
   const [kind, setKind] = useState("None");
