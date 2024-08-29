@@ -18,14 +18,13 @@ import AddSample from "./components/AddSamples";
 import Samples from "./components/Samples";
 import { MdDraw } from "react-icons/md";
 import DrawingAppPdf from "./components/DrawingAppPdf";
-import axios from 'axios';
+import axios from "axios";
 import JsonData from "./components/JsonData";
 // import ClassifyComponent from "./components/ClassifyButton";
 import FileClassificationComponent from "./components/FileClassificationComponent";
 import PageClassificationComponent from "./components/PageClassificationComponent";
-
-
-
+import { FaFileExport } from "react-icons/fa";
+import "./components/css/thumbnail.css"
 function App() {
   const [fileClassifications, setFileClassifications] = useState({});
   const [counter, setCounter] = useState(0);
@@ -40,15 +39,11 @@ function App() {
   const [thumbnails, setThumbnails] = useState([]);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-
   const [samples, setSamples] = useState([]);
   const [data, setData] = useState([]);
   const [pageClassifications, setPageClassifications] = useState({});
   const [fileClassifications1, setFileClassifications1] = useState(null);
   const [fileClassifications2, setFileClassifications2] = useState(null);
-
-
-  // const [classificationData, setClassificationData] = useState([]);
 
   const [selectedArea, setSelectedArea] = useState({
     x: 10,
@@ -72,26 +67,29 @@ function App() {
   const [isActiveJson, setIsActiveJson] = useState(false);
   const [newFile, setIsNewFile] = useState(false);
 
-
   const handleClassifyFile = (file, classification) => {
-    setFileClassifications(prevState => ({
+    setFileClassifications((prevState) => ({
       ...prevState,
       file: classification,
     }));
-    console.log('Classified entire file:', file, 'as', classification);
+    console.log("Classified entire file:", file, "as", classification);
   };
 
   const handleClassifyPage = (file, pageNumber, classification) => {
-    setFileClassifications(prevState => ({
+    setFileClassifications((prevState) => ({
       ...prevState,
       pages: {
         ...prevState.pages,
         [pageNumber]: classification,
       },
     }));
-    console.log(`Classified page ${pageNumber} of file:`, file, 'as', classification);
+    console.log(
+      `Classified page ${pageNumber} of file:`,
+      file,
+      "as",
+      classification
+    );
   };
-
 
   const handleToggleAnnotate = () => {
     setIsActiveAnnotate(!isActiveAnnotate);
@@ -110,208 +108,187 @@ function App() {
     setIsActiveFields(false);
     setshowSamples(false);
     setshowJson(true);
+  };
 
+  const downloadJsonFile = () => {
+    const dataStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "db.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const loadSamples = (fileName) => {
     setSamples({});
     setData({});
-    axios.get('http://localhost:5000/samples/' + fileName)
-      .then(response => {
-        console.log("resp", response)
+    axios
+      .get("http://localhost:5000/samples/" + fileName)
+      .then((response) => {
+        console.log("resp", response);
         const ay_7aga = response.data;
         setSamples(ay_7aga);
         setData(ay_7aga);
-        console.log('response' + ay_7aga);
-
+        console.log("response" + ay_7aga);
       })
-      .catch(error => {
-        console.error('Error loading samples:', error);
+      .catch((error) => {
+        console.error("Error loading samples:", error);
         setSamples({});
       });
   };
 
-
   const saveSamples = async (sample) => {
     console.log("Test", {
       ...sample,
-      id: fileName
-    })
+      id: fileName,
+    });
 
-    const fileSamples = await fetch('http://localhost:5000/samples/' + fileName);
+    const fileSamples = await fetch(
+      "http://localhost:5000/samples/" + fileName
+    );
 
-    console.log(fileSamples)
+    console.log(fileSamples);
     if (fileSamples.ok) {
-      axios.put('http://localhost:5000/samples/' + fileName, {
-        ...sample,
-        id: fileName
-      })
-        .then(response => {
-          console.log('Sample saved:', response.data[1]);
+      axios
+        .put("http://localhost:5000/samples/" + fileName, {
+          ...sample,
+          id: fileName,
+        })
+        .then((response) => {
+          console.log("Sample saved:", response.data[1]);
           loadSamples(fileName);
-
         })
-        .catch(error => {
-          console.error('Error saving sample:', error);
+        .catch((error) => {
+          console.error("Error saving sample:", error);
+        });
+    } else {
+      axios
+        .post("http://localhost:5000/samples", {
+          ...sample,
+          id: fileName,
+        })
+        .then((response) => {
+          console.log("Sample saved:", response.data[1]);
+        })
+        .catch((error) => {
+          console.error("Error saving sample:", error);
         });
     }
-    else {
-      axios.post('http://localhost:5000/samples', {
-        ...sample,
-        id: fileName
-      })
-        .then(response => {
-          console.log('Sample saved:', response.data[1]);
-        })
-        .catch(error => {
-          console.error('Error saving sample:', error);
-        });
-    }
-
   };
-
-
-
-  // const loadClassification = (fileName) => {
-    
-  //   setPageClassifications({});
-  //   axios.get('http://localhost:5000/classification/' + fileName)
-
-  //     .then(response => {
-  //       console.log("Response Sameh22222", response);
-  //       const ay_7aga = response.data;
-  //       console.log("enjy" + ay_7aga.classification);
-  //       setFileClassifications1(ay_7aga.classification)
-  //       console.log("enjy2" + pageClassifications);
-
-  //       setPageClassifications({ 1: ay_7aga.classification });
-
-  //     })
-  //     .catch(error => {
-  //       console.error('Error loading classification:', error);
-  //     });
-  // };
   const loadClassification = (fileName) => {
-    setFileClassifications1(''); 
-    setPageClassifications({});
-  
-    axios.get('http://localhost:5000/classification/' + fileName)
-      .then(response => {
+    setFileClassifications1("");
+
+    axios
+      .get("http://localhost:5000/classification/" + fileName)
+      .then((response) => {
         console.log("Response", response);
         const classificationData = response.data;
-  
+
         if (classificationData && classificationData.classification) {
           setFileClassifications1(classificationData.classification);
-          setPageClassifications({ 1: classificationData.classification });
         } else {
           // If there's no classification for the file, ensure the states are reset
-          setFileClassifications1('');
-          setPageClassifications({});
+          setFileClassifications1("");
         }
       })
-      .catch(error => {
-        console.error('Error loading classification:', error);
+      .catch((error) => {
+        console.error("Error loading classification:", error);
         // Reset states on error as well
-        setFileClassifications1('');
-        setPageClassifications({});
+        setFileClassifications1("");
       });
   };
-  
-
-
-
 
   const saveClassification = async (classificationDetails, fileName) => {
-    console.log("Daniel", classificationDetails)
-    const fileClassification = await fetch('http://localhost:5000/classification/' + fileName);
+    console.log("Daniel", classificationDetails);
+    const fileClassification = await fetch(
+      "http://localhost:5000/classification/" + fileName
+    );
     if (fileClassification.ok) {
-      axios.put('http://localhost:5000/classification/' + fileName, {
-        ...classificationDetails,
-        id: fileName
-      })
-        .then(response => {
-          console.log('Sample saved:', response.data[1]);
+      axios
+        .put("http://localhost:5000/classification/" + fileName, {
+          ...classificationDetails,
+          id: fileName,
         })
-        .catch(error => {
-          console.error('Error saving sample:', error);
+        .then((response) => {
+          console.log("Sample saved:", response.data[1]);
+        })
+        .catch((error) => {
+          console.error("Error saving sample:", error);
         });
-    }
-    else {
+    } else {
       setIsNewFile(true);
-      axios.post('http://localhost:5000/classification/', {
-        ...classificationDetails,
-        id: fileName
-      })
-        .then(response => {
-          console.log('Sample saved:', response.data[1]);
+      axios
+        .post("http://localhost:5000/classification/", {
+          ...classificationDetails,
+          id: fileName,
         })
-        .catch(error => {
-          console.error('Error saving sample:', error);
+        .then((response) => {
+          console.log("Sample saved:", response.data[1]);
+        })
+        .catch((error) => {
+          console.error("Error saving sample:", error);
         });
     }
     loadClassification(fileName);
   };
 
-
   const saveClassificationPage = async (classificationDetails, fileName) => {
-    console.log("Daniel", classificationDetails)
-    const fileClassification = await fetch('http://localhost:5000/classificationPage/' + fileName);
+    console.log("Daniel", classificationDetails);
+    const fileClassification = await fetch(
+      "http://localhost:5000/classificationPage/" + fileName
+    );
     if (fileClassification.ok) {
-      axios.put('http://localhost:5000/classificationPage/' + fileName, {
-        ...classificationDetails,
-        id: fileName
-      })
-        .then(response => {
-          console.log('Sample saved:', response.data[1]);
+      axios
+        .put("http://localhost:5000/classificationPage/" + fileName, {
+          ...classificationDetails,
+          id: fileName,
         })
-        .catch(error => {
-          console.error('Error saving sample:', error);
+        .then((response) => {
+          console.log("Sample saved:", response.data[1]);
+        })
+        .catch((error) => {
+          console.error("Error saving sample:", error);
         });
-    }
-    else {
+    } else {
       setIsNewFile(true);
-      axios.post('http://localhost:5000/classificationPage/', {
-        ...classificationDetails,
-        id: fileName
-      })
-        .then(response => {
-          console.log('Sample saved:', response.data[1]);
+      axios
+        .post("http://localhost:5000/classificationPage/", {
+          ...classificationDetails,
+          id: fileName,
         })
-        .catch(error => {
-          console.error('Error saving sample:', error);
+        .then((response) => {
+          console.log("Sample saved:", response.data[1]);
+        })
+        .catch((error) => {
+          console.error("Error saving sample:", error);
         });
     }
     loadClassificationPage(fileName);
   };
 
   const loadClassificationPage = (fileName) => {
-    setPageClassifications(''); 
     setPageClassifications({});
-  
-    axios.get('http://localhost:5000/classificationPage/'+ fileName)
-      .then(response => {
-        console.log("Response", response);
+
+    axios
+      .get("http://localhost:5000/classificationPage/" + fileName)
+      .then((response) => {
+        console.log("Response loadClassificationPage", response);
         const classificationData = response.data;
-  
+
         if (classificationData && classificationData.classification) {
-          setPageClassifications(classificationData.classification);
           setPageClassifications({ 1: classificationData.classification });
         } else {
-          // If there's no classification for the file, ensure the states are reset
-          setPageClassifications('');
           setPageClassifications({});
         }
       })
-      .catch(error => {
-        console.error('Error loading classification:', error);
-        // Reset states on error as well
-        setPageClassifications('');
+      .catch((error) => {
+        console.error("Error loading classification:", error);
         setPageClassifications({});
       });
   };
-
-
-
   const handleSelection = (area) => {
     setSelectedArea({
       ...area,
@@ -324,7 +301,6 @@ function App() {
     setAllowCapturing(!isActiveAnnotate);
     setAllowDeleting(!isActiveAnnotate);
   };
-
 
   const handleAddSample = (sampleDetails) => {
     console.log("Alloooo");
@@ -361,51 +337,13 @@ function App() {
     setEditingSample(null);
 
     console.log(updatedSamples);
-
   };
-
-  // const handleAddClassification = (editingClassification, classificationDetails, fileName) => {
-
-  //   const updatedClassifications = structuredClone(classificationDetails);
-
-  //   // if (editingClassification) {
-  //   //   if (!updatedClassifications[pageNumber]) {
-  //   //     updatedClassifications[pageNumber] = [];
-  //   //   }
-
-  //   //   updatedClassifications[pageNumber] = updatedClassifications[pageNumber].map((classification) =>
-  //   //     classification.id === editingClassification.id
-  //   //       ? { ...classificationDetails, id: editingClassification.id }
-  //   //       : classification
-  //   //   );
-  //   // } else {
-  //   //   const newClassification = { ...classificationDetails, id: ccounter };
-
-  //   //   if (!Array.isArray(updatedClassifications[pageNumber])) {
-  //   //     updatedClassifications[pageNumber] = [];
-  //   //   }
-
-  //   //   updatedClassifications[pageNumber].push(newClassification);
-
-  //   //   setCcounter((prevCounter) => prevCounter + 1);
-  //   // }
-
-
-  //   // console.log("Aaaaaaaaaah Pls Work",editingClassification, classificationDetails);
-
-  //   // setClassificationData(updatedClassifications);
-  //   saveClassification(updatedClassifications, fileName);
-  // };
-
-
-
   const handleEditSample = (sample) => {
     setSelectedArea(sample.selectedArea);
     setImageData(sample.imageData);
     setEditingSample(sample);
     setShowAddSample(true);
   };
-
 
   const handleDeleteSample = (id) => {
     if (!fileName) return;
@@ -431,13 +369,6 @@ function App() {
     setShowAddSample(false);
     setEditingSample(null);
   };
-  // const handleEditSample = (sample) => {
-  //   setSelectedArea(sample.selectedArea);
-  //   setImageData(sample.imageData);
-  //   setEditingSample(sample);
-  //   setShowAddSample(true);
-  // };
-
   const handleCapture = () => {
     setCounter(counter + 1);
     setShowAddSample(true);
@@ -575,23 +506,19 @@ function App() {
   return (
     <div className="main-container">
       <SideBar />
-      {/* <div className='column column1'> column1</div> */}
       <div className="column column1">
         <header className="column1-header">
           <SlNotebook size="3rem" />
           Document Organizer
         </header>
         <div className="thumb">
-          {/* {thumbnails.map((thumbnail, index) => ( */}
           <Thumbnail
-            // key={index}
             thumbnail={file}
             pageNumber={pageNumber}
             setPageNumber={setPageNumber}
             fileType={fileType}
             selectedPage={pageNumber}
           />
-          {/* ))} */}
         </div>
       </div>
       <div className="column column2">
@@ -619,31 +546,25 @@ function App() {
           <button
             className="annotate-button"
             onClick={handleToggleAnnotate}
-            style={{ backgroundColor: isActiveAnnotate ? '#d3d9e0' : 'white' }}
+            style={{ backgroundColor: isActiveAnnotate ? "#d3d9e0" : "white" }}
           >
             <MdDraw size="2.5rem" />
             <span>Annotate</span>
           </button>
 
-          {/* <ClassifyComponent
-            file={file}
-            fileName={fileName}
-            isPdf={fileType === "pdf"}
-            pageNumber={pageNumber}
-            numOfPages={numPages}
-            onClassifyPage={handleClassifyPage}
-            handleAddClassification = {saveClassification}
-            pageClassifications={pageClassifications}
-            setPageClassifications = {setPageClassifications}
-          /> */}
-        
+          <button className="download-json" onClick={downloadJsonFile}>
+            <FaFileExport size="2.4rem" />
+            <span></span>
+            Export
+          </button>
+
           <FileClassificationComponent
             file={file}
             fileName={fileName}
             onClassifyFile={handleClassifyFile}
             handleAddClassification={saveClassification}
-            fileClassifications1 = {fileClassifications1}
-            newFile = {newFile}
+            fileClassifications1={fileClassifications1}
+            newFile={newFile}
           />
 
           <PageClassificationComponent
@@ -651,18 +572,14 @@ function App() {
             fileName={fileName}
             isPdf={fileType === "pdf"}
             pageNumber={pageNumber}
-            // numOfPages={numPages}
             onClassifyPage={handleClassifyPage}
             handleAddClassification={saveClassificationPage}
             pageClassifications={pageClassifications}
             setPageClassifications={setPageClassifications}
-            
           />
-
         </header>
         <main className="App-main">
           {fileType === "pdf" && (
-
             <DrawingAppPdf
               file={file}
               pageNumber={pageNumber}
@@ -687,7 +604,6 @@ function App() {
             />
           )}
 
-
           {fileType === "image" && (
             <DrawingApp
               onSelection={handleSelection}
@@ -700,9 +616,6 @@ function App() {
               file={file}
             />
           )}
-
-
-
         </main>
         <footer className="App-footer">
           <div>
@@ -750,7 +663,7 @@ function App() {
           <button
             className="Samples-button-fields"
             onClick={handleToggleFields}
-            style={{ backgroundColor: isActiveFields ? '#d3d9e0' : 'white' }}
+            style={{ backgroundColor: isActiveFields ? "#d3d9e0" : "white" }}
           >
             <h3>Fields</h3>
           </button>
@@ -759,14 +672,12 @@ function App() {
             className="Samples-button-json"
             onClick={handleToggleJson}
             style={{
-              backgroundColor: isActiveJson ? '#d3d9e0' : 'white',
+              backgroundColor: isActiveJson ? "#d3d9e0" : "white",
             }}
           >
             <h3>Json</h3>
           </button>
         </header>
-
-
         {showSamples && (
           <Samples
             samples={samples}
@@ -775,17 +686,12 @@ function App() {
             file={file}
             pageNumber={pageNumber}
             isPDF={fileType === "pdf"}
-            fileClassifications1 = {fileClassifications1}
-
+            fileClassifications1={fileClassifications1}
           />
         )}
 
         {showJson && (
-          <JsonData
-            pageNumber={pageNumber}
-            data={data}
-            samples={samples}
-          />
+          <JsonData pageNumber={pageNumber} data={data} samples={samples} />
         )}
         {showAddSample && (
           <AddSample
@@ -803,5 +709,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

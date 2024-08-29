@@ -1,5 +1,6 @@
 import { Document, pdfjs, Thumbnail as ReactThumbnail } from "react-pdf";
 import { useState } from "react";
+import "./css/thumbnail.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -10,16 +11,11 @@ const Thumbnail = ({
   fileType,
   selectedPage,
 }) => {
-  // const handleClick = () => {
-  //   setPageNumber(5);
-  // };
-
   const [noOfPages, setNoOfPages] = useState(0);
 
   return (
     <div
       className={`thumbnail-container`}
-      // onClick={handleClick}
     >
       {fileType === "pdf" && (
         <div className={`thumbnail-pdf-container`}>
@@ -47,7 +43,7 @@ const Thumbnail = ({
         </div>
       )}
       {fileType === "image" && (
-        // <img src={thumbnail} alt={`Thumbnail ${pageNumber}`} className="thumbnail-image" />
+  
         <img
           src={thumbnail}
           alt={`Thumbnail ${pageNumber}`}
@@ -62,24 +58,3 @@ const Thumbnail = ({
 };
 
 export default Thumbnail;
-
-// return (
-//   <div
-//     className={`thumbnail-container ${selectedPage === pageNumber ? 'selected' : ''}`}
-//     onClick={handleClick}
-//   >
-//     {fileType === 'pdf' && (
-//       <div className={`thumbnail-pdf-container ${selectedPage === pageNumber ? 'selected' : ''}`}>
-//         <Document file={thumbnail}>
-//           <Page pageNumber={pageNumber} width={100} />
-//         </Document>
-//       </div>
-//     )}
-//     {fileType === 'image' && (
-//       <img src={thumbnail} alt={`Thumbnail ${pageNumber}`} className="thumbnail-image" />
-//     )}
-//   </div>
-// );
-// };
-
-// export default Thumbnail;

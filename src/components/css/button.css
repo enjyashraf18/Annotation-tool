@@ -1,0 +1,186 @@
+.upload-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+  .file-upload-button {
+    padding: 1em;
+    background-color: #61dafb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 1em;
+  }
+  .zoom-buttons {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 80%;
+    left: 1024px;
+    transform: translateY(-50%);
+    z-index: 100;
+  }
+  
+  .zoom-button {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    border: 1px solid grey;
+    cursor: pointer;
+  }
+  
+  .zoom-button:hover {
+    background-color: #f0f0f0;
+  }
+  .fileUploadButton {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .annotate-button {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    /* border-right: 1px solid gray; */
+    /* margin-right: 30px; */
+    
+  }
+  
+  .download-json{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border-right: 1px solid gray;
+  }
+  .annotate-button:active {
+    background-color: gray;
+  }
+  .capture-button {
+    border-radius: 70%;
+    width: 23px;
+    height: 21px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .popup-buttons {
+    border-radius: 15%; 
+    width: 120px; 
+    height: 45px;
+    margin: 15px;
+    background-color: rgb(32, 45, 64);
+    color: white;
+    font-weight: bold;
+    font-family: "Calibri", cursive;
+    font-size: 16px;
+    margin-top: 30px ;
+  }
+  .popup-buttons-cancel {
+    border-radius: 15%; 
+    width: 120px; 
+    height: 45px;
+    margin: 15px;
+    background-color: white;
+    color: rgb(32, 45, 64);
+    font-weight: bold;
+    font-family: "Calibri", cursive;
+    font-size: 16px;
+    margin-top: 30px ;
+  }
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .action-button {
+    background-color: grey;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 20px; 
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    flex-direction: column;
+    position: relative; 
+  }
+  
+  .edit-button {
+    background-color: black;
+  }
+  
+  .edit-button:hover {
+    background-color: black;
+  }
+  
+  .delete-button {
+    background-color: grey;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  
+  .modal-button {
+    background-color: grey;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .save-button {
+    background-color: grey;
+  }
+  
+  .save-button:hover {
+    background-color: grey;
+  }
+  
+  .cancel-button {
+    background-color: #6c757d;
+  }
+  
+  .cancel-button:hover {
+    background-color: #5a6268;
+  }

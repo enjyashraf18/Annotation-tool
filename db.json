@@ -74,6 +74,51 @@
         }
       ],
       "id": "calming the emotional storm.pdf"
+    },
+    {
+      "1": [
+        {
+          "fileName": "malakID1.jpg",
+          "pageNumber": 1,
+          "label": "malak",
+          "kind": "Text",
+          "language": "Arabic",
+          "description": "",
+          "selectedArea": {
+            "tool": "rectangle",
+            "x": 1354.0750122070312,
+            "y": 252.6500015258789,
+            "width": 164.79998779296875,
+            "height": 90.39999389648438,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        }
+      ],
+      "id": "malakID1.jpg"
+    },
+    {
+      "1": [
+        {
+          "fileName": "Blue and Yellow Playful Doodle Digital Brainstorm Presentation.pdf",
+          "pageNumber": 1,
+          "label": "idea",
+          "kind": "Object",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "x": 43.67500305175781,
+            "y": 290.281037848903,
+            "width": 421.5999755859375,
+            "height": 445.64768680751183,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
+        }
+      ],
+      "id": "Blue and Yellow Playful Doodle Digital Brainstorm Presentation.pdf"
     }
   ],
   "classification": [
@@ -88,6 +133,12 @@
       "fileName": "5e7e42b941ce7.image.jpg",
       "pageNumber": null,
       "id": "5e7e42b941ce7.image.jpg"
+    },
+    {
+      "id": "Blue and Yellow Playful Doodle Digital Brainstorm Presentation.pdf",
+      "classification": "book",
+      "fileName": "Blue and Yellow Playful Doodle Digital Brainstorm Presentation.pdf",
+      "pageNumber": null
     }
   ],
   "classificationPage": [

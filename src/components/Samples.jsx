@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import SelectedAreaSample from "./SelectedAreaSample";
+import "./css/samples.css";
 
 const Samples = ({
   samples,

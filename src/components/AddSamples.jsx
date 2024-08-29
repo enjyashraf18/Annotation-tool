@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import SelectedAreaDisplay from "./SelectedAreaDisplay";
-
+import "./css/samples.css";
+import "./css/button.css";
+import "./css/thumbnail.css";
 const AddSample = ({
   fileName,
   selectedArea,

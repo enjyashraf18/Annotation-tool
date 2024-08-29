@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Rect, Group } from "react-konva";
 import { Html } from "react-konva-utils";
 import { TbCaptureFilled, TbCaptureOff } from "react-icons/tb";
-
+import "./css/button.css";
 
 const DEFAULT_PAGE_NUMBER=1;
 const DrawingApp = ({

@@ -3,7 +3,7 @@ import { Stage, Layer, Rect, Group } from "react-konva";
 import { Document, Page } from "react-pdf";
 import { Html } from "react-konva-utils";
 import { TbCaptureFilled, TbCaptureOff } from "react-icons/tb";
-
+import "./css/button.css";
 let startPoint = {
   x: 0,
   y: 0,

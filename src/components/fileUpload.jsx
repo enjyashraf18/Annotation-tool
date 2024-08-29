@@ -4,7 +4,7 @@ import ImageDisplay from "./ImageDisplay";
 import { MdOutlineFileUpload } from "react-icons/md";
 import "./FileUpload.css";
 import "../App.css";
-
+import "./css/button.css";
 function FileUpload() {
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
@@ -33,17 +33,7 @@ function FileUpload() {
       <header>
         <div className="fileUpload">
           <form>
-            {/* <input
-              type='file'
-              name='file'
-              id='file'
-              onChange={handleFile}
-              style={{ display: 'none' }}
-            />
-            <label htmlFor='file' className='fileScanButton'>
-              <LuFileScan size='4rem' />
-              <span>Scan</span>
-            </label> */}
+        
             <input
               type="file"
               name="file"
@@ -55,28 +45,7 @@ function FileUpload() {
               <MdOutlineFileUpload size="3rem" />
               <span>Upload</span>
             </label>
-            {/* <input
-              type='file'
-              name='file'
-              id='file'
-              onChange={handleFile}
-              style={{ display: 'none' }}
-            />
-            <label htmlFor='file' className='fileProcessingButton'>
-              <IoPlayOutline  size= "4rem" />
-              <span>Process</span>
-            </label>
-            <input
-              type='file'
-              name='file'
-              id='file'
-              onChange={handleFile}
-              style={{ display: 'none' }}
-            />
-            <label htmlFor='file' className='fileFilterButton'>
-              <IoFilterOutline  size= "4rem" />
-              <span>Filter By</span>
-            </label> */}
+           
             <hr />
           </form>
         </div>

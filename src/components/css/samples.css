@@ -1,0 +1,222 @@
+.sample-footer {
+    background-color: white;
+    text-align: center;
+    height: 5vh;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid rgb(169, 169, 169);
+  }
+  .sample {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    height: 100vh;
+    position: relative;
+    background-color: white;
+    flex-direction: column;
+  }
+  
+  .sample-data {
+    width: 100%;
+    flex-direction: column;
+    border-bottom: 1px solid rgb(169, 169, 169);
+    padding: 5px;
+    
+  }.sample-description {
+    display: flex;
+    align-items: center; /* Aligns label vertically in the center */
+    margin-bottom: 1rem;
+  }
+  
+  .sample-description label {
+    margin-right: 10px; /* Adds some spacing between label and textarea */
+    font-weight: bold;
+    color: rgb(37, 57, 87);
+  }
+  
+  .sample-description textarea {
+    width: 70%; /* Matches the label width */
+    height: calc(1.4em * 3); /* 4 rows with line height of 1.5em */
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    resize: none; /* Prevents resizing */
+    flex: 1; 
+  }
+  
+  
+  .sample-text {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "Calibri", cursive;
+    color: rgb(37, 57, 87);
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    border-bottom: black;
+    flex-direction: column;
+  }
+  
+  .sample-input label,
+  .sample-kind label,
+  .sample-language label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: rgb(37, 57, 87);
+    text-align: left;
+  }
+  
+  .sample-input input,
+  .sample-kind select,
+  .sample-language select {
+    box-sizing: border-box;
+    width: 60%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  .samples {
+    margin: 20px;
+  }
+  
+  .samples-counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .samples-content {
+    list-style-type: none;
+    padding: 0;
+    background-color: white;
+    flex: 1;
+    overflow-y: auto;
+    height: 76vh;
+    position: relative;
+  }
+  .one-sample {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .sample-thumbnail {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+  }
+  
+  .sample-info {
+    flex-grow: 1;
+  }
+  
+  .sample-info div {
+    margin-bottom: 5px;
+  }
+  
+  .sample-info button {
+    margin-right: 5px;
+  }
+  
+ .samples-header-left{
+    width: 70px;
+    background-color: red;
+   }
+  .samples-header{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    position: relative; 
+  }
+  
+  .Samples-button-fields {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;  
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  .Samples-button-json{
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  .samples-counter {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-bottom: 0.2px solid rgb(226, 232, 240);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  
+  .samples-counter h5 {
+    font-size: 15px;
+    font-weight: 100;
+    margin-bottom: 5px;
+  }
+  
+  .samples-counter span {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .samples-content {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #efefef;
+  }
+  
+  .one-sample {
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgb(212, 217, 224);
+    margin-right: 20px;
+    margin-left: 20px;
+    background-color: #efefef;
+  }
+  
+  .sample-info div {
+    margin-bottom: 5px;
+  }
+  
+  .sample-info button {
+    margin-right: 5px;
+  }
+  
+  .sample-dropdown-menu {
+    right: 0;
+    left: auto !important;
+  }
+  
+  .sample-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+.footer-sample {
+    background-color: white;
+    text-align: center;
+    height: 10vh;
+    width: 860px;
+    border-top: 0.2px solid rgb(226, 232, 240);
+  }

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./css/button.css";
 
 const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, onClassifyPage, handleAddClassification ,pageClassifications, setPageClassifications}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

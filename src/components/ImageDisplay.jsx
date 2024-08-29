@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import "./css/image.css";
 
 const ImageDisplay = ({
   imageData,
