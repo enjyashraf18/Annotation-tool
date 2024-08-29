@@ -1,29 +1,25 @@
 
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import "./css/button.css";
 
-const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, onClassifyPage, handleAddClassification ,pageClassifications, setPageClassifications}) => {
+const ClassifyComponent = ({ file, fileName, isPdf, onClassifyFile, onClassifyPage, pageNumber, setClassFile, setClassPage }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [customOption, setCustomOption] = useState('');
   const [classificationTarget, setClassificationTarget] = useState(null);
   const [fileClassification, setFileClassification] = useState('');
+  const [pageClassifications, setPageClassifications] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-
 
   useEffect(() => {
     setFileClassification('');
     setPageClassifications({});
   }, [file]);
 
-
   const handleOpenModal = (target) => {
     setClassificationTarget(target);
     setIsModalOpen(true);
   };
-
 
   const handleSaveClassification = () => {
     const classification = customOption || selectedOption;
@@ -31,17 +27,21 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
     if (classificationTarget === 'file') {
       setFileClassification(classification);
       onClassifyFile(file, classification);
+      setClassFile(classification)
     } else if (classificationTarget === 'page') {
       setPageClassifications((prev) => ({
         ...prev,
         [pageNumber]: classification,
       }));
+
+      setClassPage((prev) => ({
+        ...prev,
+        [pageNumber]: classification,
+      }))
       onClassifyPage(file, pageNumber, classification);
     }
 
     setIsEditing(false);
-    const classificationDetails = {classification, fileName, pageNumber};
-    handleAddClassification(classificationDetails, fileName);
     handleCloseModal();
   };
 
@@ -74,22 +74,18 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
 
   return (
     <>
+
       <div>
         {!fileClassification && fileName && (
-          <button className="action-button" onClick={() => handleOpenModal('file')} disabled={!fileName}>
-            Classify Entire File
-          </button>
+          <button className="action-button" onClick={() => handleOpenModal('file')} disabled={!fileName}>Classify Entire File</button>
         )}
       </div>
-      <span>    </span>
       <div>
-        {!pageClassifications[pageNumber] && fileName && isPdf && (
-          <button className="action-button" onClick={() => handleOpenModal('page')} disabled={!isPdf}>
-            Classify Specific Page
-          </button>
+        {!pageClassifications[pageNumber] && isPdf && fileName && (
+          <button className="action-button" onClick={() => handleOpenModal('page')} disabled={!isPdf}>Classify Specific Page</button>
         )}
       </div>
-      
+
       <div className="classification-container">
         {fileClassification && (
           <div className="classification-box">
@@ -100,10 +96,10 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
             </div>
           </div>
         )}
-        
+
         {pageClassifications[pageNumber] && (
           <div className="classification-box">
-            <p>Page {pageNumber} Classification: {pageClassifications[pageNumber]}</p>
+            <p>P{pageNumber} Classification: {pageClassifications[pageNumber]}</p>
             <div className="button-group">
               <button className="edit-button" onClick={() => handleEditClassification('page')}>Edit</button>
               <button className="delete-button" onClick={() => handleDeleteClassification('page')}>Delete</button>
@@ -125,17 +121,13 @@ const ClassifyComponent = ({ file, fileName, isPdf, pageNumber, onClassifyFile, 
               <option value="Passport">Passport</option>
               <option value="Document">Document</option>
             </select>
-            <span>    </span>
             <input
               type="text"
               placeholder="Or add your own"
               value={customOption}
               onChange={(e) => setCustomOption(e.target.value)}
             />
-            <span>    </span>
-            <button className="modal-button save-button" onClick={handleSaveClassification} disabled={!(customOption || selectedOption)}>
-              Save
-            </button>
+            <button className="modal-button save-button" onClick={handleSaveClassification} disabled={!(customOption || selectedOption)}>Save</button>
             <button className="modal-button cancel-button" onClick={handleCloseModal}>Cancel</button>
           </div>
         </div>

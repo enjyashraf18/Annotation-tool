@@ -140,10 +140,12 @@
     margin-bottom: 20px;
     flex-direction: column;
     position: relative; 
+    margin-left: 20px;
   }
   
   .edit-button {
-    background-color: black;
+    background-color: grey;
+    width: 40px;
   }
   
   .edit-button:hover {

@@ -52,6 +52,23 @@
           },
           "objectType": "None",
           "id": 4
+        },
+        {
+          "fileName": "calming the emotional storm.pdf",
+          "pageNumber": 1,
+          "label": "7lazon",
+          "kind": "Object",
+          "language": "None",
+          "description": "",
+          "selectedArea": {
+            "x": 156.25,
+            "y": 137.98749542236328,
+            "width": 124,
+            "height": 73.60002136230469,
+            "scale": 1
+          },
+          "objectType": "Other",
+          "id": 1
         }
       ],
       "2": [
@@ -71,6 +88,25 @@
           },
           "objectType": "None",
           "id": 6
+        }
+      ],
+      "3": [
+        {
+          "fileName": "calming the emotional storm.pdf",
+          "pageNumber": 3,
+          "label": "Name",
+          "kind": "Text",
+          "language": "English",
+          "description": "",
+          "selectedArea": {
+            "x": 68.25,
+            "y": 165.18750762939453,
+            "width": 307.20001220703125,
+            "height": 39.99998474121094,
+            "scale": 1
+          },
+          "objectType": "None",
+          "id": 1
         }
       ],
       "id": "calming the emotional storm.pdf"

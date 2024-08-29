@@ -20,7 +20,7 @@ import { MdDraw } from "react-icons/md";
 import DrawingAppPdf from "./components/DrawingAppPdf";
 import axios from "axios";
 import JsonData from "./components/JsonData";
-// import ClassifyComponent from "./components/ClassifyButton";
+import ClassifyComponent from "./components/ClassifyButton";
 import FileClassificationComponent from "./components/FileClassificationComponent";
 import PageClassificationComponent from "./components/PageClassificationComponent";
 import { FaFileExport } from "react-icons/fa";
@@ -44,6 +44,11 @@ function App() {
   const [pageClassifications, setPageClassifications] = useState({});
   const [fileClassifications1, setFileClassifications1] = useState(null);
   const [fileClassifications2, setFileClassifications2] = useState(null);
+
+  const [classFile, setClassFile] = useState(null);
+  const [classPage, setClassPage] = useState({});
+
+  
 
   const [selectedArea, setSelectedArea] = useState({
     x: 10,
@@ -111,12 +116,28 @@ function App() {
   };
 
   const downloadJsonFile = () => {
-    const dataStr = JSON.stringify(data, null, 2);
+    // Combine classFile, classPage, and data[pageNumber] into one object
+    const combinedData = {
+      ...data, 
+      classFile: classFile, 
+      classPage: classPage[pageNumber]
+    };
+  
+    // Convert the combined data to a JSON string
+    const dataStr = JSON.stringify(combinedData, null, 2);
+  
+    // Create a Blob from the JSON string
     const blob = new Blob([dataStr], { type: "application/json" });
+  
+    // Create a URL for the Blob
     const url = URL.createObjectURL(blob);
+  
+    // Create a temporary link element
     const link = document.createElement("a");
     link.href = url;
     link.download = "db.json";
+  
+    // Append the link to the document body, trigger a click, and then remove the link
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -558,7 +579,19 @@ function App() {
             Export
           </button>
 
-          <FileClassificationComponent
+
+          <ClassifyComponent
+            file={file}
+            fileName = {fileName}
+            isPdf = {fileType === "pdf"}
+            pageNumber={pageNumber}
+            onClassifyFile={handleClassifyFile}
+            onClassifyPage={handleClassifyPage}
+            setClassFile = {setClassFile}
+            setClassPage ={setClassPage}
+          />
+
+          {/* <FileClassificationComponent
             file={file}
             fileName={fileName}
             onClassifyFile={handleClassifyFile}
@@ -576,7 +609,7 @@ function App() {
             handleAddClassification={saveClassificationPage}
             pageClassifications={pageClassifications}
             setPageClassifications={setPageClassifications}
-          />
+          /> */}
         </header>
         <main className="App-main">
           {fileType === "pdf" && (
@@ -691,7 +724,13 @@ function App() {
         )}
 
         {showJson && (
-          <JsonData pageNumber={pageNumber} data={data} samples={samples} />
+          <JsonData 
+          pageNumber={pageNumber}
+           data={data} 
+           samples={samples}
+           classFile = {classFile}
+           classPage = {classPage}
+            />
         )}
         {showAddSample && (
           <AddSample
